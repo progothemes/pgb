@@ -1,0 +1,15 @@
+/******************************************/
+/*Custom News Styling*/
+/******************************************/
+
+.custom-news table tbody tr:nth-child(2n+2) {
+  background-color: #EBEBEB;
+}
+
+.custom-news table tbody .news-text {
+	padding-right: 35px;
+}
+
+.custom-news table tbody .mark-button {
+	padding: 8px 0px;
+}

@@ -1,0 +1,633 @@
+/*
+Theme Name: ProGoBase Theme
+Theme URI: http://example.com
+Author: ..
+Author URI: http://example.com/
+Description: Hi, I am the ultra minimal starter theme pgb, ready for your next awesome WordPress project! .
+Version: 1.0
+Text Domain: pgb
+Domain Path: /languages
+License: GNU General Public License
+License URI: see license.txt
+Tags: responsive-layout, white, two-columns
+*/
+
+/* imported font League Gothic */
+/* Regular */
+@font-face {
+    font-family: 'League Gothic';
+    src: url('includes/webfonts/leaguegothic-italic-webfont.eot');
+    src: url('includes/webfonts/leaguegothic-italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('includes/webfonts/leaguegothic-italic-webfont.woff') format('woff'),
+         url('includes/webfonts/leaguegothic-italic-webfont.ttf') format('truetype'),
+         url('includes/webfonts/leaguegothic-italic-webfont.svg#league_gothic_italicregular') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
+/* Italic */
+@font-face {
+    font-family: 'League Gothic';
+    src: url('includes/webfonts/leaguegothic-regular-webfont.eot');
+    src: url('includes/webfonts/leaguegothic-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('includes/webfonts/leaguegothic-regular-webfont.woff') format('woff'),
+         url('includes/webfonts/leaguegothic-regular-webfont.ttf') format('truetype'),
+         url('includes/webfonts/leaguegothic-regular-webfont.svg#league_gothicregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Condensed */
+@font-face {
+    font-family: 'League Gothic Condensed';
+    src: url('includes/webfonts/leaguegothic-condensed-regular-webfont.eot');
+    src: url('includes/webfonts/leaguegothic-condensed-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('includes/webfonts/leaguegothic-condensed-regular-webfont.woff') format('woff'),
+         url('includes/webfonts/leaguegothic-condensed-regular-webfont.ttf') format('truetype'),
+         url('includes/webfonts/leaguegothic-condensed-regular-webfont.svg#league_gothic_condensed-Rg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Condensed Italic */
+@font-face {
+    font-family: 'League Gothic Condensed';
+    src: url('includes/webfonts/leaguegothic-condensed-italic-webfont.eot');
+    src: url('includes/webfonts/leaguegothic-condensed-italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('includes/webfonts/leaguegothic-condensed-italic-webfont.woff') format('woff'),
+         url('includes/webfonts/leaguegothic-condensed-italic-webfont.ttf') format('truetype'),
+         url('includes/webfonts/leaguegothic-condensed-italic-webfont.svg#league_gothic_condensed_itaRg') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
+/*
+google fonts available
+font-family: 'Questrial', sans-serif;
+font-family: 'Droid Sans', sans-serif;
+font-family: 'Lato', sans-serif;
+font-family: 'Arvo', serif;
+font-family: 'PT Sans', sans-serif;
+font-family: 'Quicksand', sans-serif;
+font-family: 'Gloria Hallelujah', cursive;
+font-family: 'Roboto', sans-serif;
+font-family: 'Montserrat', sans-serif;
+font-family: 'Open Sans', sans-serif;
+*/
+
+
+/* This is a small security for too long strings titles */
+body {
+	word-wrap: break-word;
+}
+
+/* Alignment */
+.alignleft {
+	display: inline;
+	float: left;
+	margin-right: 1.5em;
+}
+.alignright {
+	display: inline;
+	float: right;
+	margin-left: 1.5em;
+}
+.aligncenter {
+	clear: both;
+	display: block;
+	margin: 0 auto;
+}
+
+
+/* Images and wp-captions should always fit and be responsive */
+img {
+	display: inline-block;
+	height: auto;
+	max-width: 100%;
+}
+img[class*="wp-image-"] {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.wp-caption {
+	border: 1px solid #ccc;
+	margin-bottom: 10px;
+	max-width: 100%;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 0 10px;
+}
+.wp-caption.aligncenter {
+	margin-bottom: 10px;
+}
+.wp-caption img[class*="wp-image-"] {
+	display: block;
+}
+.wp-caption .wp-caption-text {
+	text-align: center;
+	margin-top: 10px;
+}
+
+/* WP Gallery */
+.gallery {
+	margin-bottom: 1.5em;
+}
+.gallery a img {
+	border: none;
+	height: auto;
+	max-width: 90%;
+}
+.gallery dd {
+	margin: 0;
+}
+
+
+/* Make sure embeds and iframes fit their containers */
+embed,
+iframe,
+object {
+	max-width: 100%;
+}
+
+
+/* Text meant only for screen readers */
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+}
+
+.screen-reader-text:hover,
+.screen-reader-text:active,
+.screen-reader-text:focus {
+	background-color: #f1f1f1;
+	border-radius: 3px;
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+	clip: auto !important;
+	color: #21759b;
+	display: block;
+	font-size: 14px;
+	font-weight: bold;
+	height: auto;
+	left: 5px;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	text-decoration: none;
+	top: 5px;
+	width: auto;
+	z-index: 100000; /* Above WP toolbar */
+}
+
+
+/* Content */
+.main-content-inner {
+	padding-bottom: 1.5em;
+}
+
+.hentry {
+	margin: 0 0 1.5em;
+}
+
+/* Clearing */
+.clear {
+	clear: both;
+}
+
+/*---------[ widget styling ]----------*/
+.widget { margin-bottom: 2em; }
+
+.widget_nav_menu ul.sub-menu li,
+.widget_pages ul.children li { padding-left: 15px; }
+
+/* Hiding the search widget's button in widgets.
+*/
+.widget_search .search-form input[type="submit"] { display: none; }
+
+/* Make sure select elements fit in widgets */
+.widget select {
+	max-width: 100%;
+}
+
+.comment .children { margin-left: 1.5em; }
+
+.sticky header .entry-meta:after {
+	content: '\f08d';
+ 	display:inline-block;
+ 	float:right;
+ 	font:normal normal normal 14px/1 FontAwesome;
+ 	font-size:inherit;text-rendering:auto;
+ 	-webkit-font-smoothing:antialiased;
+ 	-moz-osx-font-smoothing:grayscale;
+}
+
+.bypostauthor .panel-heading .media-heading:after { 
+ 	content: '\f007  Author';
+ 	display:inline-block;
+ 	float:right;
+ 	font:normal normal normal 14px/1 FontAwesome;
+ 	font-size:inherit;text-rendering:auto;
+ 	-webkit-font-smoothing:antialiased;
+ 	-moz-osx-font-smoothing:grayscale;
+ }
+
+.gallery-caption {
+	font-family: 'Montserrat', sans-serif;
+}
+
+
+/*
+------------------------------------------------------------------
+	HEADER MENU AND SEARCH FORM
+------------------------------------------------------------------
+*/
+
+/*-----------------[ HEADER SEARCH WITH ICON ]----------------------*/
+
+.search-form-icon {
+	position: relative;
+}
+
+.search-form-icon .input-group-btn {
+	width: 3% !important;
+}
+
+.search-form-icon .input-group {
+	width: 100%
+}
+
+.search-form-icon form[role="search"] {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	z-index: 0;
+}
+
+.search-form-icon form[role="search"] button,
+.search-form-icon form[role="search"] input {
+	padding: 8px 12px;
+	border-radius: 0px;
+	border-width: 0px;
+	color: rgb(119, 119, 119);
+	background-color: rgb(248, 248, 248);
+	border-color: rgb(231, 231, 231);
+	box-shadow: none;
+	outline: none;
+}
+
+.search-form-icon form[role="search"] input {
+	padding: 16px 12px;
+	font-size: 14pt;
+	font-style: italic;
+	color: rgb(160, 160, 160);
+	box-shadow: none;
+}
+.search-form-icon form[role="search"] button[type="reset"], form[role="search"] button[type="reset"] {
+	display: none;
+}
+	.search-form-icon {
+		padding-top: 0px !important;
+	}
+
+	.search-form-icon form[role="search"] {
+		width: 38px;
+	}
+
+	.search-form-icon form[role="search"] button,
+	.search-form-icon form[role="search"] input {
+		padding: 8px 12px;
+	}
+
+	.search-form-icon form[role="search"] input {
+		padding: 18px 12px;
+		font-size: 14pt;
+		opacity: 0;
+		display: none;
+	}
+
+	.search-form-icon form[role="search"].active {
+		width: 100%;
+	}
+
+	.search-form-icon form[role="search"].active button,
+	.search-form-icon form[role="search"].active input {
+		display: table-cell;
+		opacity: 1;
+	}
+
+	.search-form-icon form[role="search"].active input {
+		width: 100%;
+        text-align: right;
+	}
+
+    .search-form-icon form[role="search"].active button[type="submit"] {
+        background-color: rgb(231, 231, 231);
+    }
+@media (min-width: 768px) {
+	.search-form-icon form[role="search"] button,
+	.search-form-icon form[role="search"] input {
+		padding: 15px 12px;
+	}
+
+	.search-form-icon form[role="search"] input {
+		padding: 25px 12px;
+		font-size: 18pt;
+		opacity: 0;
+		display: none;
+	}
+}
+
+/*--------------------------[ NAV MENU ]-----------------------------------*/
+
+.navbar-default-margin {
+	margin-top: 20px;
+}
+
+.navbar {
+	margin-bottom: 0;
+	min-height: 50px;
+}
+
+.navbar-brand {
+	height: auto;
+}
+
+.fixed-state-mrg {
+	margin-top: 2%;
+}
+
+@media screen and (max-width: 599px) {
+
+	.navbar-fixed-top {
+		top: 0;
+	}
+
+}
+
+@media screen and (min-width: 768px) {
+
+	.navbar-nav-right {
+		float: right;
+		margin-right: 25px;
+	}
+
+	.navbar-nav>li>a {
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}	
+
+}
+
+@media (max-width: 768px) {
+
+	.topmenu-secondary-area {
+		display: none;
+	}
+
+}
+
+.navbar-form {
+	float: right;
+}
+
+.top-nav-menu {
+	position: relative;
+}
+
+.nav-contain {
+	background: transparent !important;
+}
+
+
+/*---------------------[ Secondary menu area ]----------------------------*/
+
+.right {
+	float: right;
+}
+
+.left {
+	float: left;
+}
+
+
+/*--------------------[ logo ]---------------------*/
+
+.logocenter {
+	text-align: center;
+}
+
+.logoleft {
+	text-align: left;
+}
+
+.l-padding {
+	padding-left: 15px;
+}
+
+.t-padding {
+	padding-top: 15px;
+	clear: both;
+}
+
+.tabletlogo {
+	display: none;
+}
+
+.mobilelogo {
+	display: none;
+}
+
+.desktoplogo {
+	display: block;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.logo-align-center {
+	width: 100%;
+}
+@media (min-width: 768px) {
+
+	.logo-center {
+		margin: 0 auto !important;
+	}
+
+}
+
+#menu-toggle {
+	margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+
+	.mobilelogo {
+		display: block;
+		padding-top: 2px;
+		padding-bottom: 2px;
+	}
+
+	.tabletlogo {
+		display: none;
+	}
+
+	.desktoplogo {
+		display: none;
+	}
+
+	.logo-align-center {
+		width: auto;
+	}
+
+	#menu-toggle {
+		display: none;
+	}
+
+}
+
+@media (min-width: 769px) and (max-width: 959px) {
+
+	.mobilelogo {
+		display: none;
+	}
+
+	.tabletlogo {
+		display: block;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	.desktoplogo {
+		display: none;
+	}
+
+}
+
+
+/* Top Navigation */
+
+.top-nav {
+    padding: 0 15px;
+}
+
+.top-nav>li {
+    display: inline-block;
+    float: left;
+}
+
+.top-nav>li>a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 20px;
+}
+
+.top-nav>.open>.dropdown-menu {
+    float: left;
+    position: absolute;
+    margin-top: 0;
+    border: 1px solid rgba(0,0,0,.15);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+.top-nav>.open>.dropdown-menu>li>a {
+    white-space: normal;
+}
+
+@media (min-width: 768px) {
+
+  .navbar-right .dropdown-menu {
+    right: 0;
+    left: auto;
+  }
+
+  .navbar-right .dropdown-menu-left {
+    right: auto;
+    left: 0;
+  }
+
+}
+
+@media (min-width: 768px) {
+
+  .navbar-nav.navbar-right:last-child {
+    margin-right: 0px;
+  }
+
+}
+
+@media (min-width: 768px) {
+
+  .navbar-right {
+    float: right !important;
+  }
+
+}
+
+@media (min-width: 768px) {
+
+  .navbar-form.navbar-right:last-child {
+    margin-right: -15px;
+  }
+
+}
+
+@media (min-width: 768px) {
+
+  .navbar-text.navbar-right:last-child {
+    margin-right: 0;
+  }
+
+}
+
+
+/*---------------[ Side Navigation ]---------------- */
+
+@media(min-width:768px) {
+
+	.liwidth > li {
+		width: 100%;
+	}
+
+	.side-nav {
+	    position: fixed;
+	    border: none;
+	    border-radius: 0;
+	    overflow-y: auto;
+	    height: 100%;
+	    display: block;
+	}
+
+}
+
+.liwidth>li>ul {
+    padding: 0;
+}
+
+.liwidth>li>ul>li {
+	list-style: none;
+}
+
+.liwidth>li>ul>li>a {
+    display: block;
+    padding: 10px 15px 10px 38px;
+    text-decoration: none;
+}
+
+/*-----------------[ topleft widget area ]--------------*/
+
+.topleft-header-widget {
+	width: 55%;
+	float: right !important;
+}
+
+.rm-padding {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.navbar-fixed-top-left.top-nav-menu {
+	position: relative;
+}
