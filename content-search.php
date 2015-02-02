@@ -1,10 +1,9 @@
 <?php
 /**
- * The template used for displaying page content in page.php
- *
  * @package pgb
  */
 ?>
+
 
 <?php if ( is_search() || is_archive() ) : // Only display Excerpts for Search and Archive Pages ?>
 
@@ -13,6 +12,7 @@
 	</div><!-- .entry-summary -->
 
 <?php else : ?>
+
 	<div class="entry-content">
 		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
 		<?php
@@ -22,7 +22,6 @@
 			) );
 		?>
 	</div><!-- .entry-content -->
-
 	<?php if (has_post_thumbnail()) { ?>
 		<div class="entry-content">
 			<?php echo the_post_thumbnail(); ?>

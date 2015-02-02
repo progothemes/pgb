@@ -11,7 +11,23 @@ get_header(); ?>
 
 		<?php while ( have_posts() ) : the_post(); ?>
 
-			<?php get_template_part( 'content', get_post_format() ); ?>
+			<?php tha_entry_before(); ?>
+
+			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+				<?php tha_entry_top(); ?>
+
+				<?php get_template_part( 'posts', 'header' ); ?>
+
+				<?php get_template_part( 'content', get_post_format() ); ?>
+
+				<?php get_template_part( 'posts', 'footer' ); ?>
+
+				<?php tha_entry_bottom(); ?>
+
+			</article><!-- #post-## -->
+
+			<?php tha_entry_after(); ?>
 
 			<?php pgb_content_nav( 'nav-below' ); ?>
 

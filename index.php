@@ -14,13 +14,23 @@ get_header(); ?>
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 
-				<?php
-					/* Include the Post-Format-specific template for the content.
-					 * If you want to overload this in a child theme then include a file
-					 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-					 */
-					get_template_part( 'content', get_post_format() );
-				?>
+				<?php tha_entry_before(); ?>
+
+				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+					<?php tha_entry_top(); ?>
+
+					<?php get_template_part( 'posts', 'header' ); ?>
+
+					<?php get_template_part( 'content', get_post_format() ); ?>
+
+					<?php get_template_part( 'posts', 'footer' ); ?>
+
+					<?php tha_entry_bottom(); ?>
+
+				</article><!-- #post-## -->
+
+				<?php tha_entry_after(); ?>
 
 			<?php endwhile; ?>
 
