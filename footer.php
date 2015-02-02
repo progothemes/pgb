@@ -7,8 +7,7 @@
  * @package pgb
  */
 ?>
-				<?php tha_content_bottom(); ?>
-			</div><!-- close .*-inner (main-content or sidebar, depending if sidebar is used) -->
+				
 		</div><!-- close .row -->
 	</div><!-- close .container -->
 	<?php tha_content_after(); ?>
@@ -140,7 +139,7 @@
 	<?php tha_footer_bottom(); ?>
 </footer><!-- close #colophon -->
 <?php 
-$headermenu = ot_get_option( 'pgb_headermenu' );
+$headermenu = 'top'; //ot_get_option( 'pgb_headermenu' );
 if ( !empty( $headermenu ) && ( 'left' == $headermenu || 'topleft' == $headermenu ) ) { ?>
  </div> <!-- page-content-wrapper -->
 </div> <!-- #wrapper -->

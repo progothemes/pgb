@@ -201,7 +201,7 @@ function pgb_scripts() {
     }
 
 	//$custom_css .= ".navbar-fixed-top { position: relative; }";
-    $header_menu = ot_get_option( 'pgb_headermenu' );
+    $header_menu = 'top'; //ot_get_option( 'pgb_headermenu' );
 
     if (!empty( $header_menu ) &&  "left" == $header_menu ) {
     	$custom_css .= ".site-navigation-left  .navbar-brand  {	width :100% }  .navbar-nav-right { float: left; } .navbar-nav > li { float: none; } .navbar-header { float: none; }

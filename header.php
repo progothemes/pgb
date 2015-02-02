@@ -23,35 +23,22 @@
 <body <?php body_class(); ?>>
 
 
-	<?php 
-	$header_menu = ot_get_option( 'pgb_headermenu' );
-	 if ( !empty( $header_menu ) && ( 'left' == $header_menu || 'topleft' == $header_menu) ) {  ?>
-	<div id="wrapper" class="clearfix">
-	<?php }  ?>
+	<?php $header_menu = 'top'; //ot_get_option( 'pgb_headermenu' ); ?>
 
 	<?php tha_body_top(); ?>
 	<?php tha_header_before(); ?>
 	<?php do_action( 'before' ); ?>
 	
 
-	<?php if ( !empty( $header_menu ) && 'topleft' == $header_menu ) { ?>
+	<?php get_template_part('partials/block', 'menu'); ?>
 
-		<?php get_template_part('partials/block', 'menutopleft'); ?><div id="page-content-wrapper" class="page-content-wrapper-topleft">
+	<div id="page-content-wrapper" class="page-content-wrapper-left">
 
-	<?php } else {  ?>
+		<?php get_template_part('partials/block', 'header'); ?>		
 
-		<?php get_template_part('partials/block', 'menu'); ?><div id="page-content-wrapper" class="page-content-wrapper-left">
-
-	<?php } ?>
-
-	<?php get_template_part('partials/block', 'header'); ?>		
-
-	<?php tha_header_after();  ?>
+		<?php tha_header_after();  ?>
 	
-	<?php tha_content_before(); ?>
-	<div class="main-content">
-		<div class="container">
-			<div class="row">
-				<div id="content" class="main-content-inner col-sm-12 col-md-8">
-					<?php tha_content_top(); ?>
-
+		<?php tha_content_before(); ?>
+		<div class="main-content">
+			<div class="container">
+				<div class="row">

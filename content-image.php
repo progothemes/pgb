@@ -1,12 +1,16 @@
 <?php
 /**
+ * The template for displaying posts in the Quote post format
+ *
  * @package pgb
  */
 ?>
 
-
 <?php // Add the class "panel" below here to wrap the content-padder in Bootstrap style
 		// Simply replace post_class() with post_class('panel') below here ?>
+
+<?php $the_post_meta = get_post_meta( get_the_ID() ); ?>
+
 <?php tha_entry_before(); ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	
@@ -34,6 +38,13 @@
 			<?php the_excerpt(); ?>
 		</div><!-- .entry-summary -->
 	<?php else : ?>
+
+		<?php if (has_post_thumbnail()) { ?>
+			<div class="entry-content">
+				<?php echo the_post_thumbnail( 'full', array( 'class' => 'img-responsive' ) ); ?>
+			</div>
+		<?php } ?>
+
 		<div class="entry-content">
 			<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
 			<?php
@@ -43,11 +54,7 @@
 				) );
 			?>
 		</div><!-- .entry-content -->
-		<?php if (has_post_thumbnail()) { ?>
-			<div>
-				<?php echo the_post_thumbnail(); ?>
-			</div>
-		<?php } ?>
+		
 	<?php endif; ?>
 
 	<footer class="entry-meta">
@@ -80,5 +87,6 @@
 		<?php edit_post_link( __( 'Edit', 'pgb' ), '<span class="edit-link">', '</span>' ); ?>
 	</footer><!-- .entry-meta -->
 	<?php tha_entry_bottom(); ?>
+
 </article><!-- #post-## -->
 <?php tha_entry_after(); ?>

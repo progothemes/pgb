@@ -41,7 +41,7 @@ function pgb_get_sitetagline_leftmenu( $left_menu_sitetagline_position ) {
 function pgb_get_menuwidth()
 {
     $width                            = '17%';
-    $header_menu                      = ot_get_option('pgb_headermenu');
+    $header_menu                      = 'top'; //ot_get_option('pgb_headermenu');
     $left_menu_width                  = ot_get_option('pgb_menu_width_unit_left');
     $left_menu_style                  = ot_get_option('pgb_menu_display_left');
     $left_menu_width_percent          = ot_get_option('pgb_menu_percentwidth_left');

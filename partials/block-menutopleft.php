@@ -1,6 +1,6 @@
 <?php
 $topmenustyle = ''; $menuleftright = ''; $navid = '';
-$header_menu 						= ot_get_option( 'pgb_headermenu' );
+$header_menu 						= 'top'; //ot_get_option( 'pgb_headermenu' );
 $topleft_menu_logo_position 		= ot_get_option( 'pgb_logo_postion_topleft' );
 $topleft_menu_logo_inheader_align 	= ot_get_option( 'pgb_logo_headeralign_topleft' );
 $topleft_menu_logo_inleft_align 	= ot_get_option( 'pgb_logo_leftmenualign_topleft' );

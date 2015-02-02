@@ -1,12 +1,16 @@
 <?php
 /**
+ * The template for displaying posts in the Quote post format
+ *
  * @package pgb
  */
 ?>
 
-
 <?php // Add the class "panel" below here to wrap the content-padder in Bootstrap style
 		// Simply replace post_class() with post_class('panel') below here ?>
+
+<?php $the_post_meta = get_post_meta( get_the_ID() ); ?>
+
 <?php tha_entry_before(); ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	
@@ -35,19 +39,31 @@
 		</div><!-- .entry-summary -->
 	<?php else : ?>
 		<div class="entry-content">
+			
+			<div class="embed-responsive-item">
+				<?php 
+
+				if (substr( $the_post_meta['_format_video_embed'][0], 0, 7 ) === "[video ") {
+					echo do_shortcode( $the_post_meta['_format_video_embed'][0] );
+				}
+				else {
+					echo wp_oembed_get( $the_post_meta['_format_video_embed'][0] );
+				}
+
+				?>
+			</div>
+			
 			<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
+			
 			<?php
 				wp_link_pages( array(
 					'before' => '<div class="page-links">' . __( 'Pages:', 'pgb' ),
 					'after'  => '</div>',
 				) );
 			?>
+		
 		</div><!-- .entry-content -->
-		<?php if (has_post_thumbnail()) { ?>
-			<div>
-				<?php echo the_post_thumbnail(); ?>
-			</div>
-		<?php } ?>
+
 	<?php endif; ?>
 
 	<footer class="entry-meta">
@@ -80,5 +96,6 @@
 		<?php edit_post_link( __( 'Edit', 'pgb' ), '<span class="edit-link">', '</span>' ); ?>
 	</footer><!-- .entry-meta -->
 	<?php tha_entry_bottom(); ?>
+
 </article><!-- #post-## -->
 <?php tha_entry_after(); ?>

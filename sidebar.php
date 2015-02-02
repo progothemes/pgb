@@ -6,8 +6,6 @@
  */
 ?>
 
-	</div><!-- close .main-content-inner -->
-
 	<div class="sidebar col-sm-12 col-md-4">
 		
 		<?php tha_sidebars_before(); ?>
@@ -40,3 +38,5 @@
 				<?php tha_sidebar_bottom(); ?>
 			</div><!-- close .sidebar-padder -->
 		<?php tha_sidebars_after(); ?>
+
+	</div>

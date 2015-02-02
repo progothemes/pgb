@@ -1,25 +1,21 @@
 <?php
 /**
+ * The template for displaying posts in the Quote post format
+ *
  * @package pgb
  */
 ?>
 
-
 <?php // Add the class "panel" below here to wrap the content-padder in Bootstrap style
 		// Simply replace post_class() with post_class('panel') below here ?>
+
+<?php $the_post_meta = get_post_meta( get_the_ID() ); ?>
+
 <?php tha_entry_before(); ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	
 	<?php tha_entry_top(); ?>
 	<header class="page-header">
-	
-		<?php 
-			if ( is_single() || 'page' == get_post_type() ) :
-				the_title( '<h1 class="page-title">', '</h1>' );
-			else :
-				the_title( '<h1 class="page-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h1>' );
-			endif;
-		?>
 
 		<?php if ( 'post' == get_post_type() ) : ?>
 			<div class="entry-meta">
@@ -80,5 +76,8 @@
 		<?php edit_post_link( __( 'Edit', 'pgb' ), '<span class="edit-link">', '</span>' ); ?>
 	</footer><!-- .entry-meta -->
 	<?php tha_entry_bottom(); ?>
+
+	<?php print('<pre>'); print_r(get_post_meta( get_the_ID() )); print('</pre>'); // DEBUG // ?>
+
 </article><!-- #post-## -->
 <?php tha_entry_after(); ?>

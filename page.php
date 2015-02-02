@@ -9,17 +9,24 @@
 
 get_header(); ?>
 
-	<?php while ( have_posts() ) : the_post(); ?>
+	<div id="content" class="main-content-inner col-sm-12 col-md-8">
+		<?php tha_content_top(); ?>
 
-		<?php get_template_part( 'content', 'page' ); ?>
+		<?php while ( have_posts() ) : the_post(); ?>
 
-		<?php
-			// If comments are open or we have at least one comment, load up the comment template
-			if ( comments_open() || '0' != get_comments_number() )
-				comments_template();
-		?>
+			<?php get_template_part( 'content', get_post_format() ); ?>
 
-	<?php endwhile; // end of the loop. ?>
+			<?php
+				// If comments are open or we have at least one comment, load up the comment template
+				if ( comments_open() || '0' != get_comments_number() )
+					comments_template();
+			?>
 
-<?php get_sidebar(); ?>
+		<?php endwhile; // end of the loop. ?>
+
+		<?php tha_content_bottom(); ?>
+	</div>
+
+	<?php get_sidebar(); ?>
+
 <?php get_footer(); ?>
