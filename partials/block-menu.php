@@ -1,4 +1,11 @@
 <?php
+/**
+ * Site navigation block
+ *
+ * @package pgb
+ *
+ */
+
 $topmenustyle 					= '';
 $menuleftright					= '';
 $navid							= '';
@@ -6,6 +13,7 @@ $top_search_field 				= ot_get_option( 'pgb_search_top' );
 $top_searchfield_type 			= ot_get_option( 'pgb_search_field_type_top' );
 $topmenu_secondaryarea_mobile 	= ot_get_option( 'pgb_secondary_menu_area_mobile', 'off' );
 
+// Static or Fixed navigation bar
 $top_menu_position = ot_get_option('pgb_menu_position_top');
 if ( !empty( $top_menu_position ) && 'fixed' == $top_menu_position ) {
 		$topmenustyle = 'navbar-fixed-top top-nav-menu';
@@ -13,10 +21,12 @@ if ( !empty( $top_menu_position ) && 'fixed' == $top_menu_position ) {
 		$topmenustyle = 'navbar-static-top';
 } 
 
+// Search icon or field
 if( 'on' == $top_search_field && 'icon' == $top_searchfield_type ) {
 	$searchform = 'search-form-icon';
 }
 
+// Nav menu alignment
 $top_menu_align = ot_get_option('pgb_menu_align_top');
 if( !empty( $top_menu_align ) && 'right' == $top_menu_align ) {
 		$menuleftright = 'navbar-nav-right';

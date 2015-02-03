@@ -269,7 +269,7 @@
 		array(
 			'id' 	    => 'pgb_upload_logo_desktop',
 		  'label'   => __( 'Desktop Logo', 'pgb' ),
-		  'desc'    => __( 'Upload the website logo for desktop view. (supports PNG, JPEG, GIF). Max-height 40px.', 'pgb' ),
+		  'desc'    => __( 'Upload the website logo for desktop view. (supports PNG, JPEG, GIF).', 'pgb' ),
 		  'type'    => 'upload',
 		  'section' => 'display_settings',
 		  'class'   => '',
