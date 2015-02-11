@@ -69,7 +69,7 @@ function pgb_get_logo ( $place = 'logoleft' ) {
     $mobilelogo  = ot_get_option( 'pgb_upload_logo_mobile' );
     $title       = get_bloginfo( 'name' );   
 
-   if ( empty( $desktoplogo ) ) {
+    if ( empty( $desktoplogo ) ) {
 
         if( empty( $tabletlogo ) ) {
 

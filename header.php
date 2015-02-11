@@ -33,7 +33,7 @@
 	<?php tha_header_before(); ?>
 	<?php do_action( 'before' ); ?>
 
-	<?php get_template_part('partials/block', 'menu'); ?>
+	<?php get_template_part('partials/block', 'mainnav'); ?>
 
 	<div id="page-content-wrapper" class="page-content-wrapper-left">
 

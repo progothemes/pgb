@@ -191,6 +191,9 @@ object {
 .clear {
 	clear: both;
 }
+.noshow {
+	display: none;
+}
 
 /*---------[ widget styling ]----------*/
 .widget { margin-bottom: 2em; }
