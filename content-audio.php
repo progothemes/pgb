@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying posts in the Video post format
+ * The template for displaying posts in the Audio (podcast) post format
  *
  * @package pgb
  */
@@ -14,11 +14,11 @@
 		<div class="embed-responsive-item">
 			<?php 
 
-			if (substr( $the_post_meta['_format_video_embed'][0], 0, 7 ) === "[video ") {
-				echo do_shortcode( $the_post_meta['_format_video_embed'][0] );
+			if (substr( $the_post_meta['_format_audio_embed'][0], 0, 7 ) === "[audio ") {
+				echo do_shortcode( $the_post_meta['_format_audio_embed'][0] );
 			}
 			else {
-				echo wp_oembed_get( $the_post_meta['_format_video_embed'][0] );
+				echo wp_oembed_get( $the_post_meta['_format_audio_embed'][0] );
 			}
 
 			?>
@@ -28,21 +28,21 @@
 <?php else : ?>
 	
 	<div class="entry-content">
+
+		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
 		
 		<div class="embed-responsive-item">
 			<?php 
 
-			if (substr( $the_post_meta['_format_video_embed'][0], 0, 7 ) === "[video ") {
-				echo do_shortcode( $the_post_meta['_format_video_embed'][0] );
+			if (substr( $the_post_meta['_format_audio_embed'][0], 0, 7 ) === "[audio ") {
+				echo do_shortcode( $the_post_meta['_format_audio_embed'][0] );
 			}
 			else {
-				echo wp_oembed_get( $the_post_meta['_format_video_embed'][0] );
+				echo wp_oembed_get( $the_post_meta['_format_audio_embed'][0] );
 			}
 
 			?>
 		</div>
-		
-		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
 		
 		<?php
 			wp_link_pages( array(

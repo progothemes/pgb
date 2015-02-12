@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying posts in the Quote post format
+ * The template for displaying posts in the Image post format
  *
  * @package pgb
  */
