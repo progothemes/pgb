@@ -192,7 +192,7 @@ function pgb_scripts() {
 		if ($metabox_custom_page_layout == "yes") {
 			$custom_css .= pgb_set_container_width( $metabox_custom_page_width, '.container' );
 		} else {
-			$custom_css .= pgb_set_container_width( $container_width, '.container' );
+			$custom_css .= pgb_set_container_width( $container_width, '.container, .jumbotron .container' );
 		}
     }
     $menu_width = ot_get_option( 'pgb_menu_width_top' );
