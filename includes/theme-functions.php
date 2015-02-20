@@ -367,3 +367,155 @@ function pgb_login_modal_shortcode( $atts ) {
     return pgb_show_login_modal( $classes, $labels, $remember, $pclass );
 }
 add_shortcode( 'pgb_login_modal', 'pgb_login_modal_shortcode' );
+
+
+
+
+
+
+
+
+/**
+ * ProGo Login modal
+ *
+ * Adds PGB_Login_Widget widget.
+ */
+class PGB_Login_Widget extends WP_Widget {
+
+    /**
+     * Register widget with WordPress.
+     */
+    function __construct() {
+        parent::__construct(
+            'pgb_login_widget', // Base ID
+            __( 'Login / Logout Button', 'pgb' ), // Name
+            array( 'description' => __( 'Add a login button with Bootstrap modal login form.', 'pgb' ), ) // Args
+        );
+    }
+
+    /**
+     * Front-end display of widget.
+     *
+     * @see WP_Widget::widget()
+     *
+     * @param array $args     Widget arguments.
+     * @param array $instance Saved values from database.
+     */
+    public function widget( $args, $instance ) {
+        echo $args['before_widget'];
+        if ( ! is_user_logged_in() ) { ?>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary <?php echo $instance['classes']; ?>" data-toggle="modal" data-target="#pgbLoginModal">Login</button>
+            <!-- Modal -->
+            <div class="modal fade" id="pgbLoginModal" tabindex="-1" role="dialog" aria-labelledby="pgbLoginModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                <?php
+                                if ( ! empty( $instance['title'] ) ) {
+                                    echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
+                                }
+                                ?>
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="<?php echo get_bloginfo('url'); ?>/wp-login.php" method="post" class="form-horizontal" >
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="log"><?php _e('Username', 'pgb'); ?></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="log" id="log" class="form-control" size="10" placeholder="Username" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="pwd"><?php _e('Password', 'pgb'); ?></label>
+                                    <div class="col-sm-10">
+                                        <input type="password" name="pwd" id="pwd" class="form-control" size="10" placeholder="Password" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <div class="checkbox">
+                                            <label for="rememberme">
+                                                <input type="checkbox" name="rememberme" id="rememberme" value="forever" /> Remember me
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <input type="hidden" name="redirect_to" value="<?php echo get_permalink(); ?>" />
+                                        <button type="submit" name="submit" class="btn btn-primary">Login</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="<?php echo get_bloginfo('url'); ?>/wp-login.php?action=lostpassword">Forgot password?</a>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php } else { ?>
+            <p class="<?php echo $pclass; ?>">
+                <a href="<?php echo wp_logout_url( get_permalink() ); ?>">logout</a>
+            </p>
+        <?php }
+        echo $args['after_widget'];
+    }
+
+    /**
+     * Back-end widget form.
+     *
+     * @see WP_Widget::form()
+     *
+     * @param array $instance Previously saved values from database.
+     */
+    public function form( $instance ) {
+        $title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'New title', 'pgb' );
+        $buttonlabel = ! empty( $instance['buttonlabel'] ) ? $instance['buttonlabel'] : __( 'Login', 'pgb' );
+        ?>
+        <p><?php print $show_labels; ?>
+        <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title (hidden):' ); ?></label> 
+        <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" placeholder="<?php echo esc_attr( $title ); ?>" />
+        </p>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'classes' ); ?>"><?php _e( 'Additional CSS classes:' ); ?></label> 
+        <input class="widefat" id="<?php echo $this->get_field_id( 'classes' ); ?>" name="<?php echo $this->get_field_name( 'classes' ); ?>" type="text" placeholder="Ex: navbar-btn navbar-right" />
+        </p>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'buttonlabel' ); ?>"><?php _e( 'Login button Label:' ); ?></label> 
+        <input class="widefat" id="<?php echo $this->get_field_id( 'buttonlabel' ); ?>" name="<?php echo $this->get_field_name( 'buttonlabel' ); ?>" type="text" value="<?php echo esc_attr( $buttonlabel ); ?>" />
+        </p>
+        <?php
+    }
+
+    /**
+     * Sanitize widget form values as they are saved.
+     *
+     * @see WP_Widget::update()
+     *
+     * @param array $new_instance Values just sent to be saved.
+     * @param array $old_instance Previously saved values from database.
+     *
+     * @return array Updated safe values to be saved.
+     */
+    public function update( $new_instance, $old_instance ) {
+        $instance = array();
+        $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+        $instance['classes'] = ( ! empty( $new_instance['classes'] ) ) ? strip_tags( $new_instance['classes'] ) : '';
+        $instance['buttonlabel'] = ( ! empty( $new_instance['buttonlabel'] ) ) ? strip_tags( $new_instance['buttonlabel'] ) : 'Login';
+
+        return $instance;
+    }
+
+} // class pgb_login_widget
+
+
+// register pgb_login_widget widget
+function register_pgb_login_widget() {
+    register_widget( 'PGB_Login_Widget' );
+}
+add_action( 'widgets_init', 'register_pgb_login_widget' );
