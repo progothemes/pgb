@@ -33,7 +33,7 @@ function custom_theme_options() {
 
 $display_settings['settings'][0]['choices'] = array_merge($display_settings['settings'][0]['choices'], pgb_add_custom_theme());
     
-    $custom_settings['contextual_help'] = $custom_settings1['contextual_help'];//array_merge($custom_settings1['contextual_help'], $custom_settings2['contextual_help']);
+    //$custom_settings['contextual_help'] = $custom_settings1['contextual_help'];//array_merge($custom_settings1['contextual_help'], $custom_settings2['contextual_help']);
     $custom_settings['sections'] = array_merge(
                                       $display_settings['sections']
                                     , $general_settings['sections']
