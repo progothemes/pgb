@@ -42,18 +42,19 @@ function pgb_get_sitetagline_leftmenu( $left_menu_sitetagline_position ) {
  *
  */
 function pgb_set_container_width( $data, $classname ) {
-
+  $custom_css = '';
     $custom_css = '';
     
 	if ( !empty( $data )) {
-    	if ( 'full' == $data ) {
-            $custom_css = $classname ." { width: 100%; max-width: 100%; }";
-        } elseif ( 'default' == $data ) {
-    	} else {    		
-    		$custom_css = $classname ." { width: 100%; max-width: ". $data . "; }";
-    	}
+    if ( 'full' == $data ) {
+      $custom_css = $classname ." { width: 100%; max-width: 100%; }";
+    } elseif ( 'default' == $data ) {
+      // something?
+    } else {    		
+      $custom_css = $classname ." { width: 100%; max-width: ". $data . "; }";
     }
-    return $custom_css;
+  }
+  return $custom_css;
 }
 
 

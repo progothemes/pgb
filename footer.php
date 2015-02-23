@@ -18,8 +18,8 @@
 	<div class="container">
 		<div class="row">
 			<?php 
-				$metabox_custom_page_footer 	  = get_post_meta(get_the_ID(), 'pgb_metabox_page_footer_option')[0];
-				$metabox_custom_page_footer_count = get_post_meta(get_the_ID(), 'pgb_custom_footer_layout')[0];
+				$metabox_custom_page_footer 	  = get_post_meta(get_the_ID(), 'pgb_metabox_page_footer_option', true);
+				$metabox_custom_page_footer_count = get_post_meta(get_the_ID(), 'pgb_custom_footer_layout', true);
 				$showFooter 					  = ot_get_option('pgb_footer');
 				$footer_column 					  = ot_get_option('pgb_footer_column');
 

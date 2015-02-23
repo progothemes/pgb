@@ -157,7 +157,7 @@ function pgb_scripts() {
 	foreach ($uploaddirs as $uploaddir) {
 		$customThemeName = explode('/bootstrapthemes/', $uploaddir);
 		if ( $bootstrap_theme == $customThemeName[1] ) {
-				$$customThemeName[1] = preg_replace("/[^a-zA-Z]+/", "", $customThemeName[1]);
+				$customThemeName[1] = preg_replace("/[^a-zA-Z]+/", "", $customThemeName[1]);
 				wp_enqueue_style( $customThemeName[1].'bootstrap', $themeFolder_url.'/bootstrapthemes/'.$customThemeName[1].'/css/bootstrap.min.css' );
 				wp_enqueue_style( $customThemeName[1].'bootstrap-theme', $themeFolder_url.'/bootstrapthemes/'.$customThemeName[1].'/css/bootstrap-theme.min.css' );	
 		}
