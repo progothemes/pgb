@@ -43,6 +43,8 @@ function pgb_get_sitetagline_leftmenu( $left_menu_sitetagline_position ) {
  */
 function pgb_set_container_width( $data, $classname ) {
 
+    $custom_css = '';
+    
 	if ( !empty( $data )) {
     	if ( 'full' == $data ) {
             $custom_css = $classname ." { width: 100%; max-width: 100%; }";
