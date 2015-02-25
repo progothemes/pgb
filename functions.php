@@ -151,7 +151,7 @@ function pgb_scripts() {
 	$themeFolder 	 = wp_upload_dir();
 	$themeFolder_dir = $themeFolder['basedir'];
 	$themeFolder_url = $themeFolder['baseurl'];
-    $themeFolder_dir = $themeFolder_dir . '/bootstrapthemes';
+	$themeFolder_dir = $themeFolder_dir . '/bootstrapthemes';
 	$uploaddirs 	 = glob($themeFolder_dir . '/*' , GLOB_ONLYDIR);
 
 	foreach ($uploaddirs as $uploaddir) {
@@ -174,37 +174,45 @@ function pgb_scripts() {
 
 	// Load rtl style
 	// wp_enqueue_style( 'pgb-rtl', get_template_directory_uri() . '/rtl.css' );
-        
-  // load the font icons
-  wp_enqueue_style('pgb-fontawesome', get_template_directory_uri() . '/includes/css/font-awesome.min.css');
-  
-  // load google fonts
-  wp_enqueue_style( 'pgb-google-font', 'http://fonts.googleapis.com/css?family=Questrial|Droid+Sans:400,700|Lato:400,700,900,400italic,700italic|Arvo:400,700,400italic|PT+Sans:400,700,400italic,700italic|Quicksand:400,700|Gloria+Hallelujah|Roboto:900,400,700,300italic,500,500italic,700italic|Montserrat:700,400|Open+Sans:400italic,700,600,800,400');
 
-  if ( !is_admin() ) {
-    $custom_css = "";
-    
-    $container_width = ot_get_option( 'pgb_container_width' );
-    if ( !empty( $container_width )) {
-      $metabox_custom_page_layout = get_post_meta(get_the_ID(), 'pgb_metabox_page_layout_option', true );
-      if ( $metabox_custom_page_layout === "yes" ) {
-        $metabox_custom_page_width  = get_post_meta( get_the_ID(), 'pgb_custom_container_width', true );
-        $custom_css .= pgb_set_container_width( $metabox_custom_page_width, '.container' );
-      } else {
-        $custom_css .= pgb_set_container_width( $container_width, '.container, .jumbotron .container' );
-      }
-    }
-    $menu_width = ot_get_option( 'pgb_menu_width_top' );
-    if ( !empty( $menu_width )) {    
-      $custom_css .= pgb_set_container_width( ot_get_option( 'pgb_menu_width_top' ), '.menu-container-width' );
-    }
+	// load the font icons
+	wp_enqueue_style('pgb-fontawesome', get_template_directory_uri() . '/includes/css/font-awesome.min.css');
 
-    $custom_css .= " @media (max-width: 599px) { .navbar-fixed-top.top-nav-menu{ z-index: 499; } }";
+	// load google fonts
+	wp_enqueue_style( 'pgb-google-font', 'http://fonts.googleapis.com/css?family=Questrial|Droid+Sans:400,700|Lato:400,700,900,400italic,700italic|Arvo:400,700,400italic|PT+Sans:400,700,400italic,700italic|Quicksand:400,700|Gloria+Hallelujah|Roboto:900,400,700,300italic,500,500italic,700italic|Montserrat:700,400|Open+Sans:400italic,700,600,800,400');
 
-    wp_add_inline_style( 'pgb-style', $custom_css );
-  }
+	if ( !is_admin() ) {
+		$custom_css = "";
+
+		$container_width = ot_get_option( 'pgb_container_width' );
+		if ( !empty( $container_width )) {
+			$metabox_custom_page_layout = get_post_meta(get_the_ID(), 'pgb_metabox_page_layout_option', true );
+			if ( $metabox_custom_page_layout === "yes" ) {
+				$metabox_custom_page_width  = get_post_meta( get_the_ID(), 'pgb_custom_container_width', true );
+				$custom_css .= pgb_set_container_width( $metabox_custom_page_width, '.container' );
+			} else {
+				$custom_css .= pgb_set_container_width( $container_width, '.container, .jumbotron .container' );
+			}
+		}
+		$menu_width = ot_get_option( 'pgb_menu_width_top' );
+		if ( !empty( $menu_width )) {    
+			$custom_css .= pgb_set_container_width( ot_get_option( 'pgb_menu_width_top' ), '.menu-container-width' );
+		}
+
+		$custom_css .= " @media (max-width: 599px) { .navbar-fixed-top.top-nav-menu{ z-index: 499; } }";
+
+		wp_add_inline_style( 'pgb-style', $custom_css );
+	}
+
+	/**
+	 * Fix for Visual Composer not loading CSS file(s)
+	 */
+	if ( is_plugin_active( 'js_composer/js_composer.php' ) ) {
+		wp_enqueue_style('js-composer', plugins_url() . '/js_composer/assets/css/js_composer.css');
+	}
+
 	// SCRIPTS
-        
+
 	// load bootstrap js
 	wp_enqueue_script('pgb-bootstrapjs', get_template_directory_uri().'/includes/js/bootstrap.js', array('jquery') );
 
@@ -356,7 +364,7 @@ require get_template_directory() . '/includes/bootstrap-wp-navwalker-collapse.ph
 /**
  * TGM pluging activation for visual composer
  */
-require get_template_directory() . '/plugin/plugin-activation.php';
+// require get_template_directory() . '/plugin/plugin-activation.php';
 
 
 /**
