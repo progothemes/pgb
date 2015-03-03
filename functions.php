@@ -14,6 +14,7 @@ define( 'OT_THEME_VERSION', '1.0' );
  *
  * @package pgb
  */
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 /**
  * Set the content width based on the theme's design and stylesheet.
