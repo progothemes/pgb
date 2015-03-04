@@ -34,7 +34,7 @@ if( !empty( $top_menu_align ) && 'right' == $top_menu_align ) {
 
 ?>
 
-	<nav id="sidebar-wrapper" class="navbar navbar-default site-navigation <?php echo $leftmain; ?> <?php echo $topmenustyle; ?>" >
+	<nav id="main-nav" class="navbar navbar-default site-navigation <?php echo $leftmain; ?> <?php echo $topmenustyle; ?>" >
 		<div class="navbar-default container-fluid <?php echo $leftmenustyle; ?>" role="navigation">
 			<div  class="container nav-contain menu-container-width <?php echo $searchform; ?>" >
 
