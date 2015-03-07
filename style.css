@@ -183,7 +183,8 @@ object {
 	padding-bottom: 1.5em;
 }
 
-.hentry {
+.hentry,
+.entry-summary {
 	margin: 0 0 1.5em;
 }
 
