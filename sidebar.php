@@ -6,7 +6,7 @@
  */
 ?>
 
-	<div class="sidebar col-sm-12 col-md-4">
+	<div class="sidebar col-sm-12 col-md-3">
 		
 		<?php tha_sidebars_before(); ?>
 			<div class="sidebar-padder">
