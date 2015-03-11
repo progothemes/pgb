@@ -285,7 +285,7 @@ class PGB_Login_Widget extends WP_Widget {
                 </div>
             </div>
         <?php } else { ?>
-            <p class="<?php echo $instance['outclass']; ?>">
+            <p class="navbar-text <?php echo $instance['outclass']; ?>">
                 <a href="<?php echo wp_logout_url( get_permalink() ); ?>" class="navbar-link"><?php echo $instance['outlabel']; ?></a>
             </p>
         <?php }
