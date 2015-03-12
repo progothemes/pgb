@@ -7,7 +7,7 @@
 
 get_header(); ?>
 
-	<div id="content" class="main-content-inner col-sm-12 col-md-8">
+	<div id="content" class="main-content-inner col-sm-12 col-md-8 col-lg-9">
 
 		<?php if ( have_posts() ) : ?>
 

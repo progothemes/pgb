@@ -49,7 +49,7 @@ if ( !empty( $header_menu ) ) {
 
 } // end if ( !empty($header_menu) ) {
 ?>
-	<nav id="sidebar-wrapper" class="site-navigation <?php echo $leftmain; ?>">
+	<nav id="main-nav" class="site-navigation <?php echo $leftmain; ?>">
 						
 		<div class="top-nav-menu navbar navbar-default  <?php echo $topmenustyle; ?>" role="navigation">
 			<div  id="<?php echo $navid; ?>"  class="container nav-contain menu-container-width <?php echo $searchclass; ?>" >

@@ -1,15 +1,14 @@
 /*
-Theme Name: ProGoBase Theme
-Theme URI: http://example.com
-Author: ..
-Author URI: http://example.com/
-Description: Hi, I am the ultra minimal starter theme pgb, ready for your next awesome WordPress project! .
-Version: 1.0
-Text Domain: pgb
-Domain Path: /languages
-License: GNU General Public License
-License URI: see license.txt
-Tags: responsive-layout, white, two-columns
+ Theme Name:   ProGo Base
+ Theme URI:    https://github.com/nlk-progo/problogger
+ Description:  ProGo Base child theme for ProBloggers' ProBloggging
+ Author:       Ninthlink, Inc.
+ Author URI:   http://www.ninthlink.com
+ Template:     pgb
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ Tags:         blogger, e-commerce, woocommerce
 */
 
 /* imported font League Gothic */
@@ -183,7 +182,8 @@ object {
 	padding-bottom: 1.5em;
 }
 
-.hentry {
+.hentry,
+.entry-summary {
 	margin: 0 0 1.5em;
 }
 

@@ -8,10 +8,7 @@
 
 $topmenustyle 					= '';
 $menuleftright					= '';
-$navid							= '';
 $top_search_field 				= ot_get_option( 'pgb_search_top' );
-$top_searchfield_type 			= ot_get_option( 'pgb_search_field_type_top' );
-$topmenu_secondaryarea_mobile 	= ot_get_option( 'pgb_secondary_menu_area_mobile', 'off' );
 
 // Static or Fixed navigation bar
 $top_menu_position = ot_get_option('pgb_menu_position_top');
@@ -22,7 +19,7 @@ if ( !empty( $top_menu_position ) && 'fixed' == $top_menu_position ) {
 } 
 
 // Search icon or field
-if( 'on' == $top_search_field && 'icon' == $top_searchfield_type ) {
+if( 'on' == $top_search_field ) {
 	$searchform = 'search-form-icon';
 }
 
@@ -34,9 +31,9 @@ if( !empty( $top_menu_align ) && 'right' == $top_menu_align ) {
 
 ?>
 
-	<nav id="sidebar-wrapper" class="navbar navbar-default site-navigation <?php echo $leftmain; ?> <?php echo $topmenustyle; ?>" >
-		<div class="navbar-default container-fluid <?php echo $leftmenustyle; ?>" role="navigation">
-			<div  class="container nav-contain menu-container-width <?php echo $searchform; ?>" >
+	<nav id="main-nav" class="navbar navbar-default site-navigation <?php echo $topmenustyle; ?>" >
+		<div class="navbar-default container-fluid" role="navigation">
+			<div  class="container nav-contain menu-container-width" >
 
 				<div class="navbar-header">
 					<!-- .navbar-toggle is used as the toggle for collapsed navbar content -->
@@ -54,15 +51,9 @@ if( !empty( $top_menu_align ) && 'right' == $top_menu_align ) {
 					</a>
 				</div>
 				<?php
-
 					if( ( !empty( $top_search_field ) && 'on' == $top_search_field ) ) {
-						
-						if ( !empty( $top_searchfield_type ) && 'full' == $top_searchfield_type ) {
-							get_template_part('partials/block', 'search' );
-						}
-					
+						get_template_part('partials/block', 'search' );
 					}
-				
 				?>
 
 
@@ -79,16 +70,6 @@ if( !empty( $top_menu_align ) && 'right' == $top_menu_align ) {
 						)
 					);
 					?>
-					<?php
-
-					if( ( !empty( $top_search_field ) && 'on' == $top_search_field ) ) {
-						if ( !empty( $top_searchfield_type ) && 'icon' == $top_searchfield_type ) {
-							get_template_part('partials/block', 'search' );
-						}
-					}
-
-					?>
-
 				</div>
 			</div>
 		</div><!-- .navbar -->
