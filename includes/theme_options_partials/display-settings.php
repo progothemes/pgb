@@ -246,25 +246,6 @@
       'section' 	=> 'display_settings',
       'condition' => '',
       ),
-    array(
-			'id' 		    => 'pgb_search_field_type_top',
-			'label' 	  => __( 'Search Field Type', 'pgb'),
-			'desc' 	    =>	__( 'Select whether the full search field will be displayed or just the icon (open search field on click).', 'pgb'),
-			'type' 	    => 'radio',
-			'section' 	=> 'display_settings',
-			'condition' => 'pgb_search_top:is(on)',
-			'operator'  => 'and',
-			'choices'   => array(
-				array(
-					'value' => 'full',
-					'label' => __( 'Full Field', 'pgb'),
-				  ),
-	     array(
-					'value' => 'icon',
-					'label' => __( 'Icon', 'pgb'),
-				  ),
-				),
-	    ),
     // logo uploader
 		array(
 			'id' 	    => 'pgb_upload_logo_desktop',
