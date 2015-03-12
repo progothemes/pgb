@@ -98,7 +98,12 @@ function pgb_widgets_init() {
 		'after_title'   => '</h3>',
 	) );
 
-	// Secondary Header sidebar 
+	/**
+	 * Disabled in ProGo base
+	 */
+	
+	// Secondary Header sidebar
+	/*
 	register_sidebar( array(
 		'name'          => __( 'Secondary Header sidebar', 'pgb' ),
 		'id'            => 'header-sidebar',
@@ -107,8 +112,10 @@ function pgb_widgets_init() {
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
 	) );
+	*/
 
 	// top Header sidebar (TOP + LEFT VIEW)
+	/*
 	register_sidebar( array(
 		'name'          => __( 'Top Header area', 'pgb' ),
 		'id'            => 'top-header-area',
@@ -118,6 +125,7 @@ function pgb_widgets_init() {
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
 	) );
+	*/
 
 	// Footer widget area
 	register_sidebars(4,array(
