@@ -92,7 +92,7 @@ function pgb_widgets_init() {
 	register_sidebar( array(
 		'name'          => __( 'Sidebar', 'pgb' ),
 		'id'            => 'sidebar-1',
-		'before_widget' => '<aside id="%1$s" class="widget col-xs-6 col-sm-12 %2$s"><div class="col-lg-12">',
+		'before_widget' => '<aside id="%1$s" class="widget col-xs-12 col-sm-6 col-md-12 %2$s"><div class="col-lg-12">',
 		'after_widget'  => '</div></aside>',
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
