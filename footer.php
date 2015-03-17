@@ -128,9 +128,6 @@
 
 				<div class="site-info">
 					<?php do_action( 'pgb_credits' ); ?>
-					<a href="http://wordpress.org/" title="<?php esc_attr_e( 'A Semantic Personal Publishing Platform', 'pgb' ); ?>" rel="generator"><?php printf( __( 'Proudly powered by %s', 'pgb' ), 'WordPress' ); ?></a>
-					<span class="sep"> | </span>
-					<?php printf( __( 'Theme: %1$s by %2$s.', 'pgb' ), 'pgb', '<a href="#" rel="designer">ProGoBase</a>' ); ?>
 				</div><!-- close .site-info -->
 
 			</div>

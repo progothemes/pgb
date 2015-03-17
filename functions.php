@@ -339,7 +339,7 @@ require( trailingslashit( get_template_directory() ) . 'includes/theme-meta-boxe
 // require( trailingslashit( get_template_directory() ) . 'includes/customizer.php' );
 
 /**
- * Demo Functions (for demonstration purposes only!)
+ * Custom theme functions.
  */
 require( trailingslashit( get_template_directory() ) . 'includes/theme-functions.php' );
 

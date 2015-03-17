@@ -358,3 +358,14 @@ function register_pgb_login_widget() {
     register_widget( 'PGB_Login_Widget' );
 }
 add_action( 'widgets_init', 'register_pgb_login_widget' );
+
+// output Site Powered By...
+function pgb_credits() {
+	echo '<a href="http://wordpress.org/" title="'. esc_attr( 'A Semantic Personal Publishing Platform', 'pgb' ) .'" rel="generator">'. __( 'Proudly powered by', 'pgb' ) .' WordPress</a>';
+	$ourtheme = wp_get_theme();
+	if ( $ourtheme->exists() ) {
+		echo '<span class="sep"> | </span>';
+		printf( __( 'Theme: %1$s by %2$s.', 'pgb' ), $ourtheme->get( 'Name' ), '<a href="'. $ourtheme->get( 'AuthorURI' ) .'" rel="designer">'. $ourtheme->get( 'Author' ) .'</a>' );
+	}
+}
+add_action( 'pgb_credits', 'pgb_credits' );
