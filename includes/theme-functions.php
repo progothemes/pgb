@@ -228,10 +228,15 @@ class PGB_Login_Widget extends WP_Widget {
      * @param array $instance Saved values from database.
      */
     public function widget( $args, $instance ) {
+        $title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'New title', 'pgb' );
+        $buttonlabel = ! empty( $instance['buttonlabel'] ) ? $instance['buttonlabel'] : __( 'Login', 'pgb' );
+        $outlabel = ! empty( $instance['outlabel'] ) ? $instance['outlabel'] : __( 'Logout', 'pgb' );
+        $classes = ! empty( $instance['classes'] ) ? $instance['classes'] : '';
+        $outclass = ! empty( $instance['outclass'] ) ? $instance['outclass'] : '';
         echo $args['before_widget'];
         if ( ! is_user_logged_in() ) { ?>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary <?php echo $instance['classes']; ?>" data-toggle="modal" data-target="#pgbLoginModal">Login</button>
+            <button type="button" class="btn btn-primary btn-sm navbar-btn navbar-right <?php echo $classes; ?>" data-toggle="modal" data-target="#pgbLoginModal"><?php echo $buttonlabel; ?></button>
             <!-- Modal -->
             <div class="modal fade" id="pgbLoginModal" tabindex="-1" role="dialog" aria-labelledby="pgbLoginModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -240,9 +245,7 @@ class PGB_Login_Widget extends WP_Widget {
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">
                                 <?php
-                                if ( ! empty( $instance['title'] ) ) {
-                                    echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
-                                }
+                                echo $args['before_title'] . apply_filters( 'widget_title', $title ). $args['after_title'];
                                 ?>
                             </h4>
                         </div>
@@ -285,8 +288,8 @@ class PGB_Login_Widget extends WP_Widget {
                 </div>
             </div>
         <?php } else { ?>
-            <p class="navbar-text <?php echo $instance['outclass']; ?>">
-                <a href="<?php echo wp_logout_url( get_permalink() ); ?>" class="navbar-link"><?php echo $instance['outlabel']; ?></a>
+            <p class="navbar-text <?php echo $outclass; ?>">
+                <a href="<?php echo wp_logout_url( get_permalink() ); ?>" class="navbar-link"><?php echo $outlabel; ?></a>
             </p>
         <?php }
         echo $args['after_widget'];
