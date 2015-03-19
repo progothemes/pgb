@@ -21,7 +21,7 @@ $format_source_title = (!empty($the_post_meta['_format_quote_source_title'][0]))
 
 ?>
 
-<?php if ( is_search() || is_archive() ) : // Only display Excerpts for Search and Archive Pages ?>
+<?php if ( is_search() || is_archive() || is_blog_page() ) : // Only display Excerpts for Search and Archive Pages ?>
 
 	<div class="entry-summary">
 			

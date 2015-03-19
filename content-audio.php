@@ -8,7 +8,8 @@
 
 <?php $the_post_meta = get_post_meta( get_the_ID() ); ?>
 
-<?php if ( is_search() || is_archive() ) : // Only display Excerpts for Search and Archive Pages ?>
+<?php if ( is_search() || is_archive() || is_blog_page() ) : // Only display Excerpts for Search and Archive Pages ?>
+
 	<div class="entry-summary">
 		
 		<div class="embed-responsive-item">
@@ -25,6 +26,7 @@
 		</div>
 
 	</div><!-- .entry-summary -->
+
 <?php else : ?>
 	
 	<div class="entry-content">

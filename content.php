@@ -1,10 +1,12 @@
 <?php
 /**
+ * The default content display page
+ *
  * @package pgb
  */
 ?>
 
-<?php if ( is_search() || is_archive() ) : // Only display Excerpts for Search and Archive Pages ?>
+<?php if ( is_search() || is_archive() || is_blog_page() ) : // Only display Excerpts for Search and Archive Pages ?>
 
 	<div class="entry-summary">
 		<?php the_excerpt(); ?>

@@ -167,6 +167,30 @@ function pgb_get_logo ( $place = 'logoleft' ) {
     return $logo;
 }
 
+/**
+ * Helper function to detect blog page
+ *
+ * @return    boolean
+ *
+ */
+if ( ! function_exists('is_blog_page') ) :
+function is_blog_page() {
+    if ( is_front_page() && is_home() ) {
+        // Default homepage
+        return true;
+    } elseif ( is_front_page() ) {
+        // static homepage
+        return false;
+    } elseif ( is_home() ) {
+        // blog page
+        return true;
+    } else {
+        //everything else
+        return false;
+    }
+}
+endif;
+
 
 /**
  * Helper function to add custom theme to the theme options' theme list
