@@ -10,13 +10,13 @@
 
 <?php if ( is_single() ) : ?>
 
-	<div class="entry-content">
+	<div class="entry-content col-md-12">
 
 		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
 
 <?php else : ?>
 
-	<div class="entry-summary">
+	<div class="entry-summary col-md-12">
 
 <?php endif; ?>
 		

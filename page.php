@@ -13,41 +13,45 @@ get_header(); ?>
 
 		<?php tha_content_top(); ?>
 
-		<?php while ( have_posts() ) : the_post(); ?>
+		<?php if ( have_posts() ) : ?>
 
-			<?php tha_entry_before(); ?>
+			<?php while ( have_posts() ) : the_post(); ?>
 
-			<article id="post-<?php the_ID(); ?>" <?php post_class( 'row' ); ?>>
+				<?php tha_entry_before(); ?>
 
-				<?php tha_entry_top(); ?>
+				<article id="post-<?php the_ID(); ?>" <?php post_class( 'row' ); ?>>
 
-				<?php get_template_part( 'posts', 'header' ); ?>
+					<?php tha_entry_top(); ?>
 
-				<div class="col-md-12">
+					<?php get_template_part( 'posts', 'header' ); ?>
 
-					<div class="row">
+					<div class="col-md-12">
 
-						<?php get_template_part( 'content', get_post_format() ); ?>
+						<div class="row">
+
+							<?php get_template_part( 'content', get_post_format() ); ?>
+
+						</div>
 
 					</div>
 
-				</div>
+					<?php get_template_part( 'posts', 'footer' ); ?>
 
-				<?php get_template_part( 'posts', 'footer' ); ?>
+					<?php tha_entry_bottom(); ?>
 
-				<?php tha_entry_bottom(); ?>
+				</article><!-- #post-## -->
 
-			</article><!-- #post-## -->
+				<?php tha_entry_after(); ?>
 
-			<?php tha_entry_after(); ?>
+				<?php
+					// If comments are open or we have at least one comment, load up the comment template
+					if ( comments_open() || '0' != get_comments_number() )
+						comments_template();
+				?>
 
-			<?php
-				// If comments are open or we have at least one comment, load up the comment template
-				if ( comments_open() || '0' != get_comments_number() )
-					comments_template();
-			?>
+			<?php endwhile; // end of the loop. ?>
 
-		<?php endwhile; // end of the loop. ?>
+		<?php endif; ?>
 
 		<?php tha_content_bottom(); ?>
 
