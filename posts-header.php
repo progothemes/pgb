@@ -6,7 +6,7 @@
  */
 ?>
 
-<header class="page-header">
+<header class="page-header col-md-12">
 	
 	<?php
 		if ( is_single() || is_page() ) :
