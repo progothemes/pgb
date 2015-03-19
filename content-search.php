@@ -8,7 +8,9 @@
 <?php if ( is_search() || is_archive() || is_blog_page() ) : // Only display Excerpts for Search and Archive Pages ?>
 
 	<div class="entry-summary">
+		
 		<?php the_excerpt(); ?>
+	
 	</div><!-- .entry-summary -->
 
 <?php else : ?>
@@ -22,6 +24,7 @@
 			) );
 		?>
 	</div><!-- .entry-content -->
+	
 	<?php if (has_post_thumbnail()) { ?>
 		<div class="entry-content">
 			<?php echo the_post_thumbnail(); ?>

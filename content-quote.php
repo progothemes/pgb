@@ -21,24 +21,16 @@ $format_source_title = (!empty($the_post_meta['_format_quote_source_title'][0]))
 
 ?>
 
-<?php if ( is_search() || is_archive() || is_blog_page() ) : // Only display Excerpts for Search and Archive Pages ?>
-
-	<div class="entry-summary">
-			
-		<blockquote>
-			<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
-
-			<?php if ( !empty($format_source_name) && !empty($format_source_title) ) {
-				echo '<footer>' . $format_source_name . $format_source_title . '</footer>';
-			} ?>
-		</blockquote>
-			
-	</div><!-- .entry-summary -->
-
-<?php else : ?>
+<?php if ( is_single() ) : // Only display Excerpts for Search and Archive Pages ?>
 
 	<div class="entry-content">
 
+<?php else : ?>
+
+	<div class="entry-summary">
+
+<?php endif; ?>
+			
 		<blockquote>
 			<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
 
@@ -47,13 +39,15 @@ $format_source_title = (!empty($the_post_meta['_format_quote_source_title'][0]))
 			} ?>
 		</blockquote>
 
-		<?php
-			wp_link_pages( array(
-				'before' => '<div class="page-links">' . __( 'Pages:', 'pgb' ),
-				'after'  => '</div>',
-			) );
-		?>
+		<?php if ( is_single() ) : // Only display Excerpts for Search and Archive Pages ?>
 
-	</div><!-- .entry-content -->
+			<?php
+				wp_link_pages( array(
+					'before' => '<div class="page-links">' . __( 'Pages:', 'pgb' ),
+					'after'  => '</div>',
+				) );
+			?>
 
-<?php endif; ?>
+		<?php endif; ?>
+			
+	</div><!-- .entry-summary -->
