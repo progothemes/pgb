@@ -6,7 +6,7 @@
  */
 ?>
 
-<div class="entry-content">
+<div class="entry-content col-md-12">
 	
 	<?php the_content(); ?>
 	
@@ -21,8 +21,10 @@
 
 <?php if (has_post_thumbnail()) { ?>
 
-	<div class="entry-content">
+	<div class="entry-image col-md-12">
+
 		<?php echo the_post_thumbnail(); ?>
+
 	</div>
 
 <?php } ?>

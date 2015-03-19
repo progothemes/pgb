@@ -23,11 +23,11 @@ $format_source_title = (!empty($the_post_meta['_format_quote_source_title'][0]))
 
 <?php if ( is_single() ) : // Only display Excerpts for Search and Archive Pages ?>
 
-	<div class="entry-content">
+	<div class="entry-content col-md-12">
 
 <?php else : ?>
 
-	<div class="entry-summary">
+	<div class="entry-summary col-md-12">
 
 <?php endif; ?>
 			

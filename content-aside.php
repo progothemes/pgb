@@ -10,7 +10,7 @@
 
 <?php if ( is_search() || is_archive() || is_blog_page() ) : // Only display Excerpts for Search and Archive Pages ?>
 
-	<div class="entry-summary">
+	<div class="entry-summary col-md-12">
 		
 		<?php the_excerpt(); ?>
 	
@@ -18,7 +18,7 @@
 
 <?php elseif ( is_blog_page() ) : ?>
 
-	<div class="entry-summary">
+	<div class="entry-summary col-md-12">
 
 		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
 
@@ -26,7 +26,7 @@
 
 <?php else : ?>
 
-	<div class="entry-content">
+	<div class="entry-content col-md-12">
 		
 		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
 		
@@ -40,9 +40,13 @@
 	</div><!-- .entry-content -->
 	
 	<?php if (has_post_thumbnail()) { ?>
-		<div>
+
+		<div class="entry-image col-md-12">
+
 			<?php echo the_post_thumbnail(); ?>
+
 		</div>
+
 	<?php } ?>
 
 <?php endif; ?>
