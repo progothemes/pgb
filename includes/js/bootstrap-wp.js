@@ -25,6 +25,9 @@ jQuery( document ).ready( function( $ ) {
     $( '.widget_recent_comments ul#recentcomments li' ).css( 'padding', '5px 15px');
 
     $( 'table#wp-calendar' ).addClass( 'table table-striped');
-
+    
+    // if there is Login modal, append it to the <body> rather than the header?
+    $('#pgbLoginModal').appendTo('body');
+    
     $(document.body).show();
 } );
