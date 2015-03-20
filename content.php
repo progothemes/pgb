@@ -18,7 +18,7 @@
 
 	<div class="entry-summary col-md-12">
 
-		<?php if ( has_post_thumbnail() && ! empty( get_post_thumbnail_id( $post->ID ) ) ) {
+		<?php if ( has_post_thumbnail( $post->ID ) ) {
 			$img_id = get_post_thumbnail_id( $post->ID );
 			$alt_text = get_post_meta( $img_id , '_wp_attachment_image_alt', true );
 			?>
