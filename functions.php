@@ -410,6 +410,4 @@ require( trailingslashit( get_template_directory() ) . '/upload-theme.php' );
 require( trailingslashit( get_template_directory() ) . '/progo-dashboard.php' );
 
 
-
-
 ?>

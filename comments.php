@@ -19,7 +19,7 @@ if ( post_password_required() )
 	return;
 ?>
 <?php tha_comments_before(); ?>
-	<div id="comments" class="comments-area">
+	<div id="comments" class="comments-area col-md-12">
 
 		<?php if ( have_comments() ) : ?>
 			<header class="page-header">
@@ -70,20 +70,7 @@ if ( post_password_required() )
 			<p class="no-comments"><?php _e( 'Comments are closed.', 'pgb' ); ?></p>
 		<?php endif; ?>
 
-		<?php comment_form( $args = array(
-				  'id_form'           	=> 'commentform',
-				  'id_submit'         	=> 'commentsubmit',
-				  'title_reply'       	=> __( 'Leave a Reply', 'pgb' ),
-				  'title_reply_to'    	=> __( 'Leave a Reply to %s', 'pgb' ),
-				  'cancel_reply_link' 	=> __( 'Cancel Reply', 'pgb' ),
-				  'label_submit'      	=> __( 'Post Comment', 'pgb' ),
-				  'comment_field' 	  	=>  '<p><textarea placeholder="Start typing..." id="comment" class="form-control" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>',
-				  'comment_notes_after' => '<p class="form-allowed-tags">' .
-					__( 'You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:' ) .
-					'</p><div class="alert alert-info">' . allowed_tags() . '</div>',
-		));
-
-		?>
+		<?php comment_form(); ?>
 
 	</div><!-- #comments -->
 <?php tha_comments_after(); ?>
