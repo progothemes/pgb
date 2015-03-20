@@ -634,3 +634,6 @@ object {
 .navbar-fixed-top-left.top-nav-menu {
 	position: relative;
 }
+
+/*-----------------[ other assorted fixes ]--------------*/
+.evp-video-splash { z-index: 1 !important }
