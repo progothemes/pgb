@@ -637,3 +637,4 @@ object {
 
 /*-----------------[ other assorted fixes ]--------------*/
 .evp-video-splash { z-index: 1 !important }
+body.home .hide-on-homepage { display: none !important }
