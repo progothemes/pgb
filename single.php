@@ -13,7 +13,7 @@ get_header(); ?>
 
 			<?php tha_entry_before(); ?>
 
-			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+			<article id="post-<?php the_ID(); ?>" <?php post_class( 'row' ); ?>>
 
 				<?php tha_entry_top(); ?>
 
