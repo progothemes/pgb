@@ -18,21 +18,15 @@
 
 	<div class="entry-summary col-md-12">
 
-		<?php if ( has_post_thumbnail( $post->ID ) ) {
-			$img_id = get_post_thumbnail_id( $post->ID );
-			$alt_text = get_post_meta( $img_id , '_wp_attachment_image_alt', true );
-			?>
-			<div class="entry-image wp-caption alignleft col-md-6">
-				<?php echo the_post_thumbnail(); ?>
-				<p class="wp-caption-text"><?php _e( $alt_text, 'pgb' ); ?></p>
-			</div>
-		<?php } ?>
+		<?php get_template_part( 'posts', 'images' ); ?>
 
 		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
 
 	</div><!-- .entry-content -->
 
 <?php else : ?>
+
+	<?php get_template_part( 'posts', 'images' ); ?>
 
 	<div class="entry-content col-md-12">
 		
@@ -46,15 +40,5 @@
 		?>
 	
 	</div><!-- .entry-content -->
-
-	<?php if (has_post_thumbnail()) { ?>
-
-		<div class="entry-image col-md-12">
-
-				<?php echo the_post_thumbnail(); ?>
-
-		</div>
-
-	<?php } ?>
 
 <?php endif; ?>

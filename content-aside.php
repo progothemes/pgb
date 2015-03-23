@@ -26,6 +26,8 @@
 
 <?php else : ?>
 
+	<?php get_template_part( 'posts', 'images' ); ?>
+
 	<div class="entry-content col-md-12">
 		
 		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
@@ -38,15 +40,5 @@
 		?>
 	
 	</div><!-- .entry-content -->
-	
-	<?php if (has_post_thumbnail()) { ?>
-
-		<div class="entry-image col-md-12">
-
-			<?php echo the_post_thumbnail(); ?>
-
-		</div>
-
-	<?php } ?>
 
 <?php endif; ?>
