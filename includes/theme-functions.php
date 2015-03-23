@@ -358,7 +358,10 @@ class PGB_Login_Widget extends WP_Widget {
             </div>
         <?php } else { ?>
             <p class="navbar-text <?php echo $outclass; ?>">
-                <a href="<?php echo wp_logout_url( get_permalink() ); ?>" class="navbar-link"><?php echo $outlabel; ?></a>
+              <?php
+                $logout_link = '<a href="'. wp_logout_url( get_permalink() ) .'" class="navbar-link">'. $outlabel .'</a>';
+                echo apply_filters( 'pgb_logout_link', $logout_link );
+              ?>
             </p>
         <?php }
         echo $args['after_widget'];
