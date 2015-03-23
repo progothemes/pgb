@@ -23,7 +23,7 @@ if ( has_post_thumbnail( $post->ID ) ) {
 
 	<?php if ( is_blog_page() && $post_thumbnail_id ) { // Blog or Featured Posts pages only ?>
 
-		<div class="entry-image wp-caption col-xs-12 col-md-6">
+		<div class="entry-image wp-caption alignleft col-xs-12 col-md-6">
 
 			<?php echo the_post_thumbnail( $size, $attr ); ?>
 			<p class="wp-caption-text"><?php _e( $alt_text, 'pgb' ); ?></p>
