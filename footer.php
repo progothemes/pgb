@@ -29,14 +29,14 @@
 							if ( !empty( $footer_column )) {
 								if ( $footer_column == 'default' ) {
 										?>
-										<div class="col-md-4">
+										<div class="col-sm-4">
 										<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('footer-widget') ) : ?>
 										<?php endif; ?>
 										</div>
 										<?php
 									for ( $i = 2 ; $i <= 3; $i++) {
 										?>
-										<div class="col-md-4">
+										<div class="col-sm-4">
 										<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar( 'footer-widget-'.$i ) ) : ?>
 										<?php endif; ?>
 										</div>
@@ -45,14 +45,14 @@
 								} else {
 									$num = 12/$footer_column;
 										?>
-										<div class="col-md-<?php echo $num; ?>">
+										<div class="col-sm-<?php echo $num; ?>">
 										<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('footer-widget') ) : ?>
 										<?php endif; ?>
 										</div>
 										<?php
 									for ( $i = 2 ; $i <= $footer_column; $i++) {
 										?>
-										<div class="col-md-<?php echo $num; ?>">
+										<div class="col-sm-<?php echo $num; ?>">
 										<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar( 'footer-widget-'.$i ) ) : ?>
 										<?php endif; ?>
 										</div>
@@ -64,14 +64,14 @@
 					} else if( $metabox_custom_page_footer == "custom" ) {
 						$num = 12/$metabox_custom_page_footer_count;
 							?>
-							<div class="col-md-<?php echo $num; ?>">
+							<div class="col-sm-<?php echo $num; ?>">
 							<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('footer-widget') ) : ?>
 							<?php endif; ?>
 							</div>
 							<?php
 						for ( $i = 2 ; $i <= $metabox_custom_page_footer_count; $i++) {
 							?>
-							<div class="col-md-<?php echo $num; ?>">
+							<div class="col-sm-<?php echo $num; ?>">
 							<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar( 'footer-widget-'.$i ) ) : ?>
 							<?php endif; ?>
 							</div>
@@ -82,14 +82,14 @@
 					if ( !empty($footer_column)) {
 						if ( $footer_column == 'default' ) {
 								?>
-								<div class="col-md-4">
+								<div class="col-sm-4">
 								<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('footer-widget') ) : ?>
 								<?php endif; ?>
 								</div>
 								<?php
 							for ( $i = 2 ; $i <= 3; $i++) {
 								?>
-								<div class="col-md-4">
+								<div class="col-sm-4">
 								<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar( 'footer-widget-'.$i ) ) : ?>
 								<?php endif; ?>
 								</div>
@@ -98,14 +98,14 @@
 			 			} else { 
 							$num = 12/$footer_column;
 								?>
-								<div class="col-md-<?php echo $num; ?>">
+								<div class="col-sm-<?php echo $num; ?>">
 								<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('footer-widget') ) : ?>
 								<?php endif; ?>
 								</div>
 								<?php
 							for ( $i = 2 ; $i <= $footer_column; $i++) {
 								?>
-								<div class="col-md-<?php echo $num; ?>">
+								<div class="col-sm-<?php echo $num; ?>">
 								<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar( 'footer-widget-'.$i ) ) : ?>
 								<?php endif; ?>
 								</div>
@@ -128,9 +128,6 @@
 
 				<div class="site-info">
 					<?php do_action( 'pgb_credits' ); ?>
-					<a href="http://wordpress.org/" title="<?php esc_attr_e( 'A Semantic Personal Publishing Platform', 'pgb' ); ?>" rel="generator"><?php printf( __( 'Proudly powered by %s', 'pgb' ), 'WordPress' ); ?></a>
-					<span class="sep"> | </span>
-					<?php printf( __( 'Theme: %1$s by %2$s.', 'pgb' ), 'pgb', '<a href="#" rel="designer">ProGoBase</a>' ); ?>
 				</div><!-- close .site-info -->
 
 			</div>

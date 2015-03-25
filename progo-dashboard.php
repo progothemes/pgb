@@ -168,7 +168,7 @@ if ( ! function_exists( 'progo_news' ) ) {
         $wpdb->delete( $wpdb->prefix.'news', array( 'news_id' => $id ) );
         die();
     }
-
+	/*
     function deactivationfunction() {
         global $wpdb;
         $sql = "DROP TABLE ".$wpdb->prefix.'news';
@@ -176,4 +176,5 @@ if ( ! function_exists( 'progo_news' ) ) {
     }
 
     add_action("switch_theme", "deactivationfunction", 10 , 2);
+	*/
 }

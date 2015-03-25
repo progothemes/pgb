@@ -92,13 +92,18 @@ function pgb_widgets_init() {
 	register_sidebar( array(
 		'name'          => __( 'Sidebar', 'pgb' ),
 		'id'            => 'sidebar-1',
-		'before_widget' => '<aside id="%1$s" class="widget col-xs-6 col-sm-12 %2$s"><div class="col-lg-12">',
+		'before_widget' => '<aside id="%1$s" class="widget col-xs-12 col-sm-6 col-md-12 %2$s"><div class="col-lg-12">',
 		'after_widget'  => '</div></aside>',
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
 	) );
 
-	// Secondary Header sidebar 
+	/**
+	 * Disabled in ProGo base
+	 */
+	
+	// Secondary Header sidebar
+	/*
 	register_sidebar( array(
 		'name'          => __( 'Secondary Header sidebar', 'pgb' ),
 		'id'            => 'header-sidebar',
@@ -107,8 +112,10 @@ function pgb_widgets_init() {
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
 	) );
+	*/
 
 	// top Header sidebar (TOP + LEFT VIEW)
+	/*
 	register_sidebar( array(
 		'name'          => __( 'Top Header area', 'pgb' ),
 		'id'            => 'top-header-area',
@@ -118,6 +125,7 @@ function pgb_widgets_init() {
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
 	) );
+	*/
 
 	// Footer widget area
 	register_sidebars(4,array(
@@ -331,7 +339,7 @@ require( trailingslashit( get_template_directory() ) . 'includes/theme-meta-boxe
 // require( trailingslashit( get_template_directory() ) . 'includes/customizer.php' );
 
 /**
- * Demo Functions (for demonstration purposes only!)
+ * Custom theme functions.
  */
 require( trailingslashit( get_template_directory() ) . 'includes/theme-functions.php' );
 
@@ -400,8 +408,6 @@ require( trailingslashit( get_template_directory() ) . '/upload-theme.php' );
  * Functions for showing news
  */
 require( trailingslashit( get_template_directory() ) . '/progo-dashboard.php' );
-
-
 
 
 ?>

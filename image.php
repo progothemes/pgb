@@ -13,7 +13,7 @@ get_header(); ?>
 		// Add the class "panel" below here to wrap the content-padder in Bootstrap style
 		// Simply replace post_class() with post_class('panel') below here ?>
 
-		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+		<article id="post-<?php the_ID(); ?>" <?php post_class( 'row' ); ?>>
 			<header class="entry-header">
 				<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 

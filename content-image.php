@@ -8,27 +8,28 @@
 
 <?php $the_post_meta = get_post_meta( get_the_ID() ); ?>
 
-<?php if ( is_search() || is_archive() ) : // Only display Excerpts for Search and Archive Pages ?>
+<?php if ( is_single() ) : ?>
 
-	<div class="entry-summary">
+	<div class="entry-content col-md-12">
+
+<?php else : ?>
+
+	<div class="entry-summary col-md-12">
+
+<?php endif; ?>
 
 		<?php if (has_post_thumbnail()) { ?>
 			<?php echo the_post_thumbnail( 'full', array( 'class' => 'img-responsive' ) ); ?>
 		<?php } ?>
 
-	</div><!-- .entry-summary -->
+	</div><!-- /entry -->
 
-<?php else : ?>
+<?php if ( is_single() ) : ?>
 
-	<?php if (has_post_thumbnail()) { ?>
-		<div class="entry-content">
-			<?php echo the_post_thumbnail( 'full', array( 'class' => 'img-responsive' ) ); ?>
-		</div>
-	<?php } ?>
-
-	<div class="entry-content">
+	<div class="entry-content col-md-12">
 
 		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
+
 		<?php
 			wp_link_pages( array(
 				'before' => '<div class="page-links">' . __( 'Pages:', 'pgb' ),

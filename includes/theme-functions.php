@@ -169,6 +169,30 @@ function pgb_get_logo ( $place = 'logoleft' ) {
     return $logo;
 }
 
+/**
+ * Helper function to detect blog page
+ *
+ * @return    boolean
+ *
+ */
+if ( ! function_exists('is_blog_page') ) :
+function is_blog_page() {
+    if ( is_front_page() && is_home() ) {
+        // Default homepage
+        return true;
+    } elseif ( is_front_page() ) {
+        // static homepage
+        return false;
+    } elseif ( is_home() ) {
+        // blog page
+        return true;
+    } else {
+        //everything else
+        return false;
+    }
+}
+endif;
+
 
 /**
  * Helper function to add custom theme to the theme options' theme list
@@ -201,6 +225,51 @@ function pgb_add_custom_theme() {
 
 
 /**
+ * ProGo Comments bootsrap
+ *
+ * Adds Bootstrap classes to comments form.
+ *
+ * @package pgb
+ * @return  content
+ */
+add_filter( 'comment_form_default_fields', 'progo_bootstrap3_comment_form_fields' );
+function progo_bootstrap3_comment_form_fields( $fields ) {
+    $commenter = wp_get_current_commenter();
+
+    $req      = get_option( 'require_name_email' );
+    $aria_req = ( $req ? " aria-required='true'" : '' );
+    $html5    = current_theme_supports( 'html5', 'comment-form' ) ? 1 : 0;
+
+    $fields   =  array(
+        'author' => '<div class="form-group comment-form-author">' . '<label for="author">' . __( 'Name' ) . ( $req ? ' <span class="required">*</span>' : '' ) . '</label> ' .
+            '<input class="form-control" id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30"' . $aria_req . ' /></div>',
+        'email'  => '<div class="form-group comment-form-email"><label for="email">' . __( 'Email' ) . ( $req ? ' <span class="required">*</span>' : '' ) . '</label> ' .
+            '<input class="form-control" id="email" name="email" ' . ( $html5 ? 'type="email"' : 'type="text"' ) . ' value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30"' . $aria_req . ' /></div>',
+        'url'    => '<div class="form-group comment-form-url"><label for="url">' . __( 'Website' ) . '</label> ' .
+            '<input class="form-control" id="url" name="url" ' . ( $html5 ? 'type="url"' : 'type="text"' ) . ' value="' . esc_attr( $commenter['comment_author_url'] ) . '" size="30" /></div>',
+    );
+
+    return $fields;
+}
+
+add_filter( 'comment_form_defaults', 'progo_bootstrap3_comment_form' );
+function progo_bootstrap3_comment_form( $args ) {
+    $args['comment_field']      = '<div class="form-group comment-form-comment"><label for="comment">' . _x( 'Comment', 'noun' ) . '</label> <textarea class="form-control" id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></div>';
+    $args['comment_notes_after']= '<p class="form-allowed-tags">' . __( 'You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:' ) . '</p><div class="alert alert-info">' . allowed_tags() . '</div>';
+    $args['id_form']            = 'commentform';
+    $args['id_submit']          = 'commentsubmit';
+    $args['title_reply']        = __( 'Leave a Reply', 'pgb' );
+    $args['title_reply_to']     = __( 'Leave a Reply to %s', 'pgb' );
+    $args['cancel_reply_link']  = __( 'Cancel Reply', 'pgb' );
+    $args['label_submit']       = __( 'Post Comment', 'pgb' );
+
+    return $args;
+}
+
+
+
+
+/**
  * ProGo Login modal widget
  *
  * Adds PGB_Login_Widget widget.
@@ -230,10 +299,15 @@ class PGB_Login_Widget extends WP_Widget {
      * @param array $instance Saved values from database.
      */
     public function widget( $args, $instance ) {
+        $title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'New title', 'pgb' );
+        $buttonlabel = ! empty( $instance['buttonlabel'] ) ? $instance['buttonlabel'] : __( 'Login', 'pgb' );
+        $outlabel = ! empty( $instance['outlabel'] ) ? $instance['outlabel'] : __( 'Logout', 'pgb' );
+        $classes = ! empty( $instance['classes'] ) ? $instance['classes'] : '';
+        $outclass = ! empty( $instance['outclass'] ) ? $instance['outclass'] : '';
         echo $args['before_widget'];
         if ( ! is_user_logged_in() ) { ?>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary <?php echo $instance['classes']; ?>" data-toggle="modal" data-target="#pgbLoginModal">Login</button>
+            <button type="button" class="btn btn-primary btn-sm navbar-btn navbar-right <?php echo $classes; ?>" data-toggle="modal" data-target="#pgbLoginModal"><?php echo $buttonlabel; ?></button>
             <!-- Modal -->
             <div class="modal fade" id="pgbLoginModal" tabindex="-1" role="dialog" aria-labelledby="pgbLoginModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -242,9 +316,7 @@ class PGB_Login_Widget extends WP_Widget {
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">
                                 <?php
-                                if ( ! empty( $instance['title'] ) ) {
-                                    echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
-                                }
+                                echo $args['before_title'] . apply_filters( 'widget_title', $title ). $args['after_title'];
                                 ?>
                             </h4>
                         </div>
@@ -287,8 +359,11 @@ class PGB_Login_Widget extends WP_Widget {
                 </div>
             </div>
         <?php } else { ?>
-            <p class="navbar-text <?php echo $instance['outclass']; ?>">
-                <a href="<?php echo wp_logout_url( get_permalink() ); ?>" class="navbar-link"><?php echo $instance['outlabel']; ?></a>
+            <p class="navbar-text <?php echo $outclass; ?>">
+              <?php
+                $logout_link = '<a href="'. wp_logout_url( get_permalink() ) .'" class="navbar-link">'. $outlabel .'</a>';
+                echo apply_filters( 'pgb_logout_link', $logout_link );
+              ?>
             </p>
         <?php }
         echo $args['after_widget'];
@@ -360,3 +435,14 @@ function register_pgb_login_widget() {
     register_widget( 'PGB_Login_Widget' );
 }
 add_action( 'widgets_init', 'register_pgb_login_widget' );
+
+// output Site Powered By...
+function pgb_credits() {
+	echo '<a href="http://wordpress.org/" title="'. esc_attr( 'A Semantic Personal Publishing Platform', 'pgb' ) .'" rel="generator">'. __( 'Proudly powered by', 'pgb' ) .' WordPress</a>';
+	$ourtheme = wp_get_theme();
+	if ( $ourtheme->exists() ) {
+		echo '<span class="sep"> | </span>';
+		printf( __( 'Theme: %1$s by %2$s.', 'pgb' ), $ourtheme->get( 'Name' ), '<a href="'. $ourtheme->get( 'AuthorURI' ) .'" rel="designer">'. $ourtheme->get( 'Author' ) .'</a>' );
+	}
+}
+add_action( 'pgb_credits', 'pgb_credits' );
