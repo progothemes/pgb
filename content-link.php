@@ -17,6 +17,8 @@
 	<div class="entry-summary col-md-12">
 
 <?php endif; ?>
+
+	<?php if ( isset( $the_post_meta['_format_link_title'] ) ) : ?>
 		
 		<div class="panel panel-default">
 			
@@ -42,6 +44,12 @@
 			<?php } ?>
 		
 		</div>
+
+	<?php else : ?>
+
+		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
+
+	<?php endif; ?>
 
 		<?php if ( is_single() ) : ?>
 

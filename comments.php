@@ -19,7 +19,9 @@ if ( post_password_required() )
 	return;
 ?>
 <?php tha_comments_before(); ?>
-	<div id="comments" class="comments-area col-md-12">
+	<div id="comments" class="comments-area row">
+
+		<div class="col-md-12">
 
 		<?php if ( have_comments() ) : ?>
 			<header class="page-header">
@@ -71,6 +73,8 @@ if ( post_password_required() )
 		<?php endif; ?>
 
 		<?php comment_form(); ?>
+
+		</div>
 
 	</div><!-- #comments -->
 <?php tha_comments_after(); ?>
