@@ -15,12 +15,14 @@
 		<div class="embed-responsive-item">
 			<?php 
 
-			if (substr( $the_post_meta['_format_video_embed'][0], 0, 7 ) === "[video ") {
-				echo do_shortcode( $the_post_meta['_format_video_embed'][0] );
-			}
-			else {
-				echo wp_oembed_get( $the_post_meta['_format_video_embed'][0] );
-			}
+			if ( isset( $the_post_meta['_format_video_embed'] ) ) :
+				if (substr( $the_post_meta['_format_video_embed'][0], 0, 7 ) === "[video ") {
+					echo do_shortcode( $the_post_meta['_format_video_embed'][0] );
+				}
+				else {
+					echo wp_oembed_get( $the_post_meta['_format_video_embed'][0] );
+				}
+			endif;
 
 			?>
 		</div>
@@ -34,12 +36,14 @@
 		<div class="embed-responsive-item">
 			<?php 
 
-			if (substr( $the_post_meta['_format_video_embed'][0], 0, 7 ) === "[video ") {
-				echo do_shortcode( $the_post_meta['_format_video_embed'][0] );
-			}
-			else {
-				echo wp_oembed_get( $the_post_meta['_format_video_embed'][0] );
-			}
+			if ( isset( $the_post_meta['_format_video_embed'] ) ) :
+				if (substr( $the_post_meta['_format_video_embed'][0], 0, 7 ) === "[video ") {
+					echo do_shortcode( $the_post_meta['_format_video_embed'][0] );
+				}
+				else {
+					echo wp_oembed_get( $the_post_meta['_format_video_embed'][0] );
+				}
+			endif;
 
 			?>
 		</div>

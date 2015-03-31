@@ -184,7 +184,7 @@ object {
 
 .hentry,
 .entry-summary {
-	margin: 0 0 1.5em;
+	/*margin: 0 0 1.5em; /* switching to Bootstrap '.row' instead */
 }
 
 /* Clearing */
