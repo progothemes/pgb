@@ -23,7 +23,7 @@ if ( has_post_thumbnail( $post->ID ) ) {
 
 	<?php if ( is_blog_page() && $post_thumbnail_id ) { // Blog or Featured Posts pages only ?>
 
-		<div class="entry-image thumbnail alignleft col-xs-12 col-md-6">
+		<div class="entry-image thumbnail alignleft col-xs-12 col-md-6 thumbnail-<?php echo $post_thumbnail_id; ?>">
 
 			<?php echo the_post_thumbnail( $size, $attr ); ?>
 
