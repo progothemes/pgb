@@ -299,6 +299,7 @@ class PGB_Login_Widget extends WP_Widget {
     public function widget( $args, $instance ) {
         $title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'New title', 'pgb' );
         $buttonlabel = ! empty( $instance['buttonlabel'] ) ? $instance['buttonlabel'] : __( 'Login', 'pgb' );
+        $redirectto = ! empty( $instance['redirectto'] ) ? $instance['redirectto'] : get_bloginfo( 'url' );
         $outlabel = ! empty( $instance['outlabel'] ) ? $instance['outlabel'] : __( 'Logout', 'pgb' );
         $classes = ! empty( $instance['classes'] ) ? $instance['classes'] : '';
         $outclass = ! empty( $instance['outclass'] ) ? $instance['outclass'] : '';
@@ -313,44 +314,42 @@ class PGB_Login_Widget extends WP_Widget {
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">
-                                <?php
-                                echo $args['before_title'] . apply_filters( 'widget_title', $title ). $args['after_title'];
-                                ?>
+                                <?php echo $args['before_title'] . apply_filters( 'widget_title', $title ). $args['after_title']; ?>
                             </h4>
                         </div>
                         <div class="modal-body">
                             <form action="<?php echo get_bloginfo('url'); ?>/wp-login.php" method="post" class="form-horizontal" >
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="log"><?php _e('Username', 'pgb'); ?></label>
-                                    <div class="col-sm-10">
+                                    <label class="col-sm-3 control-label" for="log"><?php _e('Username', 'pgb'); ?></label>
+                                    <div class="col-sm-9">
                                         <input type="text" name="log" id="log" class="form-control" size="10" placeholder="Username" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="pwd"><?php _e('Password', 'pgb'); ?></label>
-                                    <div class="col-sm-10">
+                                    <label class="col-sm-3 control-label" for="pwd"><?php _e('Password', 'pgb'); ?></label>
+                                    <div class="col-sm-9">
                                         <input type="password" name="pwd" id="pwd" class="form-control" size="10" placeholder="Password" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="col-sm-offset-3 col-sm-9">
                                         <div class="checkbox">
                                             <label for="rememberme">
-                                                <input type="checkbox" name="rememberme" id="rememberme" value="forever" /> Remember me
+                                                <input type="checkbox" name="rememberme" id="rememberme" value="forever" /> <?php _e('Remember me', 'pgb'); ?>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <input type="hidden" name="redirect_to" value="<?php echo get_permalink(); ?>" />
-                                        <button type="submit" name="submit" class="btn btn-primary">Login</button>
+                                    <div class="col-sm-offset-3 col-sm-9">
+                                        <input type="hidden" name="redirectto" value="<?php echo get_permalink( $redirectto ); ?>" />
+                                        <button type="submit" name="submit" class="btn btn-primary"><?php echo $buttonlabel; ?></button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <a href="<?php echo get_bloginfo('url'); ?>/wp-login.php?action=lostpassword">Forgot password?</a>
+                            <a href="<?php echo get_bloginfo('url'); ?>/wp-login.php?action=lostpassword"><?php _e('Forgot password?'; 'pgb'); ?></a>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -380,6 +379,15 @@ class PGB_Login_Widget extends WP_Widget {
         $outlabel = ! empty( $instance['outlabel'] ) ? $instance['outlabel'] : __( 'Logout', 'pgb' );
         $classes = ! empty( $instance['classes'] ) ? $instance['classes'] : '';
         $outclass = ! empty( $instance['outclass'] ) ? $instance['outclass'] : '';
+        $redirectto = ! empty( $instance['redirectto'] ) ? $instance['redirectto'] : get_option('page_on_front');
+        $args = array(
+            'depth'                 => 0,
+            'child_of'              => 0,
+            'selected'              => $redirectto,
+            'echo'                  => 1,
+            'name'                  => $this->get_field_name( 'redirectto' ),
+            'id'                    => $this->get_field_id( 'redirectto' ),
+            );
         ?>
         <p>
         <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
@@ -392,6 +400,10 @@ class PGB_Login_Widget extends WP_Widget {
         <p>
         <label for="<?php echo $this->get_field_id( 'buttonlabel' ); ?>"><?php _e( 'Login button Label:' ); ?></label> 
         <input class="widefat" id="<?php echo $this->get_field_id( 'buttonlabel' ); ?>" name="<?php echo $this->get_field_name( 'buttonlabel' ); ?>" type="text" value="<?php echo esc_attr( $buttonlabel ); ?>" placeholder="Login" />
+        </p>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'redirectto' ); ?>"><?php _e( 'Login Redirect To:' ); ?></label> 
+        <?php wp_dropdown_pages( $args ); ?>
         </p>
         <p>
         <label for="<?php echo $this->get_field_id( 'outclass' ); ?>"><?php _e( 'Additional CSS classes for Logout link:' ); ?></label> 
@@ -421,6 +433,7 @@ class PGB_Login_Widget extends WP_Widget {
         $instance['outclass'] = ( ! empty( $new_instance['outclass'] ) ) ? strip_tags( $new_instance['outclass'] ) : '';
         $instance['buttonlabel'] = ( ! empty( $new_instance['buttonlabel'] ) ) ? strip_tags( $new_instance['buttonlabel'] ) : 'Login';
         $instance['outlabel'] = ( ! empty( $new_instance['outlabel'] ) ) ? strip_tags( $new_instance['outlabel'] ) : 'Logout';
+        $instance['redirectto'] = ( ! empty( $new_instance['redirectto'] ) ) ? strip_tags( $new_instance['redirectto'] ) : '';
 
         return $instance;
     }
