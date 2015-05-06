@@ -351,7 +351,7 @@ class PGB_Login_Widget extends WP_Widget {
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <a href="<?php echo get_bloginfo('url'); ?>/wp-login.php?action=lostpassword"><?php _e('Forgot password?'; 'pgb'); ?></a>
+                            <a href="<?php echo get_bloginfo('url'); ?>/wp-login.php?action=lostpassword"><?php _e('Forgot password?', 'pgb'); ?></a>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
