@@ -8,6 +8,7 @@
 
 get_header(); ?>
 
+	<div id="content" class="main-content-inner col-sm-12 col-md-8 col-lg-9">
 
 	<div class="content-padder">
 
@@ -95,6 +96,6 @@ get_header(); ?>
 		<?php endif; ?>
 
 	</div><!-- .content-padder -->
-
+</div>
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>

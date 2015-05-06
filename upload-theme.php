@@ -4,19 +4,7 @@
 *
 */
 
-// add_action( 'admin_menu', 'register_upload_theme_page' );
-
-//   function register_upload_theme_page() {
-//     add_menu_page( 'progo theme', 'ProGo Theme', 'manage_options', 'progotheme', 'progo_news', '', 62 ); 
-//     add_submenu_page( 'progotheme', 'ProGo Dashboard', 'ProGo Dashboard', 'manage_options', 'progotheme', 'progo_theme_dashboard');
-//     add_submenu_page( 'progotheme', 'Upload Theme', 'Upload Theme', 'manage_options', 'upload_theme', 'upload_theme_page');
-//   }
-
-  // function progo_theme_dashboard() {
-    require ( trailingslashit( get_template_directory() ) . '/progo-dashboard.php' );
-  // }
-
-  function upload_theme_page() {
+function upload_theme_page() {
 
 ?>
   <div class="wrap">
@@ -85,6 +73,7 @@
           });
           </script>";
           unlink($saved_file_location);     
+		  pgb_save_options($themename,'bootstrap_theme');
       } else {
           echo "<script>
           jQuery(document).ready(function($){
@@ -104,20 +93,5 @@
           </script>");
     }
   }
-  ot_set_option('pgb_bootstrap_theme', $themename);
 
-} // END upload_theme_page()
-
-if ( ! function_exists( 'ot_set_option' ) ) {
-
-  function ot_set_option( $option_id, $value = '' ) {
-
-    /* get the saved options */ 
-    $options = get_option( ot_options_id() );
-    /* look for the saved value */
-    $options[$option_id] = $value;
-    return update_option(ot_options_id(), $options);
-
-  }
-  
 }

@@ -6,6 +6,7 @@
  */
 
 get_header(); ?>
+	<div id="content" class="main-content-inner col-sm-12 col-md-8 col-lg-9">
 	
 	<section class="content-padder error-404 not-found">
 
@@ -22,6 +23,6 @@ get_header(); ?>
 		</div><!-- .page-content -->
 
 	</section><!-- .content-padder -->
-
+</div>
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>

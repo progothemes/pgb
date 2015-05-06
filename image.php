@@ -6,6 +6,7 @@
  */
 
 get_header(); ?>
+	<div id="content" class="main-content-inner col-sm-12 col-md-8 col-lg-9">
 
 	<?php while ( have_posts() ) : the_post(); ?>
 
@@ -87,6 +88,6 @@ get_header(); ?>
 		?>
 
 	<?php endwhile; // end of the loop. ?>
-
+</div>
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>

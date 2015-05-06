@@ -1,20 +1,19 @@
 <?php
 /**
- * Loads OptionTree
+ * Loads ProGoBase Theme Options
  */
-require( trailingslashit( get_template_directory() ) . 'option-tree/ot-loader.php' );
-
+require( get_template_directory() . '/includes/theme-settings.php' );
+require( get_template_directory() . '/includes/tha-theme-hooks.php' );
+require( get_template_directory() . '/includes/bootstrap-wp-navwalker.php' );
+require( get_template_directory() . '/includes/bootstrap-wp-navwalker-collapse.php' );
+require( get_template_directory() . '/includes/template-tags.php' );
+require( get_template_directory() . '/includes/theme-meta-boxes.php' );
+require( get_template_directory() . '/upload-theme.php' );
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 /**
  * Progo Base Theme version
  */
-define( 'OT_THEME_VERSION', '1.0' );
-
-/**
- * pgb functions and definitions
- *
- * @package pgb
- */
-include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+define( 'PGB_THEME_VERSION', '1.1' );
 
 /**
  * Set the content width based on the theme's design and stylesheet.
@@ -55,35 +54,41 @@ function pgb_setup() {
 		*/
 		add_theme_support( 'post-formats', array( 'aside', 'audio', 'image', 'video', 'quote', 'link' ) );
 
-		/**
-		 * Setup the WordPress core custom background feature.
-		*/
-		// add_theme_support( 'custom-background', apply_filters( 'pgb_custom_background_args', array(
-		// 	'default-color' => 'ffffff',
-		// 	'default-image' => '',
-		// ) ) );
 
 	}
-
-	/**
-	 * Make theme available for translation
-	 * Translations can be filed in the /languages/ directory
-	 * If you're building a theme based on pgb, use a find and replace
-	 * to change 'pgb' to the name of your theme in all the template files
-	*/
-	load_theme_textdomain( 'pgb', get_template_directory() . '/languages' );
 
 	/**
 	 * This theme uses wp_nav_menu() in one location.
 	*/
 	register_nav_menus( array(
-		'primary'  	 => __( 'Header main menu', 'pgb' ),
-		'secondary'  => __( 'Header secondary menu', 'pgb' ),
+		'primary'  	 => __( 'Header Main Menu', 'pgb' ),
 	) );
 
 }
 endif; // pgb_setup
 add_action( 'after_setup_theme', 'pgb_setup' );
+
+function pgb_wp_title( $title, $sep ) {
+	global $paged, $page;
+
+	if ( is_feed() )
+		return $title;
+
+	// Add the site name.
+	$title .= get_bloginfo( 'name', 'display' );
+
+	// Add the site description for the home/front page.
+	$site_description = get_bloginfo( 'description', 'display' );
+	if ( $site_description && ( is_home() || is_front_page() ) )
+		$title = "$title $sep $site_description";
+
+	// Add a page number if necessary.
+	if ( ( $paged >= 2 || $page >= 2 ) && ! is_404() )
+		$title = "$title $sep " . sprintf( 'Page %s' , max( $paged, $page ) );
+
+	return $title;
+}
+add_filter( 'wp_title', 'pgb_wp_title', 10, 2 );
 
 /**
  * Register widgetized area and update sidebar with default widgets
@@ -97,35 +102,6 @@ function pgb_widgets_init() {
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
 	) );
-
-	/**
-	 * Disabled in ProGo base
-	 */
-	
-	// Secondary Header sidebar
-	/*
-	register_sidebar( array(
-		'name'          => __( 'Secondary Header sidebar', 'pgb' ),
-		'id'            => 'header-sidebar',
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
-		'before_title'  => '<h3 class="widget-title">',
-		'after_title'   => '</h3>',
-	) );
-	*/
-
-	// top Header sidebar (TOP + LEFT VIEW)
-	/*
-	register_sidebar( array(
-		'name'          => __( 'Top Header area', 'pgb' ),
-		'id'            => 'top-header-area',
-		'description'	=> 'For Top + Left header-menu view',
-		'before_widget' => '<div id="%1$s" class="topleft-header-widget %2$s">',
-		'after_widget'  => '</div>',
-		'before_title'  => '<h3 class="widget-title">',
-		'after_title'   => '</h3>',
-	) );
-	*/
 
 	// Footer widget area
 	register_sidebars(4,array(
@@ -145,10 +121,10 @@ add_action( 'widgets_init', 'pgb_widgets_init' );
  * Enqueue scripts and styles
  */
 function pgb_scripts() {
-
+	$options = pgb_get_options();
 	$bootswatchdir   = trailingslashit( get_template_directory().'/includes/bootswatch');
 	$bootswatchdirs  = glob($bootswatchdir . '/*' , GLOB_ONLYDIR);
-	$bootstrap_theme = ot_get_option( 'pgb_bootstrap_theme' );
+	$bootstrap_theme = $options['bootstrap_theme'];
 
 	foreach ($bootswatchdirs as $bootswatchdir) {
 		$themeName = explode('//', $bootswatchdir);
@@ -193,19 +169,15 @@ function pgb_scripts() {
 	if ( !is_admin() ) {
 		$custom_css = "";
 
-		$container_width = ot_get_option( 'pgb_container_width' );
+		$container_width = $options['container_width'];
 		if ( !empty( $container_width )) {
-			$metabox_custom_page_layout = get_post_meta(get_the_ID(), 'pgb_metabox_page_layout_option', true );
+			$metabox_custom_page_layout = get_post_meta(get_the_ID(), 'metabox_page_layout_option', true );
 			if ( $metabox_custom_page_layout === "yes" ) {
-				$metabox_custom_page_width  = get_post_meta( get_the_ID(), 'pgb_custom_container_width', true );
+				$metabox_custom_page_width  = get_post_meta( get_the_ID(), 'custom_container_width', true );
 				$custom_css .= pgb_set_container_width( $metabox_custom_page_width, '.container' );
 			} else {
 				$custom_css .= pgb_set_container_width( $container_width, '.container, .jumbotron .container' );
 			}
-		}
-		$menu_width = ot_get_option( 'pgb_menu_width_top' );
-		if ( !empty( $menu_width )) {    
-			$custom_css .= pgb_set_container_width( ot_get_option( 'pgb_menu_width_top' ), '.menu-container-width' );
 		}
 
 		$custom_css .= " @media (max-width: 599px) { .navbar-fixed-top.top-nav-menu{ z-index: 499; } }";
@@ -252,162 +224,6 @@ function load_custom_wp_admin_style() {
         wp_enqueue_script( 'wp-color-picker-script', get_template_directory_uri() . '/includes/js/color-picker.js', array( 'wp-color-picker' ), false, true );
 }
 add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
-
-
-/**
- * Theme Mode
- */
-/**
- * Activates Theme Mode
- */
-add_filter( 'ot_theme_mode', '__return_true' );
-// add_filter( 'ot_theme_mode', '__return_false' );
-
-/**
- * Child Theme Mode
- */
-add_filter( 'ot_child_theme_mode', '__return_false' );
-
-/**
- * Show Settings Pages
- */
-add_filter( 'ot_show_pages', '__return_false' ); //,...
-
-/**
- * Show Theme Options UI Builder
- */
-add_filter( 'ot_show_options_ui', '__return_true' ); //
-
-/**
- * Show Settings Import
- */
-add_filter( 'ot_show_settings_import', '__return_true' ); //
-
-/**
- * Show Settings Export
- */
-add_filter( 'ot_show_settings_export', '__return_true' ); //
-
-/**
- * Show New Layout
- */
-add_filter( 'ot_show_new_layout', '__return_true' ); //
-
-/**
- * Show Documentation
- */
-add_filter( 'ot_show_docs', '__return_true' ); //
-
-/**
- * Custom Theme Option page
- */
-add_filter( 'ot_use_theme_options', '__return_true' );
-
-/**
- * Meta Boxes
- */
-add_filter( 'ot_meta_boxes', '__return_true' );
-
-/**
- * Allow Unfiltered HTML in textareas options
- */
-add_filter( 'ot_allow_unfiltered_html', '__return_false' );
-
-/**
- * Loads the meta boxes for post formats
- */
-add_filter( 'ot_post_formats', '__return_true' );
-
-/**
- * OptionTree in Theme Mode
- */
-# require( trailingslashit( get_template_directory() ) . 'option-tree/ot-loader.php' );
-
-/**
- * Theme Options
- */
-require( trailingslashit( get_template_directory() ) . 'includes/theme-options.php' );
-
-/**
- * Meta Boxes
- */
-require( trailingslashit( get_template_directory() ) . 'includes/theme-meta-boxes.php' );
-
-/**
- * Theme Customizer
- */
-// require( trailingslashit( get_template_directory() ) . 'includes/customizer.php' );
-
-/**
- * Custom theme functions.
- */
-require( trailingslashit( get_template_directory() ) . 'includes/theme-functions.php' );
-
-/**
- * Implement the Custom Header feature.
- */
-// require get_template_directory() . '/includes/custom-header.php';
-
-/**
- * Custom template tags for this theme.
- */
-require get_template_directory() . '/includes/template-tags.php';
-
-/**
- * Custom functions that act independently of the theme templates.
- */
-require get_template_directory() . '/includes/extras.php';
-
-/**
- * Customizer additions.
- */
-require get_template_directory() . '/includes/customizer.php';
-
-/**
- * Load Jetpack compatibility file.
- */
-require get_template_directory() . '/includes/jetpack.php';
-
-/**
- * Load custom WordPress nav walker.
- */
-require get_template_directory() . '/includes/bootstrap-wp-navwalker.php';
-
-/**
- * Load custom WordPress nav walker.
- */
-require get_template_directory() . '/includes/bootstrap-wp-navwalker-collapse.php';
-
-
-/**
- * TGM pluging activation for visual composer
- */
-// require get_template_directory() . '/plugin/plugin-activation.php';
-
-
-/**
- * Theme Updates 
- */
-require get_template_directory() .'/includes/theme-updates/theme-update-checker.php';
-// $MyThemeUpdateChecker = new ThemeUpdateChecker(
-// 'progobase-master', //Theme slug. Usually the same as the name of its directory.
-// 'http://example.com/wp-update-server/?action=get_metadata&slug=theme-directory-name' //Metadata URL.
-// );
-
-/**
- * Theme Hooks Alliance
- */
-require get_template_directory() . '/includes/tha-theme-hooks.php';
-
-/**
- * Functions for uploading custom theme
- */
-require( trailingslashit( get_template_directory() ) . '/upload-theme.php' );
-
-/**
- * Functions for showing news
- */
-require( trailingslashit( get_template_directory() ) . '/progo-dashboard.php' );
 
 
 ?>

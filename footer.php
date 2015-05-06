@@ -6,6 +6,7 @@
  *
  * @package pgb
  */
+$options = pgb_get_options();
 ?>
 				
 		</div><!-- close .row -->
@@ -18,14 +19,14 @@
 	<div class="container">
 		<div class="row">
 			<?php 
-				$metabox_custom_page_footer 	  = get_post_meta(get_the_ID(), 'pgb_metabox_page_footer_option', true);
-				$metabox_custom_page_footer_count = get_post_meta(get_the_ID(), 'pgb_custom_footer_layout', true);
-				$showFooter 					  = ot_get_option('pgb_footer');
-				$footer_column 					  = ot_get_option('pgb_footer_column');
+				$metabox_custom_page_footer 	  = get_post_meta(get_the_ID(), 'metabox_page_footer_option', true);
+				$metabox_custom_page_footer_count = get_post_meta(get_the_ID(), 'custom_footer_layout', true);
+				$showFooter 					  = $options['footer'];
+				$footer_column 					  = $options['footer_column'];
 
 				if ( is_page() ) {
 					if( $metabox_custom_page_footer == "default" ) {
-						if( !empty( $showFooter ) && 'on' == $showFooter ) {
+						if( !empty( $showFooter ) && '1' == $showFooter ) {
 							if ( !empty( $footer_column )) {
 								if ( $footer_column == 'default' ) {
 										?>
@@ -78,7 +79,7 @@
 							<?php
 						}
 					}
-				} else if( !empty( $showFooter ) && 'on' == $showFooter ) {
+				} else if( !empty( $showFooter ) && '1' == $showFooter ) {
 					if ( !empty($footer_column)) {
 						if ( $footer_column == 'default' ) {
 								?>
@@ -135,12 +136,6 @@
 	</div><!-- close .container -->
 	<?php tha_footer_bottom(); ?>
 </footer><!-- close #colophon -->
-<?php 
-$headermenu = 'top'; //ot_get_option( 'pgb_headermenu' );
-if ( !empty( $headermenu ) && ( 'left' == $headermenu || 'topleft' == $headermenu ) ) { ?>
- </div> <!-- page-content-wrapper -->
-</div> <!-- #wrapper -->
-<?php } ?>
 <?php tha_footer_after(); ?>
 <?php tha_body_bottom(); ?>
 <?php wp_footer(); ?>
