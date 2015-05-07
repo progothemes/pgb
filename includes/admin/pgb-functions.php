@@ -169,13 +169,13 @@ if (!isset($pgbo_details))
  *
  */
 function pgb_block_header() {
-	do_action( 'locate_template_block_header' );
+	do_action( 'pgb_block_header' );
 }
 /* callback */
 function pgb_load_block_header() {
 	locate_template( 'block-header.php', true );
 }
-add_action( 'locate_template_block_header', 'pgb_load_block_header', 10 );
+add_action( 'pgb_block_header', 'pgb_load_block_header', 10 );
 
 /**
  * Load Header block - pgb_block_navtop()
@@ -184,11 +184,11 @@ add_action( 'locate_template_block_header', 'pgb_load_block_header', 10 );
  *
  */
 function pgb_block_navtop() {
-	do_action( 'locate_template_block_navtop' );
+	do_action( 'pgb_block_navtop' );
 }
 /* callback */
 function pgb_load_block_navtop() {
 	locate_template( 'block-navtop.php', true );
 }
-add_action( 'locate_template_block_navtop', 'pgb_load_block_navtop', 10 );
+add_action( 'pgb_block_navtop', 'pgb_load_block_navtop', 10 );
 
