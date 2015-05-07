@@ -178,7 +178,7 @@ function pgb_load_block_header() {
 add_action( 'pgb_block_header', 'pgb_load_block_header', 10 );
 
 /**
- * Load Header block - pgb_block_navtop()
+ * Load Top Nav block - pgb_block_navtop()
  *
  * @return string
  *
