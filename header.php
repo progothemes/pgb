@@ -33,11 +33,11 @@
     <?php tha_header_before(); ?>
     <?php do_action( 'before' ); ?>
 
-    <?php locate_template('block-navtop.php', true); ?>
+    <?php pgb_block_navtop(); ?>
 
     <div id="page-content-wrapper" class="page-content-wrapper-left">
 
-      <?php locate_template('block-header.php', true); ?>
+      <?php pgb_block_header(); //locate_template('block-header.php', true); ?>
 
       <?php tha_header_after();  ?>
       <?php tha_content_before(); ?>

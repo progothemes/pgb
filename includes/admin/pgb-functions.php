@@ -155,3 +155,40 @@ function pgb_save_options($data, $key = null) {
 $data = pgb_get_options();
 if (!isset($pgbo_details))
 	$pgbo_details = array();
+
+
+/**
+ * PGB Actions to load Template Parts
+ *
+ */
+
+/**
+ * Load Header block - pgb_block_header()
+ *
+ * @return string
+ *
+ */
+function pgb_block_header() {
+	do_action( 'locate_template_block_header' );
+}
+/* callback */
+function pgb_load_block_header() {
+	locate_template( 'block-header.php', true );
+}
+add_action( 'locate_template_block_header', 'pgb_load_block_header', 10 );
+
+/**
+ * Load Header block - pgb_block_navtop()
+ *
+ * @return string
+ *
+ */
+function pgb_block_navtop() {
+	do_action( 'locate_template_block_navtop' );
+}
+/* callback */
+function pgb_load_block_navtop() {
+	locate_template( 'block-navtop.php', true );
+}
+add_action( 'locate_template_block_navtop', 'pgb_load_block_navtop', 10 );
+
