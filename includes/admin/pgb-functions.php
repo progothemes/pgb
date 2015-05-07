@@ -76,6 +76,23 @@ function pgb_get_logo () {
     return $logo;
 }
 
+function pgb_get_mobile_logo ( $pull = 'pull-left' ) {
+    $options = pgb_get_options();
+    $mobilelogo  = $options['mobile_logo'];
+
+    $logo = null;
+
+    if ( ! empty( $mobilelogo ) ) {
+
+    	$logo = '<div class="mobilelogo show '.$pull.'">
+                <img src="'.  esc_attr( $mobilelogo ) .'" alt="">
+            </div>';
+
+    }
+
+    return $logo;
+}
+
 if ( ! function_exists('is_blog_page') ) :
 function is_blog_page() {
     if ( is_front_page() && is_home() ) {
