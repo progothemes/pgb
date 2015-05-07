@@ -45,7 +45,7 @@ class ProGoBase_Options {
 			return;
 		if (empty($pgbo_data))
 			$pgbo_data = pgb_get_options();
-		if($pgbo_data[0] === false)
+		if(isset($pgbo_data[0]) && $pgbo_data[0] === false)
 		{
 			$pgbo_data = false;
 			remove_theme_mods();

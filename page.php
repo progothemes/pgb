@@ -13,6 +13,8 @@ get_header(); ?>
 
 		<?php tha_content_top(); ?>
 
+		<?php // <!--The Loop ?>
+
 		<?php if ( have_posts() ) : ?>
 
 			<?php while ( have_posts() ) : the_post(); ?>
@@ -52,6 +54,8 @@ get_header(); ?>
 			<?php endwhile; // end of the loop. ?>
 
 		<?php endif; ?>
+
+		<?php // The Loop--> ?>
 
 		<?php tha_content_bottom(); ?>
 

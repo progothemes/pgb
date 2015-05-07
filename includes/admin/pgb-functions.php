@@ -16,8 +16,7 @@ if ( ! function_exists( 'pgb_set_container_width' ) ) {
 	}
 }
 
-function pgb_get_header_classes_array() 
-{
+function pgb_get_header_classes_array() {
 	global $pgbo_options;
 	
 	foreach ($pgbo_options as $value) 
@@ -29,16 +28,15 @@ function pgb_get_header_classes_array()
 	return $hooks;
 }
 
-function pgb_get_logo ( $place = 'logoleft' ) {
+function pgb_get_logo () {
     $options = pgb_get_options();
     $desktoplogo = $options['logo_image'];
-    $tabletlogo  = $options['logo_image'];
     $mobilelogo  = $options['mobile_logo'];
     $title       = get_bloginfo( 'name' );   
 
-    if ( empty( $desktoplogo ) ) {
+    $logo = null;
 
-        if( empty( $tabletlogo ) ) {
+    if ( empty( $desktoplogo ) ) {
 
             if ( empty( $mobilelogo ) ) {
 
@@ -46,86 +44,31 @@ function pgb_get_logo ( $place = 'logoleft' ) {
 
             } else { // for all three
 
-                $logo .= '<div class="desktoplogo '. $place .'">
+                $logo .= '<div class="desktoplogo">
                             <img src="'.  esc_attr( $mobilelogo ) .'" alt="">
                         </div>';
 
-                $logo .= '<div class="tabletlogo '. $place .'">
-                            <img src="'.  esc_attr( $mobilelogo ) .'" alt="">
-                        </div>';
-
-                $logo .= '<div class="mobilelogo '. $place .'">
+                $logo .= '<div class="mobilelogo">
                             <img src="'.  esc_attr( $mobilelogo ) .'" alt="">
                         </div>';
             }
-
-        } else { // Tablet !empty
-
-            $logo .= '<div class="desktoplogo '. $place .'">
-                        <img src="'.  esc_attr( $tabletlogo ) .'" alt="">
-                    </div>';
-
-            $logo .= '<div class="tabletlogo '. $place .'">
-                        <img src="'.  esc_attr( $tabletlogo ) .'" alt="">
-                    </div>';
-
-            if ( empty( $mobilelogo ) ) {
-
-               $logo .= '<div class="mobilelogo '. $place .'">
-                        <img src="'.  esc_attr( $tabletlogo ) .'" alt="">
-                    </div>';
-
-            } else {
-
-                $logo .= '<div class="mobilelogo '. $place .'">
-                            <img src="'.  esc_attr( $mobilelogo ) .'" alt="">
-                        </div>';
-            }
-
-        }
 
    } else {
 
-        $logo .= '<div class="desktoplogo '. $place .'">
+        $logo .= '<div class="desktoplogo">
                     <img src="'.  esc_attr( $desktoplogo ). '" alt="">
                 </div>';
 
-        if( empty( $tabletlogo ) ) {
+        if ( empty( $mobilelogo ) ) {
 
-            $logo .= '<div class="tabletlogo '. $place .'">
+            $logo .= '<div class="mobilelogo">
                         <img src="'.  esc_attr( $desktoplogo ). '" alt="">
-                    </div>';
-
-            if ( empty( $mobilelogo ) ) {
-
-                $logo .= '<div class="mobilelogo '. $place .'">
-                            <img src="'.  esc_attr( $desktoplogo ). '" alt="">
-                        </div>';   
-            } else {
-
-                $logo .= '<div class="mobilelogo '. $place .'">
-                            <img src="'.  esc_attr( $mobilelogo ). '" alt="">
-                        </div>';
-            }
-
+                    </div>';   
         } else {
 
-            $logo .= '<div class="tabletlogo '. $place .'">
-                        <img src="'.  esc_attr( $tabletlogo ) .'" alt="">
+            $logo .= '<div class="mobilelogo">
+                        <img src="'.  esc_attr( $mobilelogo ). '" alt="">
                     </div>';
-
-            if ( empty( $mobilelogo ) ) {
-
-                $logo .= '<div class="mobilelogo '. $place .'">
-                            <img src="'.  esc_attr( $tabletlogo ). '" alt="">
-                        </div>';   
-            } else {
-
-                $logo .= '<div class="mobilelogo '. $place .'">
-                            <img src="'.  esc_attr( $mobilelogo ). '" alt="">
-                        </div>';
-            }
-
         }
 
     }

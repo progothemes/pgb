@@ -1,25 +1,31 @@
 <?php
 /**
- * Loads ProGoBase Theme Options
- */
-require( get_template_directory() . '/includes/theme-settings.php' );
-require( get_template_directory() . '/includes/tha-theme-hooks.php' );
-require( get_template_directory() . '/includes/bootstrap-wp-navwalker.php' );
-require( get_template_directory() . '/includes/bootstrap-wp-navwalker-collapse.php' );
-require( get_template_directory() . '/includes/template-tags.php' );
-require( get_template_directory() . '/includes/theme-meta-boxes.php' );
-require( get_template_directory() . '/upload-theme.php' );
-include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-/**
  * Progo Base Theme version
  */
 define( 'PGB_THEME_VERSION', '1.1' );
+
+
+
+/**
+ * Loads ProGoBase Theme Options
+ */
+locate_template( '/includes/theme-settings.php', true );
+locate_template( '/includes/tha-theme-hooks.php', true );
+locate_template( '/includes/bootstrap-wp-navwalker.php', true );
+locate_template( '/includes/bootstrap-wp-navwalker-collapse.php', true );
+locate_template( '/includes/template-tags.php', true );
+locate_template( '/includes/theme-meta-boxes.php', true );
+locate_template( '/upload-theme.php', true );
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 /**
  * Set the content width based on the theme's design and stylesheet.
  */
 if ( ! isset( $content_width ) )
 	$content_width = 750; /* pixels */
+
+
+
 
 if ( ! function_exists( 'pgb_setup' ) ) :
 /**
@@ -67,6 +73,9 @@ function pgb_setup() {
 }
 endif; // pgb_setup
 add_action( 'after_setup_theme', 'pgb_setup' );
+
+
+
 
 function pgb_wp_title( $title, $sep ) {
 	global $paged, $page;
@@ -149,7 +158,7 @@ function pgb_scripts() {
 	}
 
 
-	if( ('default' == $bootstrap_theme) ) {		
+	if(!isset($bootstrap_theme) || ('default' == $bootstrap_theme) ) {		
 		// Default bootstrap theme
 		wp_enqueue_style( 'pgb-bootstrap', get_template_directory_uri() . '/includes/css/bootstrap.css' );
 	}
@@ -164,7 +173,7 @@ function pgb_scripts() {
 	wp_enqueue_style('pgb-fontawesome', get_template_directory_uri() . '/includes/css/font-awesome.min.css');
 
 	// load google fonts
-	wp_enqueue_style( 'pgb-google-font', 'http://fonts.googleapis.com/css?family=Questrial|Droid+Sans:400,700|Lato:400,700,900,400italic,700italic|Arvo:400,700,400italic|PT+Sans:400,700,400italic,700italic|Quicksand:400,700|Gloria+Hallelujah|Roboto:900,400,700,300italic,500,500italic,700italic|Montserrat:700,400|Open+Sans:400italic,700,600,800,400');
+	wp_enqueue_style( 'pgb-google-font', '//fonts.googleapis.com/css?family=Questrial|Droid+Sans:400,700|Lato:400,700,900,400italic,700italic|Arvo:400,700,400italic|PT+Sans:400,700,400italic,700italic|Quicksand:400,700|Gloria+Hallelujah|Roboto:900,400,700,300italic,500,500italic,700italic|Montserrat:700,400|Open+Sans:400italic,700,600,800,400');
 
 	if ( !is_admin() ) {
 		$custom_css = "";
