@@ -216,7 +216,7 @@ add_action( 'pgb_block_navtop', 'pgb_load_block_navtop', 10 );
  *
  */
 function pgb_block_footerwidgets() {
-	do_action( 'pgb_block_navtop' );
+	do_action( 'pgb_block_footerwidgets' );
 }
 /* callback */
 function pgb_load_block_footerwidgets() {
