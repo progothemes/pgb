@@ -4,6 +4,8 @@
  *
  */
 
+$options = pgb_get_options();
+
 $metabox_custom_page_footer 	  = get_post_meta(get_the_ID(), 'metabox_page_footer_option', true);
 $metabox_custom_page_footer_count = get_post_meta(get_the_ID(), 'custom_footer_layout', true);
 $showFooter 					  = $options['footer'];
