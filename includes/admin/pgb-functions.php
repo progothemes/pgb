@@ -209,3 +209,17 @@ function pgb_load_block_navtop() {
 }
 add_action( 'pgb_block_navtop', 'pgb_load_block_navtop', 10 );
 
+/**
+ * Load Footer Widget Area block - pgb_block_footerwidgets()
+ *
+ * @return string
+ *
+ */
+function pgb_block_footerwidgets() {
+	do_action( 'pgb_block_navtop' );
+}
+/* callback */
+function pgb_load_block_footerwidgets() {
+	locate_template( 'block-footerwidgets.php', true );
+}
+add_action( 'pgb_block_footerwidgets', 'pgb_load_block_footerwidgets', 10 );
