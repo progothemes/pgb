@@ -17,11 +17,11 @@
 
 		// Vertically center nav-bar logo image (mobile logo)
 		if ( jQuery('.navbar-brand img').is(':visible') ) {
-			var brandimgh = jQuery('.navbar-brand img').height();
+			var brandimgh = jQuery('.navbar-brand img').height(),
+				offset = 10 - ( brandimgh / 2 );
 			jQuery('.navbar-brand img').css({
-				"position": "absolute",
-				"top": "50%",
-				"margin-top": "-" + ( brandimgh / 2 ) + "px"
+				"position": "relative",
+				"margin-top": offset + "px"
 			}); 
 		}
 
