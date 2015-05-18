@@ -8,7 +8,7 @@ if ( ! function_exists( 'pgb_set_container_width' ) ) {
 			  $custom_css = $classname ." { width: 100%; max-width: 100%; }";
 			} elseif ( 'default' == $data ) {
 				
-			} else {    		
+			} else {			
 			  $custom_css = $classname ." { width: 100%; max-width: ". $data . "; }";
 			}
 		}
@@ -29,90 +29,90 @@ function pgb_get_header_classes_array() {
 }
 
 function pgb_get_logo () {
-    $options = pgb_get_options();
-    $desktoplogo = $options['logo_image'];
-    $mobilelogo  = $options['mobile_logo'];
-    $title       = get_bloginfo( 'name' );   
+	$options = pgb_get_options();
+	$desktoplogo = $options['logo_image'];
+	$mobilelogo  = $options['mobile_logo'];
+	$title	   = get_bloginfo( 'name' );   
 
-    $logo = null;
+	$logo = null;
 
-    if ( empty( $desktoplogo ) ) {
+	if ( empty( $desktoplogo ) ) {
 
-            if ( empty( $mobilelogo ) ) {
+			if ( empty( $mobilelogo ) ) {
 
-               $logo .= sprintf( __( '%s', 'pgb' ), $title ); 
+			   $logo .= sprintf( __( '%s', 'pgb' ), $title ); 
 
-            } else { // for all three
+			} else { // for all three
 
-                $logo .= '<div class="desktoplogo">
-                            <img src="'.  esc_attr( $mobilelogo ) .'" alt="">
-                        </div>';
+				$logo .= '<div class="desktoplogo">
+							<img src="'.  esc_attr( $mobilelogo ) .'" alt="">
+						</div>';
 
-                $logo .= '<div class="mobilelogo">
-                            <img src="'.  esc_attr( $mobilelogo ) .'" alt="">
-                        </div>';
-            }
+				$logo .= '<div class="mobilelogo">
+							<img src="'.  esc_attr( $mobilelogo ) .'" alt="">
+						</div>';
+			}
 
    } else {
 
-        $logo .= '<div class="desktoplogo">
-                    <img src="'.  esc_attr( $desktoplogo ). '" alt="">
-                </div>';
+		$logo .= '<div class="desktoplogo">
+					<img src="'.  esc_attr( $desktoplogo ). '" alt="">
+				</div>';
 
-        if ( empty( $mobilelogo ) ) {
+		if ( empty( $mobilelogo ) ) {
 
-            $logo .= '<div class="mobilelogo">
-                        <img src="'.  esc_attr( $desktoplogo ). '" alt="">
-                    </div>';   
-        } else {
+			$logo .= '<div class="mobilelogo">
+						<img src="'.  esc_attr( $desktoplogo ). '" alt="">
+					</div>';   
+		} else {
 
-            $logo .= '<div class="mobilelogo">
-                        <img src="'.  esc_attr( $mobilelogo ). '" alt="">
-                    </div>';
-        }
+			$logo .= '<div class="mobilelogo">
+						<img src="'.  esc_attr( $mobilelogo ). '" alt="">
+					</div>';
+		}
 
-    }
+	}
 
-    return $logo;
+	return $logo;
 }
 
 function pgb_get_mobile_logo () {
-    $options = pgb_get_options();
-    $mobilelogo  = $options['mobile_logo'];
-	$title       = get_bloginfo( 'name' );   
+	$options = pgb_get_options();
+	$mobilelogo  = $options['mobile_logo'];
+	$title	   = get_bloginfo( 'name' );   
 
-    $logo = null;
+	$logo = null;
 
-    if ( ! empty( $mobilelogo ) ) {
+	if ( ! empty( $mobilelogo ) ) {
 
-    	$logo = '<div class="mobilelogo show">
-                <img src="'.  esc_attr( $mobilelogo ) .'" alt="">
-            </div>';
+		$logo = '<div class="mobilelogo show">
+				<img src="'.  esc_attr( $mobilelogo ) .'" alt="">
+			</div>';
 
-    } else {
+	} else {
 
-    	$logo .= sprintf( __( '%s', 'pgb' ), $title ); 
-    
-    }
+		$logo .= sprintf( __( '%s', 'pgb' ), $title ); 
+	
+	}
 
-    return $logo;
+	return $logo;
 }
 
 if ( ! function_exists('is_blog_page') ) :
 function is_blog_page() {
-    if ( is_front_page() && is_home() ) {
-        // Default homepage
-        return true;
-    } elseif ( is_front_page() ) {
-        // static homepage
-        return false;
-    } elseif ( is_home() ) {
-        // blog page
-        return true;
-    } else {
-        //everything else
-        return false;
-    }
+	if ( is_front_page() && is_home() ) {
+		// Default homepage
+		return true;
+	} elseif ( is_front_page() ) {
+		// static homepage
+		return false;
+	} elseif ( is_home() ) {
+		// blog page
+		return true;
+	} else {
+		//everything else
+		return false;
+	}
 }
 endif;
 
@@ -143,9 +143,9 @@ function pgb_get_options($key = null, $data = null) {
 
 function pgb_save_options($data, $key = null) {
 	global $pgbo_data;
-    if (empty($data))
-        return;	
-    do_action('pgb_save_options_before', array(
+	if (empty($data))
+		return;	
+	do_action('pgb_save_options_before', array(
 		'key'=>$key, 'data'=>$data
 	));
 	$data = apply_filters('pgb_options_before_save', $data);
@@ -168,7 +168,7 @@ function pgb_save_options($data, $key = null) {
 			}
 	  	}
 	}
-    do_action('pgbo_save_options_after', array(
+	do_action('pgbo_save_options_after', array(
 		'key'=>$key, 'data'=>$data
 	));
 

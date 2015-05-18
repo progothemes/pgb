@@ -94,8 +94,8 @@ $pgbo_options[] = array("name" 		=> "Desktop Logo",
 						"type" 		=> "media"
 				);
 
-$pgbo_options[] = array("name" 		=> "Mobile Logo",
-						"desc" 		=> "Upload the website logo for mobile view. (supports PNG, JPEG, GIF).",
+$pgbo_options[] = array("name" 		=> "Mobile / Navbar Logo",
+						"desc" 		=> "Upload the website logo for mobile view. (supports PNG, JPEG, GIF; max height 50px).",
 						"id" 		=> "mobile_logo",
 						"std" 		=> '',
 						"type" 		=> "media"
