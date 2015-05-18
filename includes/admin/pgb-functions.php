@@ -76,18 +76,23 @@ function pgb_get_logo () {
     return $logo;
 }
 
-function pgb_get_mobile_logo ( $pull = 'pull-left' ) {
+function pgb_get_mobile_logo () {
     $options = pgb_get_options();
     $mobilelogo  = $options['mobile_logo'];
+	$title       = get_bloginfo( 'name' );   
 
     $logo = null;
 
     if ( ! empty( $mobilelogo ) ) {
 
-    	$logo = '<div class="mobilelogo show '.$pull.'">
+    	$logo = '<div class="mobilelogo show">
                 <img src="'.  esc_attr( $mobilelogo ) .'" alt="">
             </div>';
 
+    } else {
+
+    	$logo .= sprintf( __( '%s', 'pgb' ), $title ); 
+    
     }
 
     return $logo;

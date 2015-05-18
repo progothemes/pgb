@@ -243,6 +243,25 @@ object {
 ------------------------------------------------------------------
 */
 
+/*--------------------------[ WP ADMIN BAR FIXES ]-----------------------------------*/
+@media screen and (min-width: 783px) {
+	body.admin-bar .navbar-fixed-top {
+		top: 31px;
+	}
+	body.admin-bar #page-content-wrapper {
+		margin-top: 51px;
+	}
+}
+@media screen and (min-width: 601px) and (max-width: 782px) {
+	body.admin-bar .navbar-fixed-top {
+		top: 45px;
+	}
+	body.admin-bar #page-content-wrapper {
+		margin-top: 51px;
+	}
+}
+
+
 /*--------------------------[ SEARCH FORM ]-----------------------------------*/
 
 nav .navbar-form.navbar-right {
@@ -263,6 +282,9 @@ nav .navbar-form.navbar-right {
 */
 .mobilelogo {
 	display: none;
+}
+.mobilelogo img {
+	max-height: 50px;
 }
 
 .desktoplogo {
