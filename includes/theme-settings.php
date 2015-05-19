@@ -51,6 +51,7 @@ define( 'THEMEAUTHORURI', $author_uri );
 define( 'BACKUPS','backups' );
 
 require_once ( ADMIN_PATH . 'admin/class.pgb_options.php' );
+require_once ( ADMIN_PATH . 'admin/class.post_formats.php' );
 require_once ( ADMIN_PATH . 'admin/functions.load.php' );
 
 add_action('admin_init','progobaseframework_admin_init');

@@ -42,7 +42,7 @@ function progobaseframework_options_page(){
 }
 
 function pgb_style_only(){
-	wp_enqueue_style('admin-style', ADMIN_DIR . 'admin/css/admin-style.css');
+	wp_enqueue_style('admin-style', ADMIN_DIR . 'admin/css/pgb-interface-style.css');
 	//wp_enqueue_style('color-picker', ADMIN_DIR . 'assets/css/colorpicker.css');
 	wp_enqueue_style('jquery-ui-custom-admin', ADMIN_DIR .'admin/css/jquery-ui-custom.css');
 

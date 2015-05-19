@@ -725,7 +725,4 @@ jQuery(document).ready(function($){
     
     optionsframework_file_bindings();
 
-	
-	
-
 }); //end doc ready
