@@ -15,9 +15,9 @@ Built by ProGo, a collection of Developers and Designers and Marketers working t
 
 ### Quick Specs
 
-Contributors: monkishtypist, chousmith, edurose, stokesman, progothemes
-Tags: bootstrap, light, custom-header, custom-menu, fixed-layout, responsive-layout, two-columns
-Requires at least: 4.1
-Tested up to: 4.2.2
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+* Contributors: monkishtypist, chousmith, edurose, stokesman, progothemes
+* Tags: bootstrap, light, custom-header, custom-menu, fixed-layout, responsive-layout, two-columns
+* Requires at least: 4.1
+* Tested up to: 4.2.2
+* License: GPLv2 or later
+* License URI: http://www.gnu.org/licenses/gpl-2.0.html
