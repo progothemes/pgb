@@ -1,15 +1,22 @@
 <?php 
 
+/**
+ * Get page container width CSS
+ *
+ * @param $data 
+ * @param $classname 
+ * @return css
+ */
 if ( ! function_exists( 'pgb_set_container_width' ) ) {
 	function pgb_set_container_width( $data, $classname ) {
 		$custom_css = '';
 		if ( !empty( $data )) {
 			if ( 'full' == $data ) {
-			  $custom_css = $classname ." { width: 100%; max-width: 100%; }";
+				$custom_css = $classname ." { width: 100%; max-width: 100%; }";
 			} elseif ( 'default' == $data ) {
-				
-			} else {			
-			  $custom_css = $classname ." { width: 100%; max-width: ". $data . "; }";
+				// default
+			} else {
+				$custom_css = $classname ." { width: 100%; max-width: ". $data . "; }";
 			}
 		}
 		return $custom_css;
@@ -28,76 +35,69 @@ function pgb_get_header_classes_array() {
 	return $hooks;
 }
 
+/**
+ * Returns available theme logos as responsive HTML blocks
+ *
+ * @return html
+ */
 function pgb_get_logo () {
-	$options = pgb_get_options();
-	$desktoplogo = $options['logo_image'];
-	$mobilelogo  = $options['mobile_logo'];
-	$title	   = get_bloginfo( 'name' );   
 
-	$logo = null;
+	$options		= pgb_get_options();
+	$desktoplogo	= $options['logo_image'];
+	$mobilelogo		= $options['mobile_logo'];
+	$title			= get_bloginfo( 'name' );
+	$logo			= null;
 
-	if ( empty( $desktoplogo ) ) {
-
-			if ( empty( $mobilelogo ) ) {
-
-			   $logo .= sprintf( __( '%s', 'pgb' ), $title ); 
-
-			} else { // for all three
-
-				$logo .= '<div class="desktoplogo">
-							<img src="'.  esc_attr( $mobilelogo ) .'" alt="">
-						</div>';
-
-				$logo .= '<div class="mobilelogo">
-							<img src="'.  esc_attr( $mobilelogo ) .'" alt="">
-						</div>';
-			}
-
-   } else {
-
-		$logo .= '<div class="desktoplogo">
-					<img src="'.  esc_attr( $desktoplogo ). '" alt="">
-				</div>';
-
-		if ( empty( $mobilelogo ) ) {
-
-			$logo .= '<div class="mobilelogo">
-						<img src="'.  esc_attr( $desktoplogo ). '" alt="">
-					</div>';   
-		} else {
-
-			$logo .= '<div class="mobilelogo">
-						<img src="'.  esc_attr( $mobilelogo ). '" alt="">
-					</div>';
-		}
-
+	if ( empty( $desktoplogo ) && ! empty( $mobilelogo ) ) { // Mobile logo only
+		$desktoplogo = $mobilelogo;
+	} 
+	elseif ( empty( $mobilelogo ) && ! empty( $desktoplogo ) ) { // Desktop logo only
+		$mobilelogo = $desktoplogo;
+	}
+	else {
+		// Both logos
 	}
 
-	return $logo;
-}
-
-function pgb_get_mobile_logo () {
-	$options = pgb_get_options();
-	$mobilelogo  = $options['mobile_logo'];
-	$title	   = get_bloginfo( 'name' );   
-
-	$logo = null;
-
-	if ( ! empty( $mobilelogo ) ) {
-
-		$logo = '<div class="mobilelogo show">
+	$logo .= '<div class="desktoplogo">
+				<img src="'.  esc_attr( $desktoplogo ) .'" alt="">
+			</div>';
+	$logo .= '<div class="mobilelogo">
 				<img src="'.  esc_attr( $mobilelogo ) .'" alt="">
 			</div>';
 
-	} else {
-
-		$logo .= sprintf( __( '%s', 'pgb' ), $title ); 
-	
+	if ( empty( $desktoplogo ) && empty( $mobilelogo ) ) { // No logo is set
+		$logo = sprintf( __( '%s', 'pgb' ), $title );
 	}
 
 	return $logo;
 }
 
+/**
+ * Returns mobile logo only - non-responsive, always visible
+ */
+function pgb_get_mobile_logo () {
+
+	$options	= pgb_get_options();
+	$mobilelogo	= $options['mobile_logo'];
+	$title		= get_bloginfo( 'name' );   
+	$logo		= null;
+
+	if ( ! empty( $mobilelogo ) ) {
+		$logo = '<div class="mobilelogo show">
+				<img src="'.  esc_attr( $mobilelogo ) .'" alt="">
+			</div>';
+	} else {
+		$logo = sprintf( __( '%s', 'pgb' ), $title ); 
+	}
+
+	return $logo;
+}
+
+/**
+ * Checks if current page is a blog page
+ *
+ * @return boolean
+ */
 if ( ! function_exists('is_blog_page') ) :
 function is_blog_page() {
 	if ( is_front_page() && is_home() ) {
@@ -116,7 +116,11 @@ function is_blog_page() {
 }
 endif;
 
-
+/**
+ * Returns theme options
+ *
+ * @return array
+ */
 function pgb_get_options($key = null, $data = null) {
 	global $pgbo_data;
 
@@ -141,6 +145,11 @@ function pgb_get_options($key = null, $data = null) {
 
 }
 
+/**
+ * Saves theme options
+ *
+ * @return null
+ */
 function pgb_save_options($data, $key = null) {
 	global $pgbo_data;
 	if (empty($data))
@@ -180,15 +189,18 @@ if (!isset($pgbo_details))
 
 
 /**
- * PGB Actions to load Template Parts
+ * Load PGB Template Parts
  *
+ * Uses locate_template() to get hightest priority template file for easy child theming
+ *
+ * remove_action() to remove template blocks
+ * add_action() to append new template blocks
+ *
+ * @return template part
  */
 
 /**
  * Load Header block - pgb_block_header()
- *
- * @return string
- *
  */
 function pgb_block_header() {
 	do_action( 'pgb_block_header' );
@@ -201,9 +213,6 @@ add_action( 'pgb_block_header', 'pgb_load_block_header', 10 );
 
 /**
  * Load Top Nav block - pgb_block_navtop()
- *
- * @return string
- *
  */
 function pgb_block_navtop() {
 	do_action( 'pgb_block_navtop' );
@@ -216,9 +225,6 @@ add_action( 'pgb_block_navtop', 'pgb_load_block_navtop', 10 );
 
 /**
  * Load Footer Widget Area block - pgb_block_footerwidgets()
- *
- * @return string
- *
  */
 function pgb_block_footerwidgets() {
 	do_action( 'pgb_block_footerwidgets' );
@@ -228,3 +234,15 @@ function pgb_load_block_footerwidgets() {
 	locate_template( 'block-footerwidgets.php', true );
 }
 add_action( 'pgb_block_footerwidgets', 'pgb_load_block_footerwidgets', 10 );
+
+
+/**
+ * Remove theme editor from Admin Menu for security
+ *
+ */
+add_action('admin_init', 'pgb_remove_menu_elements', 102);
+function pgb_remove_menu_elements()
+{
+	remove_submenu_page( 'themes.php', 'theme-editor.php' );		// remove theme editor
+	remove_submenu_page( 'plugins.php', 'plugin-editor.php' );		// remove plugins editor
+}

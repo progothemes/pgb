@@ -1,3 +1,9 @@
+<?php
+/**
+ * Renders Theme Options Page in WP Admin
+ *
+ */
+?>
 <div class="wrap" id="pgb_container">
 <h2 class="pgb_name"><?php echo THEMENAME; ?> Options</h2>
 

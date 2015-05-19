@@ -2,12 +2,12 @@
 /**
  * Progo Base Theme version
  */
-define( 'PGB_THEME_VERSION', '1.1' );
+define( 'PGB_THEME_VERSION', '0.4' );
 
 
 
 /**
- * Loads ProGoBase Theme Options
+ * Load ProGo Base Theme Options
  */
 locate_template( '/includes/theme-settings.php', true );
 locate_template( '/includes/tha-theme-hooks.php', true );
@@ -58,7 +58,7 @@ function pgb_setup() {
 		/**
 		 * Enable support for Post Formats
 		*/
-		add_theme_support( 'post-formats', array( 'aside', 'audio', 'image', 'video', 'quote', 'link' ) );
+		add_theme_support( 'post-formats', array( 'aside', 'audio', 'image', 'link', 'quote', 'video' ) );
 
 
 	}
@@ -74,9 +74,9 @@ function pgb_setup() {
 endif; // pgb_setup
 add_action( 'after_setup_theme', 'pgb_setup' );
 
-
-
-
+/**
+ * Get title
+ */
 function pgb_wp_title( $title, $sep ) {
 	global $paged, $page;
 
@@ -112,8 +112,8 @@ function pgb_widgets_init() {
 		'after_title'   => '</h3>',
 	) );
 
-	// Footer widget area
-	register_sidebars(4,array(
+	// Footer widget areas
+	register_sidebars( 4, array(
         'name' 			=> 'Footer Widget %d',
         'id' 			=> 'footer-widget',
         'description' 	=> 'Footer Widget Area',
@@ -121,7 +121,7 @@ function pgb_widgets_init() {
         'after_widget' 	=> '</div>',
         'before_title' 	=> '<h3 class="widget-title">',
         'after_title' 	=> '</h3>',
-    ));
+    ) );
 	
 }
 add_action( 'widgets_init', 'pgb_widgets_init' );
@@ -194,9 +194,7 @@ function pgb_scripts() {
 		wp_add_inline_style( 'pgb-style', $custom_css );
 	}
 
-	/**
-	 * Fix for Visual Composer not loading CSS file(s)
-	 */
+	// Fix for Visual Composer not loading CSS file(s)
 	if ( is_plugin_active( 'js_composer/js_composer.php' ) ) {
 		wp_enqueue_style('js-composer', plugins_url() . '/js_composer/assets/css/js_composer.css');
 	}
@@ -205,7 +203,6 @@ function pgb_scripts() {
 
 	// load bootstrap js
 	wp_enqueue_script('pgb-bootstrapjs', get_template_directory_uri().'/includes/js/bootstrap.js', array('jquery') );
-
 
 	// load bootstrap wp js
 	wp_enqueue_script( 'pgb-bootstrapwpjs', get_template_directory_uri() . '/includes/js/bootstrap-wp.js', array('jquery') );
@@ -223,7 +220,6 @@ function pgb_scripts() {
 	}
 
 }
-
 add_action( 'wp_enqueue_scripts', 'pgb_scripts' );
 
 function load_custom_wp_admin_style() {
