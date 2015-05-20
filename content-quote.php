@@ -4,20 +4,38 @@
  *
  * @package pgb
  */
-?>
 
-<?php
 
 $the_post_meta = get_post_meta( get_the_ID() );
 
-$format_source_name = (!empty($the_post_meta['_format_quote_source_name'][0]))
-	? $the_post_meta['_format_quote_source_name'][0] . ' '
-	: '';
-$format_source_title = (!empty($the_post_meta['_format_quote_source_title'][0]))
-	? ( (!empty($the_post_meta['_format_quote_source_url'][0])) 
-		? '<cite title="Source Title"><a href="'.$the_post_meta['_format_quote_source_url'][0].'">'.$the_post_meta['_format_quote_source_title'][0].'</a></cite>' 
-		: '<cite title="Source Title">'.$the_post_meta['_format_quote_source_title'][0].'</cite>' ) 
-	: '';
+$the_post_format_meta = get_post_meta( get_the_ID(), '_postformats_meta_value_key', true );
+
+
+$quote_name 	= ! empty( $the_post_format_meta['quote_source_name'] ) ? $the_post_format_meta['quote_source_name'] : false;
+$quote_url 		= ! empty( $the_post_format_meta['quote_source_url'] ) ? $the_post_format_meta['quote_source_url'] : false;
+$quote_title 	= ! empty( $the_post_format_meta['quote_source_title'] ) ? $the_post_format_meta['quote_source_title'] : false;
+$quote_date 	= ! empty( $the_post_format_meta['quote_source_date'] ) ? $the_post_format_meta['quote_source_date'] : false;
+
+$source_title = null;
+
+$_quote_array = array();
+$_quote = null;
+
+
+if ( $quote_name )
+	$_quote_array[] = sprintf( '<cite>%1$s</cite>', ( ! $quote_title && $quote_url ? sprintf( '<a href="%1$s">%2$s</a>', $quote_url, $quote_name ) : $quote_name ) );
+
+if ( $quote_title ) {
+	$source_title = sprintf( 'title="%1$s"', $quote_title );
+	$_quote_array[] = sprintf( '<cite %1$s>%2$s</cite>', $source_title, ( $quote_url ? sprintf( '<a href="%1$s">%2$s</a>', $quote_url, $quote_title ) : $quote_title ) );
+}
+
+if ( $quote_date )
+	$_quote_array[] = $quote_date;
+
+$_quote = implode( ", ", $_quote_array );
+
+$_quote = sprintf( '<footer>%1$s</footer>', $_quote );
 
 ?>
 
@@ -33,10 +51,7 @@ $format_source_title = (!empty($the_post_meta['_format_quote_source_title'][0]))
 			
 		<blockquote>
 			<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
-
-			<?php if ( !empty($format_source_name) && !empty($format_source_title) ) {
-				echo '<footer>' . $format_source_name . $format_source_title . '</footer>';
-			} ?>
+			<?php echo $_quote; ?>
 		</blockquote>
 
 		<?php if ( is_single() ) : // Only display Excerpts for Search and Archive Pages ?>

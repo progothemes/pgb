@@ -4,59 +4,55 @@
  *
  * @package pgb
  */
+
+
+$the_post_meta = get_post_meta( get_the_ID() );
+
+$the_post_format_meta = get_post_meta( get_the_ID(), '_postformats_meta_value_key', true );
+
 ?>
 
-<?php $the_post_meta = get_post_meta( get_the_ID() ); ?>
 
-<?php if ( is_search() || is_archive() || is_blog_page() ) : // Only display Excerpts for Search and Archive Pages ?>
+<?php if ( is_single() ) : ?>
 
-	<div class="entry-summary col-md-12">
-		
-		<div class="embed-responsive-item">
-			<?php 
+	<div class="entry-content col-md-12">
 
-			if ( isset( $the_post_meta['_format_video_embed'] ) ) :
-				if (substr( $the_post_meta['_format_video_embed'][0], 0, 7 ) === "[video ") {
-					echo do_shortcode( $the_post_meta['_format_video_embed'][0] );
-				}
-				else {
-					echo wp_oembed_get( $the_post_meta['_format_video_embed'][0] );
-				}
-			endif;
-
-			?>
-		</div>
-
-	</div><!-- .entry-summary -->
+		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
 
 <?php else : ?>
-	
-	<div class="entry-content col-md-12">
+
+	<div class="entry-summary col-md-12">
+
+<?php endif; ?>
 		
 		<div class="embed-responsive-item">
 			<?php 
 
-			if ( isset( $the_post_meta['_format_video_embed'] ) ) :
-				if (substr( $the_post_meta['_format_video_embed'][0], 0, 7 ) === "[video ") {
-					echo do_shortcode( $the_post_meta['_format_video_embed'][0] );
+			if ( isset( $the_post_format_meta['video_embed'] ) ):
+				if ( substr( $the_post_format_meta['video_embed'], 0, 7 ) === "[video ") {
+					echo do_shortcode( $the_post_format_meta['video_embed'] );
 				}
 				else {
-					echo wp_oembed_get( $the_post_meta['_format_video_embed'][0] );
+					echo wp_oembed_get( $the_post_format_meta['video_embed'] ) 
+						? wp_oembed_get( $the_post_format_meta['video_embed'] ) 
+						: '<p><a href="' . $the_post_format_meta['video_embed'] . '">' . 
+							( isset( $the_post_format_meta['video_title'] ) ? $the_post_format_meta['video_title'] : $the_post_format_meta['video_embed'] ) . 
+							'</a></p>';
 				}
 			endif;
 
 			?>
 		</div>
-		
-		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
-		
-		<?php
-			wp_link_pages( array(
-				'before' => '<div class="page-links">' . __( 'Pages:', 'pgb' ),
-				'after'  => '</div>',
-			) );
-		?>
-	
-	</div><!-- .entry-content -->
 
-<?php endif; ?>
+		<?php if ( is_single() ) : ?>
+
+			<?php
+				wp_link_pages( array(
+					'before' => '<div class="page-links">' . __( 'Pages:', 'pgb' ),
+					'after'  => '</div>',
+				) );
+			?>
+
+		<?php endif; ?>
+
+	</div><!-- //.entry -->
