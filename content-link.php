@@ -4,9 +4,13 @@
  *
  * @package pgb
  */
-?>
 
-<?php $the_post_meta = get_post_meta( get_the_ID() ); ?>
+
+$the_post_meta = get_post_meta( get_the_ID() );
+
+$the_post_format_meta = get_post_meta( get_the_ID(), '_postformats_meta_value_key', true );
+
+?>
 
 <?php if ( is_single() ) : ?>
 
@@ -18,7 +22,7 @@
 
 <?php endif; ?>
 
-	<?php if ( isset( $the_post_meta['_format_link_title'] ) ) : ?>
+	<?php if ( isset( $the_post_format_meta['link_title'] ) ) : ?>
 		
 		<div class="panel panel-default">
 			
@@ -26,7 +30,7 @@
 				
 				<div class="panel-heading">
 					<h3 class="panel-title">
-						<a href="<?php echo $the_post_meta['_format_link_url'][0]; ?>" target="_blank"><?php echo ( ($the_post_meta['_format_link_title'][0]) ? $the_post_meta['_format_link_title'][0] : ( (the_title('', '', false) ) ? : $the_post_meta['_format_link_url'][0] ) ); ?></a> <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+						<a href="<?php echo $the_post_format_meta['link_url']; ?>" target="_blank"><?php echo ( ($the_post_format_meta['link_title']) ? $the_post_format_meta['link_title'] : ( (the_title('', '', false) ) ? : $the_post_format_meta['link_url'] ) ); ?></a> <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
 					</h3>
 				</div>
 				<div class="panel-body">
@@ -37,7 +41,7 @@
 				
 				<div class="panel-body">
 					<h3 class="panel-title">
-						<a href="<?php echo $the_post_meta['_format_link_url'][0]; ?>" target="_blank"><?php echo ($the_post_meta['_format_link_title'][0]) ? $the_post_meta['_format_link_title'][0] : $the_post_meta['_format_link_url'][0]; ?></a> <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+						<a href="<?php echo $the_post_format_meta['link_url']; ?>" target="_blank"><?php echo ($the_post_format_meta['link_title']) ? $the_post_format_meta['link_title'] : $the_post_format_meta['link_url']; ?></a> <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
 					</h3>
 				</div>
 			

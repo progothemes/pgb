@@ -4,27 +4,39 @@
  *
  * @package pgb
  */
-?>
 
-<?php $the_post_meta = get_post_meta( get_the_ID() ); ?>
 
-<?php if ( is_single() ) : ?>
+$the_post_meta = get_post_meta( get_the_ID() );
 
-	<div class="entry-content col-md-12">
+$the_post_format_meta = get_post_meta( get_the_ID(), '_postformats_meta_value_key', true );
 
-<?php else : ?>
+if ( has_post_thumbnail() ) :
 
-	<div class="entry-summary col-md-12">
+	$image_id 		= get_post_thumbnail_id( $post->ID );
+	$image_link 	= isset( $the_post_format_meta['image_link'] ) ? $the_post_format_meta['image_link'] : false;
+	$image_caption 	= isset( $the_post_format_meta['image_caption'] ) ? $the_post_format_meta['image_caption'] : false;
+	$alt_text 		= isset( $the_post_format_meta['image_alt'] ) && ! empty( $the_post_format_meta['image_alt'] ) ? $the_post_format_meta['image_alt'] : get_post_meta( $image_id , '_wp_attachment_image_alt', true );
 
-<?php endif; ?>
+	$_image = sprintf( '<img width="100%%" height="auto" src="%1$s" class="img-responsive wp-post-image" alt="%2$s" />', wp_get_attachment_url( $image_id ), $alt_text );
 
-		<?php if (has_post_thumbnail()) { ?>
-			<?php echo the_post_thumbnail( 'full', array( 'class' => 'img-responsive' ) ); ?>
-		<?php } ?>
+	if ( $image_link !== false ) {
+		$_image = sprintf( '<a href="%1$s">%2$s</a>', $image_link, $_image );
+	}
 
-	</div><!-- /entry -->
+	if ( $image_caption ) {
+		$_image = sprintf( '<div id="attachment_%1$s" class="wp-caption alignnone">%2$s<p class="wp-caption-text">%3$s</p></div>', $image_id, $_image, $image_caption );
+	}
 
-<?php if ( is_single() ) : ?>
+	if ( is_single() ) {
+		echo sprintf( '<div class="entry-content col-md-12">%1$s</div><!-- /entry -->', $_image );
+	}
+	else {
+		echo sprintf( '<div class="entry-summary col-md-12">%1$s</div><!-- /entry -->', $_image );
+	}
+
+endif;
+
+if ( is_single() ) : ?>
 
 	<div class="entry-content col-md-12">
 
