@@ -17,32 +17,36 @@ function progobaseframework_admin_init() {
 }
 
 function progobaseframework_add_admin() {
-	$pgb_page = add_menu_page( THEMENAME, "ProGo", "manage_options", "progobase-theme-options", 'progobaseframework_options_page', null, 62 );
+	$pgb_page = add_menu_page( THEMENAME, "ProGo", "manage_options", "progobase-theme-options", 'progobaseframework_options_page', get_template_directory_uri() . '/includes/admin/images/favicon.ico', 3 );
 	
 	$pgb_page = add_submenu_page( 'progobase-theme-options', 'ProGo Theme Options', 'Theme Options', 'edit_theme_options', 'progobase-theme-options', 'progobaseframework_options_page' );
 	// Add framework functionaily to the head individually
 	add_action("admin_print_scripts-$pgb_page", 'pgb_load_only');
 	add_action("admin_print_styles-$pgb_page",'pgb_style_only');
   
-  // "Upload Theme" for uploading a custom Bootstrap theme, but not quite yet
+  	// "Upload Theme" for uploading a custom Bootstrap theme, but not quite yet
 	//$pgb_page = add_submenu_page( 'progobase-theme-options', 'Upload Theme', 'Upload Theme', 'manage_options', 'upload_theme', 'upload_theme_page' );
 }
 function progobaseframework_add_adminbar_menu() {
-  global $wp_admin_bar;
-  if ( !is_admin() ) {
-  
+
+	global $wp_admin_bar;
+
+	$all_toolbar_nodes = $wp_admin_bar->get_nodes();
+
 	if ( current_user_can( 'edit_theme_options' ) ) {
-  
-    $wp_admin_bar->add_menu( array(
-        'parent' => 'appearance',
-        'id'     => 'progobase-theme-options',
-        'title'  => __( 'Theme Options' ),
-        'href'   => admin_url( 'admin.php?page=progobase-theme-options' ),
-      ) );
-    }
-  }
+		$wp_admin_bar->add_node( array(
+			//'parent' => 'appearance',
+			'id'     => 'progobase-theme-options',
+			'title'  => '<span class="" aria-hidden="true"><img class="alignnone" src="' . get_template_directory_uri() . '/includes/admin/images/favicon.ico" />&nbsp;</span>' . __( 'ProGo Options' ),
+			'href'   => admin_url( 'admin.php?page=progobase-theme-options' ),
+		) );
+	}
+	foreach ( $all_toolbar_nodes as $node ) {
+		$args = $node;
+		$wp_admin_bar->add_node( $args );
+	}
 }
-add_action( 'admin_bar_menu', 'progobaseframework_add_adminbar_menu', 1000 );
+add_action( 'admin_bar_menu', 'progobaseframework_add_adminbar_menu', 999 );
 
 function progobaseframework_options_page(){
 	global $progobase_options;	
