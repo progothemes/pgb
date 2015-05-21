@@ -267,7 +267,18 @@ object {
 nav .navbar-form.navbar-right {
 	padding-right: 0;
 }
-
+/* fix for overlap */
+@media screen and (min-width: 768px) {
+  .navbar-nav.navbar-right {
+    float: left !important;
+  }
+  .navbar-nav.navbar-right {
+    float: left !important;
+  }
+  .navbar-form.navbar-right:last-child {
+    padding-right: 15px;
+  }
+}
 
 /*--------------------[ LOGOS ]---------------------*/
 
