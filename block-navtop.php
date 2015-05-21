@@ -9,6 +9,7 @@ $options = pgb_get_options();
 
 $topmenustyle           = '';
 $menuleftright          = 'navbar-left';
+$menucontainerright     = '';
 
 // Static or Fixed navigation bar
 if ( !empty( $options['menu_position_top'] ) && 'fixed' == $options['menu_position_top']) {
@@ -20,6 +21,7 @@ if ( !empty( $options['menu_position_top'] ) && 'fixed' == $options['menu_positi
 // Nav menu alignment
 if( !empty( $options['menu_align_top'] ) && 'right' == $options['menu_align_top'] ) {
 	$menuleftright = 'navbar-right';
+  $menucontainerright = 'navbar-right';
 }
 
 ?>
@@ -38,7 +40,7 @@ if( !empty( $options['menu_align_top'] ) && 'right' == $options['menu_align_top'
 				<!-- Your site title as branding in the menu --> 
 				<a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"> <?php echo pgb_get_mobile_logo(); ?> </a>
 			</div>
-			<div class="collapse navbar-collapse navbar-responsive-collapse">
+			<div class="collapse navbar-collapse navbar-responsive-collapse <?php esc_attr_e( $menucontainerright ); ?>">
 				
 				<?php // Main Menu
 				wp_nav_menu(
@@ -46,7 +48,7 @@ if( !empty( $options['menu_align_top'] ) && 'right' == $options['menu_align_top'
 						'theme_location' => 'primary',
 						'container' => false,
 						//'container_class' => 'top-view-primary-menu',
-						'menu_class' => 'nav navbar-nav '.$menuleftright,
+						'menu_class' => 'nav navbar-nav '. esc_attr( $menuleftright ),
 						'fallback_cb' => '',
 						'menu_id' => 'main-menu',
 						'walker' => new wp_bootstrap_navwalker()

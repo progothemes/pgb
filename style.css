@@ -264,10 +264,14 @@ object {
 
 /*--------------------------[ SEARCH FORM ]-----------------------------------*/
 
-nav .navbar-form.navbar-right {
-	padding-right: 0;
+@media screen and (min-width: 768px) {
+  .navbar-nav.navbar-right {
+    float: left !important;
+  }
+  .navbar-nav.navbar-right {
+    float: left !important;
+  }
 }
-
 
 /*--------------------[ LOGOS ]---------------------*/
 
