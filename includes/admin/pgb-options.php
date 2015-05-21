@@ -16,13 +16,13 @@ global $pgbo_options;
 $pgbo_options = array();
 $theme_path = get_template_directory_uri();
 
-$pgbo_options[] = array( "name" 		=> "Home Settings",
+$pgbo_options[] = array( "name" 		=> "General Settings",
 						"type" 		=> "heading"
 				);
 					
 
-$pgbo_options[] = array("name" 		=> "Default ProGo Theme",
-						"desc" 		=> "Select the Bootstrap theme from the available list of themes",
+$pgbo_options[] = array("name" 		=> "Default Bootstrap Theme",
+						"desc" 		=> "Select the Bootstrap theme from the available list",
 						"id" 		=> "bootstrap_theme",
 						"std" 		=> 'default',
 						"type" 		=> "select",

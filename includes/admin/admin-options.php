@@ -5,7 +5,7 @@
  */
 ?>
 <div class="wrap" id="pgb_container">
-<h2 class="pgb_name"><?php echo THEMENAME; ?> Options</h2>
+<h2 class="pgb_name">ProGo Theme Options</h2>
 
 	<div id="pgb-popup-save" class="pgb-save-popup">
 		<div class="pgb-save-save">Options Updated</div>
