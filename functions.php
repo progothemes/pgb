@@ -131,6 +131,7 @@ add_action( 'widgets_init', 'pgb_widgets_init' );
  */
 function pgb_scripts() {
 	$options = pgb_get_options();
+	// Register Bootswatch themes
 	$bootswatchdir   = trailingslashit( get_template_directory().'/includes/bootswatch');
 	$bootswatchdirs  = glob($bootswatchdir . '/*' , GLOB_ONLYDIR);
 	$bootstrap_theme = $options['bootstrap_theme'];
@@ -142,21 +143,23 @@ function pgb_scripts() {
 		}
 	}
 
+	// Register uploaded themes
 	$themeFolder 	 = wp_upload_dir();
 	$themeFolder_dir = $themeFolder['basedir'];
 	$themeFolder_url = $themeFolder['baseurl'];
 	$themeFolder_dir = $themeFolder_dir . '/bootstrapthemes';
 	$uploaddirs 	 = glob($themeFolder_dir . '/*' , GLOB_ONLYDIR);
 
-	foreach ($uploaddirs as $uploaddir) {
-		$customThemeName = explode('/bootstrapthemes/', $uploaddir);
-		if ( $bootstrap_theme == $customThemeName[1] ) {
-				$customThemeName[1] = preg_replace("/[^a-zA-Z]+/", "", $customThemeName[1]);
-				wp_enqueue_style( $customThemeName[1].'bootstrap', $themeFolder_url.'/bootstrapthemes/'.$customThemeName[1].'/css/bootstrap.min.css' );
-				wp_enqueue_style( $customThemeName[1].'bootstrap-theme', $themeFolder_url.'/bootstrapthemes/'.$customThemeName[1].'/css/bootstrap-theme.min.css' );	
+	if ( is_array($uploaddirs) ) {
+		foreach ($uploaddirs as $uploaddir) {
+			$customThemeName = explode('/bootstrapthemes/', $uploaddir);
+			if ( $bootstrap_theme == $customThemeName[1] ) {
+					$customThemeName[1] = preg_replace("/[^a-zA-Z]+/", "", $customThemeName[1]);
+					wp_enqueue_style( $customThemeName[1].'bootstrap', $themeFolder_url.'/bootstrapthemes/'.$customThemeName[1].'/css/bootstrap.min.css' );
+					wp_enqueue_style( $customThemeName[1].'bootstrap-theme', $themeFolder_url.'/bootstrapthemes/'.$customThemeName[1].'/css/bootstrap-theme.min.css' );	
+			}
 		}
 	}
-
 
 	if(!isset($bootstrap_theme) || ('default' == $bootstrap_theme) ) {		
 		// Default bootstrap theme
