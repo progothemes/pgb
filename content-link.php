@@ -30,7 +30,9 @@ $the_post_format_meta = get_post_meta( get_the_ID(), '_postformats_meta_value_ke
 				
 				<div class="panel-heading">
 					<h3 class="panel-title">
-						<a href="<?php echo $the_post_format_meta['link_url']; ?>" target="_blank"><?php echo ( ($the_post_format_meta['link_title']) ? $the_post_format_meta['link_title'] : ( (the_title('', '', false) ) ? : $the_post_format_meta['link_url'] ) ); ?></a> <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+						<a href="<?php echo $the_post_format_meta['link_url']; ?>" target="_blank">
+							<?php echo ( ( $the_post_format_meta['link_title'] ) ? $the_post_format_meta['link_title'] : ( ( the_title( '', '', false ) ) ? the_title( '', '', false ) : $the_post_format_meta['link_url'] ) ); ?>
+						</a> <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
 					</h3>
 				</div>
 				<div class="panel-body">
