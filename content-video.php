@@ -44,15 +44,6 @@ $the_post_format_meta = get_post_meta( get_the_ID(), '_postformats_meta_value_ke
 			?>
 		</div>
 
-		<?php if ( is_single() ) : ?>
-
-			<?php
-				wp_link_pages( array(
-					'before' => '<div class="page-links">' . __( 'Pages:', 'pgb' ),
-					'after'  => '</div>',
-				) );
-			?>
-
-		<?php endif; ?>
+		<?php pgb_block_linkpages(); ?>
 
 	</div><!-- //.entry -->

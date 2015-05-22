@@ -1,6 +1,6 @@
 <?php
 /**
- * Image display and layout on Blog page
+ * Template for displaying post/page images
  *
  * @package pgb
  */

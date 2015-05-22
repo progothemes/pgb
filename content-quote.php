@@ -39,7 +39,7 @@ $_quote = sprintf( '<footer>%1$s</footer>', $_quote );
 
 ?>
 
-<?php if ( is_single() ) : // Only display Excerpts for Search and Archive Pages ?>
+<?php if ( is_single() ) : ?>
 
 	<div class="entry-content col-md-12">
 
@@ -54,15 +54,6 @@ $_quote = sprintf( '<footer>%1$s</footer>', $_quote );
 			<?php echo $_quote; ?>
 		</blockquote>
 
-		<?php if ( is_single() ) : // Only display Excerpts for Search and Archive Pages ?>
-
-			<?php
-				wp_link_pages( array(
-					'before' => '<div class="page-links">' . __( 'Pages:', 'pgb' ),
-					'after'  => '</div>',
-				) );
-			?>
-
-		<?php endif; ?>
+		<?php pgb_block_linkpages(); ?>
 			
 	</div><!-- .entry-summary -->

@@ -188,6 +188,20 @@ if (!isset($pgbo_details))
 	$pgbo_details = array();
 
 
+
+/**
+ * Remove theme editor from Admin Menu for security
+ *
+ * @return null
+ */
+add_action('admin_init', 'pgb_remove_menu_elements', 102);
+function pgb_remove_menu_elements()
+{
+	remove_submenu_page( 'themes.php', 'theme-editor.php' );		// remove theme editor
+	remove_submenu_page( 'plugins.php', 'plugin-editor.php' );		// remove plugins editor
+}
+
+
 /**
  * Load PGB Template Parts
  *
@@ -235,14 +249,16 @@ function pgb_load_block_footerwidgets() {
 }
 add_action( 'pgb_block_footerwidgets', 'pgb_load_block_footerwidgets', 10 );
 
-
 /**
- * Remove theme editor from Admin Menu for security
- *
+ * Load Header block - pgb_block_header()
  */
-add_action('admin_init', 'pgb_remove_menu_elements', 102);
-function pgb_remove_menu_elements()
-{
-	remove_submenu_page( 'themes.php', 'theme-editor.php' );		// remove theme editor
-	remove_submenu_page( 'plugins.php', 'plugin-editor.php' );		// remove plugins editor
+function pgb_block_linkpages() {
+	do_action( 'pgb_block_linkpages' );
 }
+/* callback */
+function pgb_load_block_linkpages() {
+	locate_template( 'block-linkpages.php', true );
+}
+add_action( 'pgb_block_linkpages', 'pgb_load_block_linkpages', 10 );
+
+
