@@ -1,8 +1,8 @@
 <?php
 /**
- * Progo Base Theme version
+ * ProGo Base Theme version
  */
-define( 'PGB_THEME_VERSION', '0.4' );
+define( 'PGB_THEME_VERSION', '0.4.1' );
 
 
 
@@ -43,24 +43,17 @@ function pgb_setup() {
 
 	if ( function_exists( 'add_theme_support' ) ) {
 
-		/**
-		 * Add default posts and comments RSS feed links to head
-		*/
+		// Add default posts and comments RSS feed links to head
 		add_theme_support( 'automatic-feed-links' );
 
-		/**
-		 * Enable support for Post Thumbnails on posts and pages
-		 *
-		 * @link http://codex.wordpress.org/Function_Reference/add_theme_support#Post_Thumbnails
-		*/
+		// Enable support for Post Thumbnails on posts and pages
 		add_theme_support( 'post-thumbnails' );
 
-		/**
-		 * Enable support for Post Formats
-		*/
+		// Enable support for various Post Formats
 		add_theme_support( 'post-formats', array( 'aside', 'audio', 'image', 'link', 'quote', 'video' ) );
 
-
+    // Enable support for Title Tag
+    add_theme_support( 'title-tag' );
 	}
 
 	/**
