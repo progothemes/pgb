@@ -31,8 +31,6 @@ function progobaseframework_add_adminbar_menu() {
 
 	global $wp_admin_bar;
 
-	$all_toolbar_nodes = $wp_admin_bar->get_nodes();
-
 	if ( current_user_can( 'edit_theme_options' ) ) {
 		$wp_admin_bar->add_node( array(
 			//'parent' => 'appearance',
@@ -41,10 +39,7 @@ function progobaseframework_add_adminbar_menu() {
 			'href'   => admin_url( 'admin.php?page=progobase-theme-options' ),
 		) );
 	}
-	foreach ( $all_toolbar_nodes as $node ) {
-		$args = $node;
-		$wp_admin_bar->add_node( $args );
-	}
+
 }
 add_action( 'admin_bar_menu', 'progobaseframework_add_adminbar_menu', 999 );
 
