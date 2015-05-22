@@ -6,31 +6,18 @@
 
 $theme_version = '';
 $pgbo_output = '';
-
-if( function_exists( 'wp_get_theme' ) ) {
 	
-    if( is_child_theme() ) {
-		$temp_obj = wp_get_theme();
-		$theme_obj = wp_get_theme( $temp_obj->get('Template') );
-	} else {
-		$theme_obj = wp_get_theme();    
-	}
-
-	$theme_version = $theme_obj->get('Version');
-	$theme_name = $theme_obj->get('Name');
-	$theme_uri = $theme_obj->get('ThemeURI');
-	$author_uri = $theme_obj->get('AuthorURI');
-
+if( is_child_theme() ) {
+  $temp_obj = wp_get_theme();
+  $theme_obj = wp_get_theme( $temp_obj->get('Template') );
 } else {
-
-	$theme_data = get_theme_data( get_template_directory().'/style.css' );
-	$theme_version = $theme_data['Version'];
-	$theme_name = $theme_data['Name'];
-	$theme_uri = $theme_data['ThemeURI'];
-	$author_uri = $theme_data['AuthorURI'];
-
+  $theme_obj = wp_get_theme();    
 }
 
+$theme_version = $theme_obj->get('Version');
+$theme_name = $theme_obj->get('Name');
+$theme_uri = $theme_obj->get('ThemeURI');
+$author_uri = $theme_obj->get('AuthorURI');
 
 if( !defined('ADMIN_PATH') )
 	define( 'ADMIN_PATH', get_template_directory() . '/includes/' );

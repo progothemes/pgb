@@ -1,6 +1,6 @@
 === ProGo Base ===
 Contributors: ProGo
-Tags: bootstrap, light, custom-header, custom-menu, fixed-layout, responsive-layout, two-columns
+Tags: custom-colors, custom-header, custom-menu, featured-images, full-width-template, light, post-formats, responsive-layout, theme-options
 Requires at least: 4.1
 Tested up to: 4.2.2
 Stable tag: 4.1

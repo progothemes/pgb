@@ -41,7 +41,7 @@
 			<img style="display:none" src="<?php echo ADMIN_DIR; ?>admin/images/loading-bottom.gif" class="ajax-loading-img ajax-loading-img-bottom" alt="Working..." />
 
 			<button id="pgb_save" type="button" class="button-primary">
-				<?php _e('Save All Changes');?>
+				<?php _e( 'Save All Changes', 'pgb' );?>
 			</button>
 			
 		</div><!--.info_bar--> 	
@@ -65,8 +65,8 @@
 		<div class="save_bar"> 
 		
 			<img style="display:none" src="<?php echo ADMIN_DIR; ?>admin/images/loading-bottom.gif" class="ajax-loading-img ajax-loading-img-bottom" alt="Working..." />
-			<button id ="pgb_save" type="button" class="button-primary"><?php _e('Save All Changes');?></button>			
-			<button id ="pgb_reset" type="button" class="button submit-button reset-button" ><?php _e('Options Reset');?></button>
+			<button id ="pgb_save" type="button" class="button-primary"><?php _e( 'Save All Changes', 'pgb' );?></button>			
+			<button id ="pgb_reset" type="button" class="button submit-button reset-button" ><?php _e( 'Options Reset', 'pgb' );?></button>
 			<img style="display:none" src="<?php echo ADMIN_DIR; ?>admin/images/loading-bottom.gif" class="ajax-reset-loading-img ajax-loading-img-bottom" alt="Working..." />
 			
 		</div><!--.save_bar--> 

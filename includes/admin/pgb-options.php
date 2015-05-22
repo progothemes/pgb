@@ -46,7 +46,7 @@ $pgbo_options[] = array("name" 		=> "Default Bootstrap Theme",
 				);
 
 $pgbo_options[] = array("name" 		=> "Page Container Width",
-						"desc" 		=> "Set site­wide default container size",
+						"desc" 		=> "Set site wide default container size",
 						"id" 		=> "container_width",
 						"std" 		=> 'default',
 						"type" 		=> "select",

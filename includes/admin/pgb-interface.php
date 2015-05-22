@@ -17,6 +17,7 @@ function progobaseframework_admin_init() {
 }
 
 function progobaseframework_add_admin() {
+  // need to rework..
 	$pgb_page = add_menu_page( THEMENAME, "ProGo", "manage_options", "progobase-theme-options", 'progobaseframework_options_page', get_template_directory_uri() . '/includes/admin/images/favicon.ico', 3 );
 	
 	$pgb_page = add_submenu_page( 'progobase-theme-options', 'ProGo Theme Options', 'Theme Options', 'edit_theme_options', 'progobase-theme-options', 'progobaseframework_options_page' );
@@ -35,7 +36,7 @@ function progobaseframework_add_adminbar_menu() {
 		$wp_admin_bar->add_node( array(
 			//'parent' => 'appearance',
 			'id'     => 'progobase-theme-options',
-			'title'  => '<span class="" aria-hidden="true"><img class="alignnone" src="' . get_template_directory_uri() . '/includes/admin/images/favicon.ico" />&nbsp;</span>' . __( 'ProGo Options' ),
+			'title'  => '<span class="" aria-hidden="true"><img class="alignnone" src="' . get_template_directory_uri() . '/includes/admin/images/favicon.ico" />&nbsp;</span>' . __( 'ProGo Options', 'pgb' ),
 			'href'   => admin_url( 'admin.php?page=progobase-theme-options' ),
 		) );
 	}
@@ -144,7 +145,8 @@ function pgb_ajax_callback() {
 		
 		die('1'); 
 	} elseif($save_type == 'import_options') {
-		$pgbo_data = unserialize(base64_decode($_POST['data'])); //100% safe - ignore theme check nag
+		$pgbo_data = unserialize( $_POST['data'] );
+    // maybe need to validate more?!
 		pgb_save_options($pgbo_data);
 
 		

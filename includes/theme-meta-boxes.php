@@ -4,7 +4,7 @@ function pgb_add_meta_box()
 {
 	add_meta_box(
         'pgb-meta-box',
-        __( 'ProGo Theme Page Options' ),
+        __( 'ProGo Theme Page Options', 'pgb' ),
         'pgb_page_opttions_cb',
         'page',
         'side',
