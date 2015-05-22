@@ -87,7 +87,7 @@ function progo_bootstrap3_comment_form_fields( $fields ) {
 add_filter( 'comment_form_defaults', 'progo_bootstrap3_comment_form' );
 function progo_bootstrap3_comment_form( $args ) {
     $args['comment_field']      = '<div class="form-group comment-form-comment"><label for="comment">' . 
-                                    _x( 'Comment', 'noun' ) . 
+                                    _x( 'Comment', 'pgb' ) . 
                                     '</label> <textarea class="form-control" id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></div>';
     $args['comment_notes_after']= '<p class="form-allowed-tags">' . 
                                     __( 'You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:' ) . 
