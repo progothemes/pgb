@@ -94,6 +94,14 @@ class ProGo_Customize {
 				'description' => '',
 			)
 		);
+		$wp_customize->add_setting( 'pgb_options[logo_mobile]',
+			array(
+				//'default' => '',
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+			) 
+		);
 		$wp_customize->add_setting( 'pgb_options[logo_desktop]',
 			array(
 				//'default' => '',
@@ -102,12 +110,16 @@ class ProGo_Customize {
 				'transport' => 'refresh',
 			) 
 		);
-		$wp_customize->add_setting( 'pgb_options[logo_mobile]',
-			array(
-				//'default' => '',
-				'type' => 'theme_mod',
-				'capability' => 'edit_theme_options',
-				'transport' => 'refresh',
+		$wp_customize->add_control(
+			new WP_Customize_Upload_Control( 
+				$wp_customize, 
+				'pgb_options[logo_mobile]',
+				array(
+					'label' => __( 'Navbar Icon', 'pgb' ),
+					'section' => 'pgb_options[logo]',
+					'settings' => 'pgb_options[logo_mobile]',
+					'description' => 'Add your logo to the top navbar (Bootstrap <a href="http://getbootstrap.com/components/#navbar-brand-image" target="_blank">Brand Image</a>). This logo will also be used in place of the Desktop Logo on smaller screens.<br />Maximum height 40px.'
+				)
 			) 
 		);
 		$wp_customize->add_control(
@@ -118,17 +130,7 @@ class ProGo_Customize {
 					'label'      => __( 'Desktop Logo', 'pgb' ),
 					'section'    => 'pgb_options[logo]',
 					'settings'   => 'pgb_options[logo_desktop]',
-				)
-			) 
-		);
-		$wp_customize->add_control(
-			new WP_Customize_Upload_Control( 
-				$wp_customize, 
-				'pgb_options[logo_mobile]',
-				array(
-					'label'      => __( 'Mobile Logo', 'pgb' ),
-					'section'    => 'pgb_options[logo]',
-					'settings'   => 'pgb_options[logo_mobile]',
+					'description' => 'Desktop Logo is not currently implemented in ProGo Base.<br />However, you can use <code>pgb_get_logo()</code> to embed responsive logos.'
 				)
 			) 
 		);

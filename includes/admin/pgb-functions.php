@@ -45,7 +45,7 @@ endif;
  * @since ProGo 0.3
  * @return html
  */
-function pgb_get_logo () {
+function pgb_get_logo() {
 
 	$desktoplogo	= pgb_get_option( 'logo_desktop' );
 	$mobilelogo		= pgb_get_option( 'logo_mobile' );
