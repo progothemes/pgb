@@ -123,42 +123,15 @@ add_action( 'widgets_init', 'pgb_widgets_init' );
  * Enqueue scripts and styles
  */
 function pgb_scripts() {
-	$options = pgb_get_options();
-	// Register Bootswatch themes
-	$bootswatchdir   = trailingslashit( get_template_directory().'/includes/bootswatch');
-	$bootswatchdirs  = glob($bootswatchdir . '/*' , GLOB_ONLYDIR);
-	$bootstrap_theme = $options['bootstrap_theme'];
 
-	foreach ($bootswatchdirs as $bootswatchdir) {
-		$themeName = explode('//', $bootswatchdir);
-		if ( $bootstrap_theme 	== $themeName[1] ) {
-			wp_enqueue_style( 'pgb-bootstrap', get_template_directory_uri() . '/includes/bootswatch/'. $bootstrap_theme .'/bootstrap.min.css' );	
-		}
-	}
+	$bootstrap_theme = pgb_get_option('bootstrap_theme', 'default');
 
-	// Register uploaded themes
-	$themeFolder 	 = wp_upload_dir();
-	$themeFolder_dir = $themeFolder['basedir'];
-	$themeFolder_url = $themeFolder['baseurl'];
-	$themeFolder_dir = $themeFolder_dir . '/bootstrapthemes';
-	$uploaddirs 	 = glob($themeFolder_dir . '/*' , GLOB_ONLYDIR);
-
-	if ( is_array($uploaddirs) ) {
-		foreach ($uploaddirs as $uploaddir) {
-			$customThemeName = explode('/bootstrapthemes/', $uploaddir);
-			if ( $bootstrap_theme == $customThemeName[1] ) {
-					$customThemeName[1] = preg_replace("/[^a-zA-Z]+/", "", $customThemeName[1]);
-					wp_enqueue_style( $customThemeName[1].'bootstrap', $themeFolder_url.'/bootstrapthemes/'.$customThemeName[1].'/css/bootstrap.min.css' );
-					wp_enqueue_style( $customThemeName[1].'bootstrap-theme', $themeFolder_url.'/bootstrapthemes/'.$customThemeName[1].'/css/bootstrap-theme.min.css' );	
-			}
-		}
-	}
-
-	if(!isset($bootstrap_theme) || ('default' == $bootstrap_theme) ) {		
-		// Default bootstrap theme
+	if ( ! $bootstrap_theme || $bootstrap_theme == 'default' ) {
 		wp_enqueue_style( 'pgb-bootstrap', get_template_directory_uri() . '/includes/css/bootstrap.css' );
+	} else {
+		wp_enqueue_style( 'pgb-bootstrap', get_template_directory_uri() . '/includes/bootswatch/'. $bootstrap_theme .'/bootstrap.min.css' );
 	}
-	
+
 	// load pgb styles
 	wp_enqueue_style( 'pgb-style', get_stylesheet_uri() );
 
@@ -171,24 +144,17 @@ function pgb_scripts() {
 	// load google fonts
 	wp_enqueue_style( 'pgb-google-font', '//fonts.googleapis.com/css?family=Questrial|Droid+Sans:400,700|Lato:400,700,900,400italic,700italic|Arvo:400,700,400italic|PT+Sans:400,700,400italic,700italic|Quicksand:400,700|Gloria+Hallelujah|Roboto:900,400,700,300italic,500,500italic,700italic|Montserrat:700,400|Open+Sans:400italic,700,600,800,400');
 
-	if ( !is_admin() ) {
-		$custom_css = "";
 
-		$container_width = $options['container_width'];
-		if ( !empty( $container_width )) {
-			$metabox_custom_page_layout = get_post_meta(get_the_ID(), 'metabox_page_layout_option', true );
-			if ( $metabox_custom_page_layout === "yes" ) {
-				$metabox_custom_page_width  = get_post_meta( get_the_ID(), 'custom_container_width', true );
-				$custom_css .= pgb_set_container_width( $metabox_custom_page_width, '.container' );
-			} else {
-				$custom_css .= pgb_set_container_width( $container_width, '.container, .jumbotron .container' );
-			}
-		}
+	// ProGo Container Width
+	if ( !is_admin() ) {
+		
+		$custom_css = pgb_set_container_width();
 
 		$custom_css .= " @media (max-width: 599px) { .navbar-fixed-top.top-nav-menu{ z-index: 499; } }";
 
 		wp_add_inline_style( 'pgb-style', $custom_css );
 	}
+
 
 	// Fix for Visual Composer not loading CSS file(s)
 	if ( is_plugin_active( 'js_composer/js_composer.php' ) ) {

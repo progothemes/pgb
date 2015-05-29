@@ -4,12 +4,10 @@
  *
  */
 
-$options = pgb_get_options();
-
 $metabox_custom_page_footer 	  = get_post_meta(get_the_ID(), 'metabox_page_footer_option', true);
 $metabox_custom_page_footer_count = get_post_meta(get_the_ID(), 'custom_footer_layout', true);
-$showFooter 					  = $options['footer'];
-$footer_column 					  = $options['footer_column'];
+$showFooter 					  = pgb_get_option( 'footer_show', '1' );
+$footer_column 					  = pgb_get_option( 'footer_columns', '3' );
 
 ?>
 <!-- Footer widget area -->
@@ -18,7 +16,7 @@ $footer_column 					  = $options['footer_column'];
 		<div class="row">
 			<?php 
 				if ( is_page() ) {
-					if( $metabox_custom_page_footer == "default" ) {
+					if ( $metabox_custom_page_footer == "default" || ! isset($metabox_custom_page_footer) ) {
 						if( !empty( $showFooter ) && '1' == $showFooter ) {
 							if ( !empty( $footer_column )) {
 								if ( $footer_column == 'default' ) {
@@ -55,7 +53,7 @@ $footer_column 					  = $options['footer_column'];
 								}
 							}
 						}
-					} else if( $metabox_custom_page_footer == "custom" ) {
+					} elseif ( $metabox_custom_page_footer == "custom" ) {
 						$num = 12/$metabox_custom_page_footer_count;
 							?>
 							<div class="col-sm-<?php echo $num; ?>">
@@ -72,7 +70,7 @@ $footer_column 					  = $options['footer_column'];
 							<?php
 						}
 					}
-				} else if( !empty( $showFooter ) && '1' == $showFooter ) {
+				} elseif ( !empty( $showFooter ) && '1' == $showFooter ) {
 					if ( !empty($footer_column)) {
 						if ( $footer_column == 'default' ) {
 								?>

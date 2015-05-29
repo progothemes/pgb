@@ -243,6 +243,11 @@ object {
 ------------------------------------------------------------------
 */
 
+body nav.navbar-fixed-top + #page-content-wrapper {
+	margin-top: 51px;
+}
+
+
 /*--------------------------[ WP ADMIN BAR FIXES ]-----------------------------------*/
 @media screen and (min-width: 783px) {
 	body.admin-bar .navbar-fixed-top {

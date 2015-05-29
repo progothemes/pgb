@@ -6,7 +6,6 @@
  *
  * @package pgb
  */
-$options = pgb_get_options();
 ?>
 				
 		</div><!-- close .row -->

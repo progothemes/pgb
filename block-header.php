@@ -6,7 +6,6 @@
  * This block renders below the Navbar and above site content
  *
  **/
-
 ?>
 
   <header id="masthead" class="site-header" role="banner">

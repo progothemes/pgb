@@ -5,24 +5,15 @@
 * @return string
 */
 
-$options = pgb_get_options();
-
 $topmenustyle           = '';
-$menuleftright          = 'navbar-left';
-$menucontainerright     = '';
+$menuleftright          = 'navbar-' . pgb_get_option('menu_align', 'right');
 
 // Static or Fixed navigation bar
-if ( !empty( $options['menu_position_top'] ) && 'fixed' == $options['menu_position_top']) {
+if ( pgb_get_option( 'nav_position', 'static' ) == 'fixed' ) {
 	$topmenustyle = 'navbar-fixed-top top-nav-menu';
 } else {
 	$topmenustyle = 'navbar-static-top';
 } 
-
-// Nav menu alignment
-if( !empty( $options['menu_align_top'] ) && 'right' == $options['menu_align_top'] ) {
-	$menuleftright = 'navbar-right';
-  $menucontainerright = 'navbar-right';
-}
 
 ?>
 
@@ -40,14 +31,13 @@ if( !empty( $options['menu_align_top'] ) && 'right' == $options['menu_align_top'
 				<!-- Your site title as branding in the menu --> 
 				<a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"> <?php echo pgb_get_mobile_logo(); ?> </a>
 			</div>
-			<div class="collapse navbar-collapse navbar-responsive-collapse <?php esc_attr_e( $menucontainerright ); ?>">
+			<div class="collapse navbar-collapse navbar-responsive-collapse <?php esc_attr_e( $menuleftright ); ?>">
 				
 				<?php // Main Menu
 				wp_nav_menu(
 					array(
 						'theme_location' => 'primary',
 						'container' => false,
-						//'container_class' => 'top-view-primary-menu',
 						'menu_class' => 'nav navbar-nav '. esc_attr( $menuleftright ),
 						'fallback_cb' => '',
 						'menu_id' => 'main-menu',
@@ -57,7 +47,7 @@ if( !empty( $options['menu_align_top'] ) && 'right' == $options['menu_align_top'
 				?>
 
 				<?php // Show search form
-				if( ( !empty( $options['search_top'] ) && '1' == $options['search_top'] ) )
+				if( pgb_get_option( 'nav_search' ) == '1' )
 					get_search_form();
 				?>
 

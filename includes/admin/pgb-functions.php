@@ -1,50 +1,54 @@
 <?php 
 
 /**
- * Get page container width CSS
- *
+ * Get page container width CSS from customizer settings
+ * @since ProGo 0.5
  * @param $data 
  * @param $classname 
  * @return css
  */
-if ( ! function_exists( 'pgb_set_container_width' ) ) {
-	function pgb_set_container_width( $data, $classname ) {
-		$custom_css = '';
-		if ( !empty( $data )) {
-			if ( 'full' == $data ) {
-				$custom_css = $classname ." { width: 100%; max-width: 100%; }";
-			} elseif ( 'default' == $data ) {
-				// default
-			} else {
-				$custom_css = $classname ." { width: 100%; max-width: ". $data . "; }";
-			}
-		}
-		return $custom_css;
-	}
-}
+if ( ! function_exists( 'pgb_set_container_width' ) ) :
+function pgb_set_container_width() {
 
-function pgb_get_header_classes_array() {
-	global $pgbo_options;
-	
-	foreach ($pgbo_options as $value) 
-	{
-		if ($value['type'] == 'heading')
-			$hooks[] = str_replace(' ','',strtolower($value['name']));	
-	}
-	
-	return $hooks;
+	$default_width = '1170';
+	$classname = '.container';
+
+	$width = '100%';
+	$max_width = ( pgb_get_option( 'container_width', $default_width ) === "full" ? '100%' : pgb_get_option( 'container_width', $default_width ) . 'px' );
+		
+	$override_width = get_post_meta( get_the_ID(), 'metabox_page_layout_option', true );
+	$custom_width = get_post_meta( get_the_ID(), 'custom_container_width', true );
+			
+	if ( $override_width === "yes" ) :
+
+		if ( empty( $custom_width ) || $custom_width === "default" ) {
+			// do nothing...
+		}
+		elseif ( $custom_width === "full" ) {
+			$max_width = '100%';
+		}
+		else {
+			$max_width = $custom_width . 'px';
+		}
+				
+	endif;
+
+	$custom_css = sprintf( '%1$s { width: %2$s; max-width: %3$s; }', $classname, $width, $max_width );
+
+	return $custom_css;
 }
+endif;
+
 
 /**
  * Returns available theme logos as responsive HTML blocks
- *
+ * @since ProGo 0.3
  * @return html
  */
 function pgb_get_logo () {
 
-	$options		= pgb_get_options();
-	$desktoplogo	= $options['logo_image'];
-	$mobilelogo		= $options['mobile_logo'];
+	$desktoplogo	= pgb_get_option( 'logo_desktop' );
+	$mobilelogo		= pgb_get_option( 'logo_mobile' );
 	$title			= get_bloginfo( 'name' );
 	$logo			= null;
 
@@ -74,19 +78,21 @@ function pgb_get_logo () {
 
 /**
  * Returns mobile logo only - non-responsive, always visible
+ * @since ProGo 0.4
+ * @return html
  */
 function pgb_get_mobile_logo () {
 
-	$options	= pgb_get_options();
-	$mobilelogo	= $options['mobile_logo'];
+	$mobilelogo	= pgb_get_option( 'logo_mobile' );
 	$title		= get_bloginfo( 'name' );   
 	$logo		= null;
 
-	if ( ! empty( $mobilelogo ) ) {
+	if ( $mobilelogo ) {
 		$logo = '<div class="mobilelogo show">
 				<img src="'.  esc_attr( $mobilelogo ) .'" alt="">
 			</div>';
-	} else {
+	}
+	else {
 		$logo = sprintf( __( '%s', 'pgb' ), $title ); 
 	}
 
@@ -95,7 +101,7 @@ function pgb_get_mobile_logo () {
 
 /**
  * Checks if current page is a blog page
- *
+ * @since ProGo 0.3
  * @return boolean
  */
 if ( ! function_exists('is_blog_page') ) :
@@ -116,76 +122,32 @@ function is_blog_page() {
 }
 endif;
 
+
+
 /**
- * Returns theme options
- *
+ * Returns a single option for ProGo
+ * @since ProGo 0.5
+ * @return param
+ */
+function pgb_get_option( $name, $default = false ) {
+	$options = get_theme_mod( 'pgb_options', null );
+	// return the option if it exists
+	if ( isset( $options[ $name ] ) ) {
+		return apply_filters( "pgb_options_{$name}", $options[ $name ] );
+	}
+	// return default if nothing else
+	return apply_filters( "pgb_options_{$name}", $default );
+}
+
+/**
+ * Returns the options array for ProGo
+ * @since ProGo 0.5
  * @return array
  */
-function pgb_get_options($key = null, $data = null) {
-	global $pgbo_data;
-
-	do_action('pgb_get_options_before', array(
-		'key'=>$key, 'data'=>$data
-	));
-	if ($key != null) { // Get one specific value
-		$data = get_theme_mod($key, $data);
-	} else { // Get all values
-		$data = get_theme_mods();	
-	}
-	$data = apply_filters('pgb_options_after_load', $data);
-	if ($key == null) {
-		$smof_data = $data;
-	} else {
-		$smof_data[$key] = $data;
-	}
-	do_action('pgb_option_setup_before', array(
-		'key'=>$key, 'data'=>$data
-	));
-	return $data;
-
+function pgb_get_options() {
+	$options = get_theme_mod( 'pgb_options', null );
+	return $options;
 }
-
-/**
- * Saves theme options
- *
- * @return null
- */
-function pgb_save_options($data, $key = null) {
-	global $pgbo_data;
-	if (empty($data))
-		return;	
-	do_action('pgb_save_options_before', array(
-		'key'=>$key, 'data'=>$data
-	));
-	$data = apply_filters('pgb_options_before_save', $data);
-	if ($key != null) { // Update one specific value
-		if ($key == BACKUPS) {
-			unset($data['pgbo_init']); // Don't want to change this.
-		}
-		set_theme_mod($key, $data);
-	} else { // Update all values in $data
-		foreach ( $data as $k=>$v ) {
-			if (!isset($pgbo_data[$k]) || $pgbo_data[$k] != $v) { // Only write to the DB when we need to
-				set_theme_mod($k, $v);
-			} else if (is_array($v)) {
-				foreach ($v as $key=>$val) {
-					if ($key != $k && $v[$key] == $val) {
-						set_theme_mod($k, $v);
-						break;
-					}
-				}
-			}
-	  	}
-	}
-	do_action('pgbo_save_options_after', array(
-		'key'=>$key, 'data'=>$data
-	));
-
-}
-
-$data = pgb_get_options();
-if (!isset($pgbo_details))
-	$pgbo_details = array();
 
 
 
@@ -195,8 +157,7 @@ if (!isset($pgbo_details))
  * @return null
  */
 add_action('admin_init', 'pgb_remove_menu_elements', 102);
-function pgb_remove_menu_elements()
-{
+function pgb_remove_menu_elements() {
 	remove_submenu_page( 'themes.php', 'theme-editor.php' );		// remove theme editor
 	remove_submenu_page( 'plugins.php', 'plugin-editor.php' );		// remove plugins editor
 }
@@ -260,5 +221,4 @@ function pgb_load_block_linkpages() {
 	locate_template( 'block-linkpages.php', true );
 }
 add_action( 'pgb_block_linkpages', 'pgb_load_block_linkpages', 10 );
-
 

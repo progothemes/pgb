@@ -27,7 +27,6 @@ if( !defined('ADMIN_DIR') )
 
 define( 'ADMIN_IMAGES', ADMIN_DIR . 'admin/images/' );
 
-define( 'LAYOUT_PATH', ADMIN_PATH . 'layouts/' );
 define( 'THEMENAME', $theme_name );
 
 /* Theme version, uri, and the author uri are not completely necessary, but may be helpful in adding functionality */
@@ -35,13 +34,9 @@ define( 'THEMEVERSION', $theme_version );
 define( 'THEMEURI', $theme_uri );
 define( 'THEMEAUTHORURI', $author_uri );
 
-define( 'BACKUPS','backups' );
+require_once( ADMIN_PATH . 'admin/class.pgb_customizer.php' ); // Theme Customizer
+require_once( ADMIN_PATH . 'admin/class.post_formats.php' ); // Post Formats support
+require_once( ADMIN_PATH . 'admin/pgb-filters.php' ); // Theme Filters
+require_once( ADMIN_PATH . 'admin/pgb-functions.php' ); // Theme Functions
 
-require_once ( ADMIN_PATH . 'admin/class.pgb_options.php' );
-require_once ( ADMIN_PATH . 'admin/class.post_formats.php' );
-require_once ( ADMIN_PATH . 'admin/functions.load.php' );
-
-add_action('admin_init','progobaseframework_admin_init');
-add_action('admin_menu', 'progobaseframework_add_admin');
-
-add_action('wp_ajax_pgb_ajax_post_action', 'pgb_ajax_callback');
+//add_action('wp_ajax_pgb_ajax_post_action', 'pgb_ajax_callback');
