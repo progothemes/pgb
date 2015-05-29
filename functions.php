@@ -2,7 +2,7 @@
 /**
  * ProGo Base Theme version
  */
-define( 'PGB_THEME_VERSION', '0.5' );
+define( 'PGB_THEME_VERSION', '0.5.1' );
 
 
 
