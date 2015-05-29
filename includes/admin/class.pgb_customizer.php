@@ -7,6 +7,7 @@
  * @since ProGo 0.4
  */
 class ProGo_Customize {
+
 	/**
 	 * This hooks into 'customize_register' (available as of WP 3.4) and allows
 	 * you to add new sections and controls to the Theme Customize screen.
@@ -30,10 +31,10 @@ class ProGo_Customize {
 		);
 		$wp_customize->add_setting( 'pgb_options[container_width]',
 			array(
-				//'default' => '1170',
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_container_width' ),
 			) 
 		);
 		$wp_customize->add_setting( 'pgb_options[bootstrap_theme]',
@@ -41,6 +42,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_bootstrap_theme' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[container_width]',
@@ -100,6 +102,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_logo_mobile' ),
 			) 
 		);
 		$wp_customize->add_setting( 'pgb_options[logo_desktop]',
@@ -108,6 +111,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_logo_desktop' ),
 			) 
 		);
 		$wp_customize->add_control(
@@ -141,6 +145,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_menu_align' ),
 			) 
 		);
 		$wp_customize->add_setting( 'pgb_options[nav_position]',
@@ -149,6 +154,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_nav_position' ),
 			) 
 		);
 		$wp_customize->add_setting( 'pgb_options[nav_search]',
@@ -157,6 +163,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_nav_search' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[menu_align]', 
@@ -207,6 +214,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_footer_show' ),
 			) 
 		);
 		$wp_customize->add_setting( 'pgb_options[footer_columns]',
@@ -215,6 +223,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_footer_columns' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[footer_show]', 
@@ -314,6 +323,39 @@ class ProGo_Customize {
 		}
 		return $return;
 	}
+
+	/**
+	 * Settings sanitizations
+	 *
+	 */
+	public function sanitize_container_width( $input ) {
+		return esc_attr( $input );
+	}
+	public function sanitize_bootstrap_theme( $input ) {
+		return esc_attr( $input );
+	}
+	public function sanitize_logo_mobile( $input ) {
+		return esc_url( $input );
+	}
+	public function sanitize_logo_desktop( $input ) {
+		return esc_url( $input );
+	}
+	public function sanitize_menu_align( $input ) {
+		return esc_attr( $input );
+	}
+	public function sanitize_nav_position( $input ) {
+		return esc_attr( $input );
+	}
+	public function sanitize_nav_search( $input ) {
+		return esc_attr( $input );
+	}
+	public function sanitize_footer_show( $input ) {
+		return esc_attr( $input );
+	}
+	public function sanitize_footer_columns( $input ) {
+		return esc_attr( $input );
+	}
+
 }
 
 // Setup the Theme Customizer settings and controls...
