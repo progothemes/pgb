@@ -318,7 +318,7 @@ class ProGo_Customize {
 add_action( 'customize_register' , array( 'ProGo_Customize' , 'register' ) );
 
 // Output custom CSS to live site
-add_action( 'wp_head' , array( 'ProGo_Customize' , 'header_output' ) );
+//add_action( 'wp_head' , array( 'ProGo_Customize' , 'header_output' ) );
 
 // Enqueue live preview javascript in Theme Customizer admin screen
 add_action( 'customize_preview_init' , array( 'ProGo_Customize' , 'live_preview' ) );
