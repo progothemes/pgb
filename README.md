@@ -25,3 +25,9 @@ Built by ProGo, a collection of Developers and Designers and Marketers working t
 ### Coming Soon
 
 Once we figure out what FAQs may be, they may be added here and there. This is a work in progress. Thank you for bearing with us.
+
+## Change Log
+
+### Version 0.5.2
+
+* Changed `pgb_posted_on` template tag to action for better control
