@@ -178,11 +178,17 @@ function pgb_the_attached_image() {
 }
 endif;
 
-if ( ! function_exists( 'pgb_posted_on' ) ) :
+
+
 /**
  * Prints HTML with meta information for the current post-date/time and author.
  */
 function pgb_posted_on() {
+	do_action( 'pgb_posted_on' );
+}
+add_action( 'pgb_posted_on', 'pgb_do_posted_on', 10 );
+/* callback */
+function pgb_do_posted_on() {
 	$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time>';
 
 	$time_string = sprintf( $time_string,
@@ -219,7 +225,6 @@ function pgb_posted_on() {
 		)
 	);
 }
-endif;
 
 /**
  * Returns true if a blog has more than 1 category
