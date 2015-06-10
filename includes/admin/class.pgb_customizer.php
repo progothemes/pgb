@@ -328,31 +328,31 @@ class ProGo_Customize {
 	 * Settings sanitizations
 	 *
 	 */
-	public function sanitize_container_width( $input ) {
+	public static function sanitize_container_width( $input ) {
 		return esc_attr( $input );
 	}
-	public function sanitize_bootstrap_theme( $input ) {
+	public static function sanitize_bootstrap_theme( $input ) {
 		return esc_attr( $input );
 	}
-	public function sanitize_logo_mobile( $input ) {
+	public static function sanitize_logo_mobile( $input ) {
 		return esc_url( $input );
 	}
-	public function sanitize_logo_desktop( $input ) {
+	public static function sanitize_logo_desktop( $input ) {
 		return esc_url( $input );
 	}
-	public function sanitize_menu_align( $input ) {
+	public static function sanitize_menu_align( $input ) {
 		return esc_attr( $input );
 	}
-	public function sanitize_nav_position( $input ) {
+	public static function sanitize_nav_position( $input ) {
 		return esc_attr( $input );
 	}
-	public function sanitize_nav_search( $input ) {
+	public static function sanitize_nav_search( $input ) {
 		return esc_attr( $input );
 	}
-	public function sanitize_footer_show( $input ) {
+	public static function sanitize_footer_show( $input ) {
 		return esc_attr( $input );
 	}
-	public function sanitize_footer_columns( $input ) {
+	public static function sanitize_footer_columns( $input ) {
 		return esc_attr( $input );
 	}
 

@@ -28,6 +28,10 @@ Once we figure out what FAQs may be, they may be added here and there. This is a
 
 ## Change Log
 
+### Version 0.5.3
+
+* Fixed customizer error calling sanitize functions statically
+
 ### Version 0.5.2
 
 * Changed `pgb_posted_on` template tag to action for better control
