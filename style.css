@@ -243,8 +243,12 @@ object {
 ------------------------------------------------------------------
 */
 
+/* Bootstrap theme specific */
 body nav.navbar-fixed-top + #page-content-wrapper {
 	margin-top: 51px;
+}
+body.pgb-theme-darkly nav.navbar-fixed-top + #page-content-wrapper {
+	margin-top: 61px;
 }
 
 

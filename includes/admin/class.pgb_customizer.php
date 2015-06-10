@@ -168,7 +168,7 @@ class ProGo_Customize {
 		);
 		$wp_customize->add_control( 'pgb_options[menu_align]', 
 			array(
-				'label'    => __( 'Menu Alignment', 'pgb' ),
+				'label'    => __( 'Main Menu Alignment', 'pgb' ),
 				'section'  => 'nav',
 				'settings' => 'pgb_options[menu_align]',
 				'type'     => 'radio',
@@ -180,7 +180,7 @@ class ProGo_Customize {
 		);
 		$wp_customize->add_control( 'pgb_options[nav_position]', 
 			array(
-				'label'    => __( 'Navbar Position', 'pgb' ),
+				'label'    => __( 'Main Navbar Position', 'pgb' ),
 				'section'  => 'nav',
 				'settings' => 'pgb_options[nav_position]',
 				'type'     => 'radio',
@@ -192,7 +192,7 @@ class ProGo_Customize {
 		);
 		$wp_customize->add_control( 'pgb_options[nav_search]', 
 			array(
-				'label'    => __( 'Show Search in Navbar', 'pgb' ),
+				'label'    => __( 'Show Search in Main Navbar', 'pgb' ),
 				'section'  => 'nav',
 				'settings' => 'pgb_options[nav_search]',
 				'type'     => 'checkbox',

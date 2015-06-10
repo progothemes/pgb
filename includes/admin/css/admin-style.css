@@ -23,3 +23,13 @@
 /* Post Formats
 /*-------------------------------------------------------------------------------------------*/
 .postbox-container div[id^="postformats_"] { display: none; }
+
+/*-------------------------------------------------------------------------------------------*/
+/* Customizer
+/*-------------------------------------------------------------------------------------------*/
+body.wp-customizer .attachment-media-view-image .thumbnail-image {
+	text-align: center;
+}
+body.wp-customizer .attachment-media-view-image .thumbnail-image img {
+	width: auto;
+}

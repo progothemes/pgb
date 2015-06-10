@@ -60,7 +60,7 @@ function pgb_setup() {
 	 * This theme uses wp_nav_menu() in one location.
 	*/
 	register_nav_menus( array(
-		'primary'  	 => __( 'Header Main Menu', 'pgb' ),
+		'primary'  	 => __( 'Main Menu', 'pgb' ),
 	) );
 
 }
@@ -192,6 +192,12 @@ function load_custom_wp_admin_style() {
         wp_enqueue_script('postformats-js', ADMIN_DIR .'admin/js/postformats.js', array( 'jquery' ));
 }
 add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
+
+function pgb_body_classes( $classes ) {
+	$classes[] = 'pgb-theme-' . pgb_get_option('bootstrap_theme', 'default');
+	return $classes;
+}
+add_filter('body_class','pgb_body_classes');
 
 
 ?>
