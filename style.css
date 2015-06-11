@@ -243,16 +243,55 @@ object {
 ------------------------------------------------------------------
 */
 
-/* Bootstrap theme specific */
-body nav.navbar-fixed-top + #page-content-wrapper {
+/* Bootstrap default */
+nav.navbar-fixed-top + #page-content-wrapper {
 	margin-top: 51px;
 }
-body.pgb-theme-darkly nav.navbar-fixed-top + #page-content-wrapper {
+#main-nav .navbar-brand img {
+	max-height: 44px;
+}
+
+/* Bootstrap theme specific */
+.pgb-theme-darkly nav.navbar-fixed-top + #page-content-wrapper,
+.pgb-theme-flatly nav.navbar-fixed-top + #page-content-wrapper,
+.pgb-theme-journal nav.navbar-fixed-top + #page-content-wrapper,
+.pgb-theme-paper nav.navbar-fixed-top + #page-content-wrapper,
+.pgb-theme-readable nav.navbar-fixed-top + #page-content-wrapper,
+.pgb-theme-sandstone nav.navbar-fixed-top + #page-content-wrapper {
 	margin-top: 61px;
+}
+.pgb-theme-darkly #main-nav .navbar-brand img,
+.pgb-theme-flatly #main-nav .navbar-brand img,
+.pgb-theme-journal #main-nav .navbar-brand img,
+.pgb-theme-paper #main-nav .navbar-brand img,
+.pgb-theme-readable #main-nav .navbar-brand img,
+.pgb-theme-sandstone #main-nav .navbar-brand img {
+	max-height: 50px;
+}
+.pgb-theme-simplex nav.navbar-fixed-top + #page-content-wrapper,
+.pgb-theme-superhero nav.navbar-fixed-top + #page-content-wrapper {
+	margin-top: 41px;
+}
+.pgb-theme-simplex #main-nav .navbar-brand img,
+.pgb-theme-superhero #main-nav .navbar-brand img {
+	max-height: 36px;
 }
 
 
 /*--------------------------[ WP ADMIN BAR FIXES ]-----------------------------------*/
+@media screen and (max-width: 1240px) {
+	nav#main-nav .nav-contain {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+@media screen and (min-width: 1241px) and (max-width: 1269px) {
+	nav#main-nav .nav-contain {
+		padding-left: .5%;
+		padding-right: .5%;
+	}
+}
+
 @media screen and (min-width: 783px) {
 	body.admin-bar .navbar-fixed-top {
 		top: 31px;

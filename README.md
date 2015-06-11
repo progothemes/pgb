@@ -31,7 +31,7 @@ Once we figure out what FAQs may be, they may be added here and there. This is a
 ### Version 0.5.3
 
 * Fixed customizer error calling sanitize functions statically
-* Body class functionality for Bootstrap theme specific CSS
+* Body classes and CSS added for Bootstrap theme specific CSS
 * Updated customizer labels for better clarity
 * Updated customizer CSS for image rendering in sidebar
 
