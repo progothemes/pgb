@@ -185,6 +185,13 @@ function pgb_load_block_header() {
 	locate_template( 'block-header.php', true );
 }
 add_action( 'pgb_block_header', 'pgb_load_block_header', 10 );
+/**
+ * Customizeable action - pgb_block_header_after()
+ */
+function pgb_block_header_after() {
+	do_action( 'pgb_block_header_after' );
+}
+/* callback: none - can be used for creating custom content */
 
 /**
  * Load Top Nav block - pgb_block_navtop()
@@ -197,6 +204,13 @@ function pgb_load_block_navtop() {
 	locate_template( 'block-navtop.php', true );
 }
 add_action( 'pgb_block_navtop', 'pgb_load_block_navtop', 10 );
+/**
+ * Customizeable action - pgb_block_navtop_after()
+ */
+function pgb_block_navtop_after() {
+	do_action( 'pgb_block_navtop_after' );
+}
+/* callback: none - can be used for creating custom content */
 
 /**
  * Load Footer Widget Area block - pgb_block_footerwidgets()
@@ -209,6 +223,13 @@ function pgb_load_block_footerwidgets() {
 	locate_template( 'block-footerwidgets.php', true );
 }
 add_action( 'pgb_block_footerwidgets', 'pgb_load_block_footerwidgets', 10 );
+/**
+ * Customizeable action - pgb_block_footerwidgets_after()
+ */
+function pgb_block_footerwidgets_after() {
+	do_action( 'pgb_block_footerwidgets_after' );
+}
+/* callback: none - can be used for creating custom content */
 
 /**
  * Load Header block - pgb_block_header()

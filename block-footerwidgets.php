@@ -110,3 +110,4 @@ $footer_column 					  = pgb_get_option( 'footer_columns', '3' );
 		</div>
 	</div>
 </div>
+<?php pgb_block_footerwidgets_after(); ?>

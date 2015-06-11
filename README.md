@@ -34,6 +34,8 @@ Once we figure out what FAQs may be, they may be added here and there. This is a
 * Body classes and CSS added for Bootstrap theme specific CSS
 * Updated customizer labels for better clarity
 * Updated customizer CSS for image rendering in sidebar
+* New customizeable actions after each `block-{name}.php`
+* Commented out Post formats meta boxes
 
 ### Version 0.5.2
 

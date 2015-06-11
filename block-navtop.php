@@ -57,3 +57,4 @@ if ( pgb_get_option( 'nav_position', 'static' ) == 'fixed' ) {
 	<!-- .navbar --> 
 </nav>
 <!-- .site-navigation -->
+<?php pgb_block_navtop_after(); ?>
