@@ -33,7 +33,7 @@ function pgb_set_container_width() {
 				
 	endif;
 
-	$custom_css = sprintf( '%1$s { width: %2$s; max-width: %3$s; }', $classname, $width, $max_width );
+	$custom_css = sprintf( '%1$s { width: %2$s; max-width: %3$s !important; }', $classname, $width, $max_width );
 
 	return $custom_css;
 }
@@ -48,30 +48,32 @@ endif;
 function pgb_get_logo() {
 
 	$desktoplogo	= pgb_get_option( 'logo_desktop' );
+	$tabletlogo		= pgb_get_option( 'logo_tablet' );
 	$mobilelogo		= pgb_get_option( 'logo_mobile' );
 	$title			= get_bloginfo( 'name' );
-	$logo			= null;
+	$logo			= ( $desktoplogo || $tabletlogo || $mobilelogo ) ? '' : sprintf( __( '%s', 'pgb' ), $title ); // if no logo exists, use text
 
-	if ( empty( $desktoplogo ) && ! empty( $mobilelogo ) ) { // Mobile logo only
-		$desktoplogo = $mobilelogo;
-	} 
-	elseif ( empty( $mobilelogo ) && ! empty( $desktoplogo ) ) { // Desktop logo only
-		$mobilelogo = $desktoplogo;
-	}
-	else {
-		// Both logos
-	}
+	/**
+	 * We can use the mobile or tablet logos on larger screens (up)
+	 * but we cannot use the larger Desktop logo on smaller screens (down).
+	 */
+	if ( $mobilelogo ) :
+		$logo .= sprintf( '<div class="mobilelogo"><img src="%s" alt=""></div>', esc_attr( $mobilelogo ) );
+		if ( ! $tabletlogo ) {
+			$tabletlogo = $mobilelogo;
+		}
+	endif;
 
-	$logo .= '<div class="desktoplogo">
-				<img src="'.  esc_attr( $desktoplogo ) .'" alt="">
-			</div>';
-	$logo .= '<div class="mobilelogo">
-				<img src="'.  esc_attr( $mobilelogo ) .'" alt="">
-			</div>';
+	if ( $tabletlogo ) :
+		$logo .= sprintf( '<div class="tabletlogo"><img src="%s" alt=""></div>', esc_attr( $tabletlogo ) );
+		if ( ! $desktoplogo ) {
+			$desktoplogo = $tabletlogo;
+		}
+	endif;
 
-	if ( empty( $desktoplogo ) && empty( $mobilelogo ) ) { // No logo is set
-		$logo = sprintf( __( '%s', 'pgb' ), $title );
-	}
+	if ( $desktoplogo ) :
+		$logo .= sprintf( '<div class="desktoplogo"><img src="%s" alt=""></div>', esc_attr( $desktoplogo ) );
+	endif;
 
 	return $logo;
 }
@@ -85,15 +87,10 @@ function pgb_get_mobile_logo () {
 
 	$mobilelogo	= pgb_get_option( 'logo_mobile' );
 	$title		= get_bloginfo( 'name' );   
-	$logo		= null;
+	$logo		= sprintf( __( '%s', 'pgb' ), $title );
 
 	if ( $mobilelogo ) {
-		$logo = '<div class="mobilelogo show">
-				<img src="'.  esc_attr( $mobilelogo ) .'" alt="">
-			</div>';
-	}
-	else {
-		$logo = sprintf( __( '%s', 'pgb' ), $title ); 
+		$logo = sprintf( '<div class="mobilelogo show"><img src="%s" alt=""></div>', esc_attr( $mobilelogo ) );
 	}
 
 	return $logo;
@@ -185,13 +182,6 @@ function pgb_load_block_header() {
 	locate_template( 'block-header.php', true );
 }
 add_action( 'pgb_block_header', 'pgb_load_block_header', 10 );
-/**
- * Customizeable action - pgb_block_header_after()
- */
-function pgb_block_header_after() {
-	do_action( 'pgb_block_header_after' );
-}
-/* callback: none - can be used for creating custom content */
 
 /**
  * Load Top Nav block - pgb_block_navtop()
@@ -204,13 +194,6 @@ function pgb_load_block_navtop() {
 	locate_template( 'block-navtop.php', true );
 }
 add_action( 'pgb_block_navtop', 'pgb_load_block_navtop', 10 );
-/**
- * Customizeable action - pgb_block_navtop_after()
- */
-function pgb_block_navtop_after() {
-	do_action( 'pgb_block_navtop_after' );
-}
-/* callback: none - can be used for creating custom content */
 
 /**
  * Load Footer Widget Area block - pgb_block_footerwidgets()
@@ -223,13 +206,6 @@ function pgb_load_block_footerwidgets() {
 	locate_template( 'block-footerwidgets.php', true );
 }
 add_action( 'pgb_block_footerwidgets', 'pgb_load_block_footerwidgets', 10 );
-/**
- * Customizeable action - pgb_block_footerwidgets_after()
- */
-function pgb_block_footerwidgets_after() {
-	do_action( 'pgb_block_footerwidgets_after' );
-}
-/* callback: none - can be used for creating custom content */
 
 /**
  * Load Header block - pgb_block_header()

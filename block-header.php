@@ -32,4 +32,3 @@
       </div><!-- .container -->
     <?php tha_header_bottom(); ?>
   </header><!-- #masthead -->
-  <?php pgb_block_header_after(); ?>

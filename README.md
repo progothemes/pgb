@@ -28,6 +28,11 @@ Once we figure out what FAQs may be, they may be added here and there. This is a
 
 ## Change Log
 
+### Version 0.5.4
+* Customizer updates for legibility
+* Removed customized actions, rely on priority instead
+* More CSS updates for themes and Jumbo compatibility
+
 ### Version 0.5.3
 
 * Fixed customizer error calling sanitize functions statically

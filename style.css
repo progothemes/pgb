@@ -4,7 +4,7 @@
  Description:  ProGo Base is WordPress, Underscores, Bootstrap, Theme Hook Alliance, get-out-the-way-lemme-do-it all-in-one "Theme Framework".
  Author:       ProGo
  Author URI:   http://www.progo.com
- Version:      0.5.3
+ Version:      0.5.4
  License:      GPLv2 or later
  License URI:  http://www.gnu.org/licenses/gpl-2.0.html
  Tags:         custom-colors, custom-header, custom-menu, featured-images, full-width-template, light, post-formats, responsive-layout, theme-options
@@ -245,10 +245,10 @@ object {
 
 /* Bootstrap default */
 nav.navbar-fixed-top + #page-content-wrapper {
-	margin-top: 51px;
+	margin-top: 49px;
 }
 #main-nav .navbar-brand img {
-	max-height: 44px;
+	max-height: 34px;
 }
 
 /* Bootstrap theme specific */
@@ -258,7 +258,7 @@ nav.navbar-fixed-top + #page-content-wrapper {
 .pgb-theme-paper nav.navbar-fixed-top + #page-content-wrapper,
 .pgb-theme-readable nav.navbar-fixed-top + #page-content-wrapper,
 .pgb-theme-sandstone nav.navbar-fixed-top + #page-content-wrapper {
-	margin-top: 61px;
+	margin-top: 59px;
 }
 .pgb-theme-darkly #main-nav .navbar-brand img,
 .pgb-theme-flatly #main-nav .navbar-brand img,
@@ -266,15 +266,15 @@ nav.navbar-fixed-top + #page-content-wrapper {
 .pgb-theme-paper #main-nav .navbar-brand img,
 .pgb-theme-readable #main-nav .navbar-brand img,
 .pgb-theme-sandstone #main-nav .navbar-brand img {
-	max-height: 50px;
+	max-height: 42px;
 }
 .pgb-theme-simplex nav.navbar-fixed-top + #page-content-wrapper,
 .pgb-theme-superhero nav.navbar-fixed-top + #page-content-wrapper {
-	margin-top: 41px;
+	margin-top: 39px;
 }
 .pgb-theme-simplex #main-nav .navbar-brand img,
 .pgb-theme-superhero #main-nav .navbar-brand img {
-	max-height: 36px;
+	max-height: 24px;
 }
 
 
@@ -323,15 +323,30 @@ nav.navbar-fixed-top + #page-content-wrapper {
 
 /*--------------------[ LOGOS ]---------------------*/
 
-.mobilelogo {
+.navbar-brand {
+	padding-top: 0;
+}
+.desktoplogo {
+	display: block; /* show desktop by default */
+}
+.tabletlogo, .mobilelogo {
 	display: none;
 }
-.mobilelogo img {
-	max-height: 50px;
+
+@media all and (max-width: 1024px) {
+	.tabletlogo {
+		display: block;
+	}
+	.mobilelogo, .desktoplogo {
+		display: none;
+	}
 }
 
-.desktoplogo {
-	display: block;
-	padding-top: 10px;
-	padding-bottom: 10px;
+@media all and (max-width: 767px) {
+	.mobilelogo {
+		display: block;
+	}
+	.tabletlogo, .desktoplogo {
+		display: none;
+	}
 }

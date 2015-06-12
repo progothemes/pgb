@@ -9,14 +9,9 @@ $topmenustyle           = '';
 $menuleftright          = 'navbar-' . pgb_get_option('menu_align', 'right');
 
 // Static or Fixed navigation bar
-if ( pgb_get_option( 'nav_position', 'static' ) == 'fixed' ) {
-	$topmenustyle = 'navbar-fixed-top top-nav-menu';
-} else {
-	$topmenustyle = 'navbar-static-top';
-} 
+$topmenustyle = sprintf( 'navbar-%s-top', pgb_get_option( 'nav_position', 'static' ) );
 
 ?>
-
 <nav id="main-nav" class="navbar navbar-default site-navigation <?php echo $topmenustyle; ?>" >
 	<div class="navbar-default container-fluid" role="navigation">
 		<div  class="container nav-contain menu-container-width" >
@@ -29,7 +24,7 @@ if ( pgb_get_option( 'nav_position', 'static' ) == 'fixed' ) {
 					<span class="icon-bar"></span>
 				</button>
 				<!-- Your site title as branding in the menu --> 
-				<a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"> <?php echo pgb_get_mobile_logo(); ?> </a>
+				<a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php echo pgb_get_logo(); ?></a>
 			</div>
 			<div class="collapse navbar-collapse navbar-responsive-collapse <?php esc_attr_e( $menuleftright ); ?>">
 				
@@ -57,4 +52,3 @@ if ( pgb_get_option( 'nav_position', 'static' ) == 'fixed' ) {
 	<!-- .navbar --> 
 </nav>
 <!-- .site-navigation -->
-<?php pgb_block_navtop_after(); ?>

@@ -37,7 +37,7 @@
 
     <div id="page-content-wrapper" class="page-content-wrapper-left">
 
-      <?php pgb_block_header(); //locate_template('block-header.php', true); ?>
+      <?php pgb_block_header(); ?>
 
       <?php tha_header_after();  ?>
       <?php tha_content_before(); ?>

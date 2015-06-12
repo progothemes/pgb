@@ -102,7 +102,16 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_logo_mobile' ),
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_logo' ),
+			) 
+		);
+		$wp_customize->add_setting( 'pgb_options[logo_tablet]',
+			array(
+				//'default' => '',
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_logo' ),
 			) 
 		);
 		$wp_customize->add_setting( 'pgb_options[logo_desktop]',
@@ -111,7 +120,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_logo_desktop' ),
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_logo' ),
 			) 
 		);
 		$wp_customize->add_control(
@@ -119,10 +128,22 @@ class ProGo_Customize {
 				$wp_customize, 
 				'pgb_options[logo_mobile]',
 				array(
-					'label' => __( 'Navbar Icon', 'pgb' ),
+					'label' => __( 'Navbar Icon / Mobile Logo', 'pgb' ),
 					'section' => 'pgb_options[logo]',
 					'settings' => 'pgb_options[logo_mobile]',
-					'description' => 'Add your logo to the top navbar (Bootstrap <a href="http://getbootstrap.com/components/#navbar-brand-image" target="_blank">Brand Image</a>). This logo will also be used in place of the Desktop Logo on smaller screens.<br />Maximum height 40px.'
+					'description' => 'Add your logo to the Bootstrap <a href="http://getbootstrap.com/components/#navbar-brand-image" target="_blank">Brand Image</a> position. Displayed on screens under 768px wide.'
+				)
+			) 
+		);
+		$wp_customize->add_control(
+			new WP_Customize_Upload_Control( 
+				$wp_customize, 
+				'pgb_options[logo_tablet]',
+				array(
+					'label'      => __( 'Tablet Logo', 'pgb' ),
+					'section'    => 'pgb_options[logo]',
+					'settings'   => 'pgb_options[logo_tablet]',
+					'description' => 'Tablet logo is displayed on screens 768px to 1024px wide.'
 				)
 			) 
 		);
@@ -134,7 +155,7 @@ class ProGo_Customize {
 					'label'      => __( 'Desktop Logo', 'pgb' ),
 					'section'    => 'pgb_options[logo]',
 					'settings'   => 'pgb_options[logo_desktop]',
-					'description' => 'Desktop Logo is not currently implemented in ProGo Base.<br />However, you can use <code>pgb_get_logo()</code> to embed responsive logos.'
+					'description' => 'Desktop Logo is displayed on screen above 1024px wide.'
 				)
 			) 
 		);
@@ -334,10 +355,7 @@ class ProGo_Customize {
 	public static function sanitize_bootstrap_theme( $input ) {
 		return esc_attr( $input );
 	}
-	public static function sanitize_logo_mobile( $input ) {
-		return esc_url( $input );
-	}
-	public static function sanitize_logo_desktop( $input ) {
+	public static function sanitize_logo( $input ) {
 		return esc_url( $input );
 	}
 	public static function sanitize_menu_align( $input ) {
