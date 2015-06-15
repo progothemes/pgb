@@ -28,6 +28,9 @@ Once we figure out what FAQs may be, they may be added here and there. This is a
 
 ## Change Log
 
+### Version 0.6.0
+* Post formats functionality rebuilt - now finds first instance of type and displays on blog page
+
 ### Version 0.5.4
 * Customizer updates for legibility
 * Removed customized actions, rely on priority instead

@@ -96,6 +96,101 @@ function pgb_get_mobile_logo () {
 	return $logo;
 }
 
+
+/**
+ * Get first instance of image in post
+ * @since ProGo 0.6
+ * @return image URL
+ */
+function pgb_get_image() {
+	global $post, $posts;
+	$first_img = '';
+	ob_start();
+	ob_end_clean();
+	$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+	$first_img = isset( $matches[1][0] ) ? $matches[1][0] : false;
+	if( ! empty( $first_img ) )
+		return $first_img;
+	return false;
+}
+
+/**
+ * Get first instance of audio in post
+ * @since ProGo 0.6
+ * @return audio SRC
+ */
+function pgb_get_audio() {
+	global $post, $posts;
+	$first_audio = '';
+	ob_start();
+	ob_end_clean();
+	$output = preg_match_all('/<a.+href=[\'"]([^\'"]+('.implode( '|', wp_get_audio_extensions() ).'))[\'"].*>/i', $post->post_content, $matches);
+	$first_audio = isset( $matches[1][0] ) ? $matches[1][0] : false;
+	if( ! empty( $first_audio ) )
+		return $first_audio;
+	$output = preg_match_all('/\[audio.+src=[\'"]([^\'"]+('.implode( '|', wp_get_audio_extensions() ).'))[\'"].*\]/i', $post->post_content, $matches);
+	$first_audio = isset( $matches[1][0] ) ? $matches[1][0] : false;
+	if( ! empty( $first_audio ) )
+		return $first_audio;
+	return false;
+}
+
+/**
+ * Get first instance of video in post
+ * @since ProGo 0.6
+ * @return video SRC
+ */
+function pgb_get_video() {
+	global $post, $posts;
+	$first_video = '';
+	ob_start();
+	ob_end_clean();
+	$output = preg_match_all('/<a.+href=[\'"]([^\'"]+('.implode( '|', wp_get_video_extensions() ).'))[\'"].*>/i', $post->post_content, $matches);
+	$first_video = isset( $matches[1][0] ) ? $matches[1][0] : false;
+	if( ! empty( $first_video ) )
+		return $first_video;
+	$output = preg_match_all('/\[video.+src=[\'"]([^\'"]+('.implode( '|', wp_get_video_extensions() ).'))[\'"].*\]/i', $post->post_content, $matches);
+	$first_video = isset( $matches[1][0] ) ? $matches[1][0] : false;
+	if( ! empty( $first_video ) )
+		return $first_video;
+	return false;
+}
+
+/**
+ * Get first instance of link in post
+ * @since ProGo 0.6
+ * @return link URL
+ */
+function pgb_get_link() {
+	global $post, $posts;
+	$first_link = '';
+	ob_start();
+	ob_end_clean();
+	$output = preg_match_all('/<a.+href=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+	$first_link = isset( $matches[1][0] ) ? $matches[1][0] : false;
+	if( ! empty( $first_link ) )
+		return $first_link;
+	return false;
+}
+
+/**
+ * Get first instance of blockquote in post
+ * @since ProGo 0.6
+ * @return blockquote
+ */
+function pgb_get_quote() {
+	global $post, $posts;
+	$first_quote = '';
+	ob_start();
+	ob_end_clean();
+	$output = preg_match_all('/<blockquote.*?>(.+?)<\/blockquote>/is', $post->post_content, $matches);
+	$first_quote = isset( $matches[1][0] ) ? $matches[1][0] : false;
+	if( ! empty( $first_quote ) )
+		return $first_quote;
+	return false;
+}
+
+
 /**
  * Checks if current page is a blog page
  * @since ProGo 0.3

@@ -5,45 +5,27 @@
  * @package pgb
  */
 
-
-$the_post_meta = get_post_meta( get_the_ID() );
-
-$the_post_format_meta = get_post_meta( get_the_ID(), '_postformats_meta_value_key', true );
-
 if ( has_post_thumbnail() ) :
-
-	$image_id 		= get_post_thumbnail_id( $post->ID );
-	$image_link 	= isset( $the_post_format_meta['image_link'] ) ? $the_post_format_meta['image_link'] : false;
-	$image_caption 	= isset( $the_post_format_meta['image_caption'] ) ? $the_post_format_meta['image_caption'] : false;
-	$alt_text 		= isset( $the_post_format_meta['image_alt'] ) && ! empty( $the_post_format_meta['image_alt'] ) ? $the_post_format_meta['image_alt'] : get_post_meta( $image_id , '_wp_attachment_image_alt', true );
-
-	$_image = sprintf( '<img width="100%%" height="auto" src="%1$s" class="img-responsive wp-post-image" alt="%2$s" />', wp_get_attachment_url( $image_id ), $alt_text );
-
-	if ( $image_link !== false ) {
-		$_image = sprintf( '<a href="%1$s">%2$s</a>', $image_link, $_image );
-	}
-
-	if ( $image_caption ) {
-		$_image = sprintf( '<div id="attachment_%1$s" class="wp-caption alignnone">%2$s<p class="wp-caption-text">%3$s</p></div>', $image_id, $_image, $image_caption );
-	}
-
-	if ( is_single() ) {
-		echo sprintf( '<div class="entry-content col-md-12">%1$s</div><!-- /entry -->', $_image );
-	}
-	else {
-		echo sprintf( '<div class="entry-summary col-md-12">%1$s</div><!-- /entry -->', $_image );
-	}
-
+	$image_id = get_post_thumbnail_id( $post->ID );
+	$image_src = wp_get_attachment_url( $image_id );
+elseif ( pgb_get_image() ) :
+	$image_src = pgb_get_image();
+else :
+	$image_src = false;
 endif;
+$the_image = $image_src ? sprintf( '<img width="100%%" height="auto" src="%1$s" class="img-responsive wp-post-image" />', $image_src ) : the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) );
 
-if ( is_single() ) : ?>
+?>
+
+<?php if ( is_single() ) : ?>
 
 	<div class="entry-content col-md-12">
-
 		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
-
 		<?php pgb_block_linkpages(); ?>
+	</div><!-- /entry -->
 
-	</div><!-- .entry-content -->
+<?php else : ?>
+
+	<?php echo sprintf( '<div class="entry-summary col-md-12"><p>%1$s</p></div><!-- /entry -->', $the_image ); ?>
 
 <?php endif; ?>
