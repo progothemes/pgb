@@ -18,13 +18,13 @@
 		// Vertically center nav-bar logo image (mobile logo)
 		if ( jQuery('.navbar-brand img').is(':visible') ) {
 			var brandimgh = jQuery('.navbar-brand img').height(),
-				offset = 10 - ( brandimgh / 2 );
-			jQuery('.navbar-brand img').css({
-				"position": "relative",
-				"margin-top": offset + "px"
+				mainnavh = jQuery('#main-nav').height(),
+				offset = ( mainnavh - brandimgh ) / 2;
+			jQuery('.navbar-brand').css({
+				"padding-top": offset + "px",
+				"padding-bottom": offset + "px"
 			}); 
 		}
 
 	});
-	
 })(jQuery);
