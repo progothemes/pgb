@@ -323,9 +323,6 @@ nav.navbar-fixed-top + #page-content-wrapper {
 
 /*--------------------[ LOGOS ]---------------------*/
 
-.navbar-brand {
-	padding-top: 0;
-}
 .desktoplogo {
 	display: block; /* show desktop by default */
 }
