@@ -25,7 +25,7 @@ get_header(); ?>
 
 					<?php tha_entry_top(); ?>
 
-					<?php get_template_part( 'posts', 'header' ); ?>
+					<?php pgb_block_posts_header(); ?>
 
 					<div class="col-md-12">
 

@@ -303,7 +303,7 @@ function pgb_load_block_footerwidgets() {
 add_action( 'pgb_block_footerwidgets', 'pgb_load_block_footerwidgets', 10 );
 
 /**
- * Load Header block - pgb_block_header()
+ * Load Link pages block - pgb_block_header()
  */
 function pgb_block_linkpages() {
 	do_action( 'pgb_block_linkpages' );
@@ -313,4 +313,16 @@ function pgb_load_block_linkpages() {
 	locate_template( 'block-linkpages.php', true );
 }
 add_action( 'pgb_block_linkpages', 'pgb_load_block_linkpages', 10 );
+
+/**
+ * Load Page/Post Title block - pgb_block_header()
+ */
+function pgb_block_posts_header() {
+	do_action( 'pgb_block_posts_header' );
+}
+/* callback */
+function pgb_load_block_posts_header() {
+	get_template_part( 'posts', 'header' );
+}
+add_action( 'pgb_block_posts_header', 'pgb_load_block_posts_header', 10 );
 
