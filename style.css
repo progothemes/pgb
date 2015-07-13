@@ -178,7 +178,8 @@ object {
 
 
 /* Content */
-.main-content-inner {
+.main-content-inner,
+.sidebar {
 	padding-bottom: 1.5em;
 }
 
