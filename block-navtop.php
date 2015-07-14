@@ -13,8 +13,8 @@ $topmenustyle = sprintf( 'navbar-%s-top', pgb_get_option( 'nav_position', 'stati
 
 ?>
 <nav id="main-nav" class="navbar navbar-default site-navigation <?php echo $topmenustyle; ?>" >
-	<div class="navbar-default container-fluid" role="navigation">
-		<div  class="container nav-contain menu-container-width" >
+	<div class="container-fluid" role="navigation">
+		<div  class="container nav-contain menu-container-width" ><!-- helper div/class for container width -->
 			<div class="navbar-header"> 
 				<!-- .navbar-toggle is used as the toggle for collapsed navbar content -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -27,7 +27,6 @@ $topmenustyle = sprintf( 'navbar-%s-top', pgb_get_option( 'nav_position', 'stati
 				<a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php echo pgb_get_logo(); ?></a>
 			</div>
 			<div class="collapse navbar-collapse navbar-responsive-collapse <?php esc_attr_e( $menuleftright ); ?>">
-				
 				<?php // Main Menu
 				wp_nav_menu(
 					array(
@@ -40,12 +39,7 @@ $topmenustyle = sprintf( 'navbar-%s-top', pgb_get_option( 'nav_position', 'stati
 					)
 				);
 				?>
-
-				<?php // Show search form
-				if( pgb_get_option( 'nav_search' ) == '1' )
-					get_search_form();
-				?>
-
+				<?php if( pgb_get_option( 'nav_search' ) == '1' ) get_search_form(); // Show search form ?>
 			</div>
 		</div>
 	</div>
