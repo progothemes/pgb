@@ -280,7 +280,7 @@ nav.navbar-fixed-top + #page-content-wrapper {
 
 
 /*--------------------------[ WP ADMIN BAR FIXES ]-----------------------------------*/
-@media screen and (max-width: 1240px) {
+/*@media screen and (max-width: 1240px) {
 	nav#main-nav .nav-contain {
 		padding-left: 0;
 		padding-right: 0;
@@ -291,7 +291,7 @@ nav.navbar-fixed-top + #page-content-wrapper {
 		padding-left: .5%;
 		padding-right: .5%;
 	}
-}
+}*/
 
 @media screen and (min-width: 783px) {
 	body.admin-bar .navbar-fixed-top {
