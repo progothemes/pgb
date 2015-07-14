@@ -96,6 +96,17 @@ function pgb_get_mobile_logo () {
 	return $logo;
 }
 
+/**
+ * Append Bootstrap responsive class to images added via Add Media button
+ * @since ProGo 0.6.1
+ * @return image HTML
+ */
+function pgb_filter_image_send_to_editor($html, $id, $caption, $title, $align, $url, $size, $alt) {
+	$html = str_replace('class="', 'class="img-responsive ', $html);
+	return $html;
+}
+add_filter('image_send_to_editor', 'pgb_filter_image_send_to_editor', 10, 8);
+
 
 /**
  * Get first instance of image in post
