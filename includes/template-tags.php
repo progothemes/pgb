@@ -57,6 +57,7 @@ function pgb_content_nav( $nav_id ) {
 }
 endif; // pgb_content_nav
 
+
 if ( ! function_exists( 'pgb_comment' ) ) :
 /**
  * Template for comments and pingbacks.
@@ -85,7 +86,7 @@ function pgb_comment( $comment, $args, $depth ) {
 				<div class="media-body-wrap panel panel-default">
 
 					<div class="panel-heading">
-						<h5 class="media-heading"><?php printf( __( '%s <span class="says">says:</span>', 'pgb' ), sprintf( '<cite class="fn">%s</cite>', get_comment_author_link() ) ); ?></h5>
+						<h5 class="media-heading"><?php printf( __( '%s <span class="says">says:</span>', 'pgb' ), sprintf( '<cite class="fn" itemprop="name" >%s</cite>', get_comment_author_link() ) ); ?></h5>
 						<div class="comment-meta">
 							<a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>">
 								<time datetime="<?php comment_time( 'c' ); ?>">
@@ -100,7 +101,7 @@ function pgb_comment( $comment, $args, $depth ) {
 						<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'pgb' ); ?></p>
 					<?php endif; ?>
 
-					<div class="comment-content panel-body">
+					<div class="comment-content panel-body" itemprop="commentText">
 						<?php comment_text(); ?>
 					</div><!-- .comment-content -->
 
@@ -125,6 +126,7 @@ function pgb_comment( $comment, $args, $depth ) {
 	endif;
 }
 endif; // ends check for pgb_comment()
+
 
 if ( ! function_exists( 'pgb_the_attached_image' ) ) :
 /**
@@ -225,6 +227,74 @@ function pgb_do_posted_on() {
 		)
 	);
 }
+
+
+if ( ! function_exists( 'pgb_rich_snippets' ) ) :
+/**
+ * Google Rich Snippets support
+ * @since ProGo 0.6.2
+ * @return image HTML
+ */
+add_action( 'wp_head', 'pgb_rich_snippets', 10 );
+function pgb_rich_snippets() {
+
+	$post_id = get_queried_object_id();
+	$post_object = get_post( $post_id );
+
+	$snippet = array(
+		"@context" => "http://schema.org",
+		"url" => get_permalink( $post_id ),
+		);
+	
+	/* Front Page */
+	if ( is_front_page() ) {
+		$front_page_snippet = array(
+			"@type" => get_option( 'rich_snippet_type', 'WebSite' ),
+			"name" => get_bloginfo( 'name' ),
+			"logo" => pgb_get_logo( false ),
+			);
+		$snippet = array_merge( $snippet, $front_page_snippet );
+	}
+
+	/* Blog Page */
+	if ( is_blog_page() ) {
+		$blog_snippet = array(
+			"@type" => 'Blog',
+			"BlogPost" => array(),
+		);
+		if ( have_posts() ) : while ( have_posts() ) : the_post();
+			$blog_snippet["BlogPost"][] = array(
+				"@type" => "BlogPosting",
+				"headline" => get_the_title(),
+				"datePublished" => get_the_date( "Y-m-d\TH:i:sP" ),
+				"articleBody" => wp_strip_all_tags( get_the_content() ),
+				);
+		endwhile; endif;
+		$snippet = array_merge( $snippet, $blog_snippet );
+	}
+
+	/* Blog Post */
+	if ( is_single() ) {
+		$post_snippet = array(
+			"@type" => 'BlogPosting',
+			"headline" => get_the_title( $post_id ),
+			"image" => array(
+				( has_post_thumbnail( $post_id ) ? wp_get_attachment_url( get_post_thumbnail_id( $post_id ) ) : '' )
+				),
+			"datePublished" => get_the_date( "Y-m-d\TH:i:sP", $post_id ),
+			"articleBody" => wp_strip_all_tags( $post_object->post_content ),
+			"author" => get_the_author_meta( 'user_nicename', $post_object->post_author ),
+			);
+		$snippet = array_merge( $snippet, $post_snippet );
+	}
+
+	$snippet = array_filter( $snippet );
+	$json = json_encode( $snippet, JSON_UNESCAPED_SLASHES );
+
+	print( sprintf( '<script type="application/ld+json">%s</script>', $json ) );
+}
+endif;
+
 
 /**
  * Returns true if a blog has more than 1 category

@@ -28,6 +28,9 @@ Once we figure out what FAQs may be, they may be added here and there. This is a
 
 ## Change Log
 
+### Version 0.6.2
+* Added Google Rich Snippets action to header https://developers.google.com/structured-data/rich-snippets/?hl=en
+
 ### Version 0.6.1
 * Rewrite "Add Media" HTML output to include Bootstrap classes
 

@@ -26,7 +26,8 @@ $topmenustyle = sprintf( 'navbar-%s-top', pgb_get_option( 'nav_position', 'stati
 				<!-- Your site title as branding in the menu --> 
 				<a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php echo pgb_get_logo(); ?></a>
 			</div>
-			<div class="collapse navbar-collapse navbar-responsive-collapse <?php esc_attr_e( $menuleftright ); ?>">
+			<div class="collapse navbar-collapse navbar-responsive-collapse">
+				<?php if( pgb_get_option( 'nav_search' ) == '1' ) get_template_part( 'searchform', 'nav' ); // Show search form ?>
 				<?php // Main Menu
 				wp_nav_menu(
 					array(
@@ -39,7 +40,6 @@ $topmenustyle = sprintf( 'navbar-%s-top', pgb_get_option( 'nav_position', 'stati
 					)
 				);
 				?>
-				<?php if( pgb_get_option( 'nav_search' ) == '1' ) get_search_form(); // Show search form ?>
 			</div>
 		</div>
 	</div>

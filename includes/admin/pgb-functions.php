@@ -43,15 +43,17 @@ endif;
 /**
  * Returns available theme logos as responsive HTML blocks
  * @since ProGo 0.3
+ * @param $wrap boolean
  * @return html
  */
-function pgb_get_logo() {
+function pgb_get_logo( $wrap = true ) {
 
 	$desktoplogo	= pgb_get_option( 'logo_desktop' );
 	$tabletlogo		= pgb_get_option( 'logo_tablet' );
 	$mobilelogo		= pgb_get_option( 'logo_mobile' );
 	$title			= get_bloginfo( 'name' );
 	$logo			= ( $desktoplogo || $tabletlogo || $mobilelogo ) ? '' : sprintf( __( '%s', 'pgb' ), $title ); // if no logo exists, use text
+	$logo_url		= ( $desktoplogo ? $desktoplogo : ( $tabletlogo ? $tabletlogo : ( $mobilelogo ? $mobilelogo : null ) ) ); // if param false, return just URL
 
 	/**
 	 * We can use the mobile or tablet logos on larger screens (up)
@@ -75,7 +77,12 @@ function pgb_get_logo() {
 		$logo .= sprintf( '<div class="desktoplogo"><img src="%s" alt=""></div>', esc_attr( $desktoplogo ) );
 	endif;
 
-	return $logo;
+	if ( $wrap ) {
+		return $logo;
+	}
+	else {
+		return $logo_url;
+	}
 }
 
 /**
@@ -210,7 +217,7 @@ function pgb_get_quote() {
 if ( ! function_exists('is_blog_page') ) :
 function is_blog_page() {
 	if ( is_front_page() && is_home() ) {
-		// Default homepage
+		// Default homepage (blog on homepage)
 		return true;
 	} elseif ( is_front_page() ) {
 		// static homepage

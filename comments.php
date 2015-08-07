@@ -19,7 +19,7 @@ if ( post_password_required() )
 	return;
 ?>
 <?php tha_comments_before(); ?>
-	<div id="comments" class="comments-area row">
+	<div id="comments" class="comments-area row" itemscope itemtype="http://schema.org/UserComments">
 
 		<div class="col-md-12">
 
