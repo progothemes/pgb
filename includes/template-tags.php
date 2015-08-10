@@ -181,6 +181,202 @@ function pgb_the_attached_image() {
 endif;
 
 
+if ( ! function_exists( 'pgb_breadcrumbs' ) ) :
+/**
+ * Breadcrumb functionality
+ * @since ProGo 0.6.3
+ */
+function pgb_breadcrumbs() {
+	// Our breadcrumb trail
+	$breadcrumb         = '';
+	$bread              = array();
+	$crumbs             = array();
+	// Settings
+	$separator          = '';
+	$breadcrumb_id      = 'breadcrumbs';
+	$breadcrumb_class   = 'breadcrumb';
+	$home_title         = 'Home';
+	// If you have any custom post types with custom taxonomies, put the taxonomy name below (e.g. product_cat)
+	$custom_taxonomy    = 'product_cat';
+	// Get the query & post information
+	global $post,$wp_query;
+
+	// Do not display on the homepage
+	if ( !is_front_page() ) {
+
+		// Home page
+		$crumbs[] = '<a href="' . get_home_url() . '" title="' . $home_title . '" itemprop="item">'.
+			'<span itemprop="name">' . $home_title . '</span></a>';
+
+		if ( is_archive() && !is_tax() && !is_category() ) {
+			$crumbs[] = '<span itemprop="name">' . post_type_archive_title( $prefix, false ) . '</span>';
+		}
+
+		elseif ( is_archive() && is_tax() && !is_category() ) {
+			// If post is a custom post type
+			$post_type = get_post_type();
+			// If it is a custom post type display name and link
+			if ( $post_type != 'post' ) {
+				$post_type_object  = get_post_type_object( $post_type );
+				$post_type_archive = get_post_type_archive_link( $post_type );
+				$crumbs[] = '<a href="' . $post_type_archive . '" title="' . $post_type_object->labels->name . '" itemprop="item">'.
+					'<span itemprop="name">' . $post_type_object->labels->name . '</span></a></li>';
+			}
+			$custom_tax_name = get_queried_object()->name;
+			$crumbs[] = '<span itemprop="name">' . $custom_tax_name . '</span>';
+		}
+
+		elseif ( is_blog_page() ) {
+			if ( is_home() && get_option('page_for_posts') ) {
+				$blog_page_id = get_option('page_for_posts');
+				$blog_page_title = get_the_title( $blog_page_id );
+				$crumbs[] = '<span itemprop="name">' . $blog_page_title . '</span>';
+			}
+		}
+		
+		elseif ( is_single() ) {
+			// If post is a custom post type
+			$post_type = get_post_type();
+			// If it is a custom post type display name and link
+			if($post_type != 'post') {
+				$post_type_object = get_post_type_object($post_type);
+				$post_type_archive = get_post_type_archive_link($post_type);
+				$crumbs[] = '<a href="' . $post_type_archive . '" title="' . $post_type_object->labels->name . '" itemprop="item">'.
+					'<span itemprop="name">' . $post_type_object->labels->name . '</span></a>';
+			}
+			// Get post category info
+			$category = get_the_category();
+			// Get last category post is in
+			$last_category = end(array_values($category));
+			// Get parent any categories and create array
+			$get_cat_parents = rtrim(get_category_parents($last_category->term_id, true, ','),',');
+			$cat_parents = explode(',',$get_cat_parents);
+			// Loop through parent categories and store in variable $cat_display
+			$cat_display = array();
+			foreach ( $cat_parents as $parents ) {
+				$cat_display[] = '<span itemprop="name">'.$parents.'</span>';
+			}
+			// If it's a custom post type within a custom taxonomy
+			$taxonomy_exists = taxonomy_exists($custom_taxonomy);
+			if ( empty($last_category) && !empty($custom_taxonomy) && $taxonomy_exists ) {
+				$taxonomy_terms  = get_the_terms( $post->ID, $custom_taxonomy );
+				$cat_id		     = $taxonomy_terms[0]->term_id;
+				$cat_nicename	 = $taxonomy_terms[0]->slug;
+				$cat_link		 = get_term_link($taxonomy_terms[0]->term_id, $custom_taxonomy);
+				$cat_name		 = $taxonomy_terms[0]->name;
+			}
+			// Check if the post is in a category
+			if(!empty($last_category)) {
+				$crumbs = array_merge( $crumbs, $cat_display );
+				$crumbs[] = '<span itemprop="name">' . get_the_title() . '</span>';
+			// Else if post is in a custom taxonomy
+			}
+			elseif(!empty($cat_id)) {
+				$crumbs[] = '<a href="' . $cat_link . '" title="' . $cat_name . '" itemprop="item">'.
+					'<span itemprop="name">' . $cat_name . '</span></a>';
+				$crumbs[] = '<span itemprop="name">' . get_the_title() . '</span>';
+			} else {
+				$crumbs[] = '<span itemprop="name">' . get_the_title() . '</span>';
+			}
+		}
+		elseif ( is_category() ) {
+			// Category page
+			$crumbs[] = '<span itemprop="name">' . single_cat_title('', false) . '</span>';
+		}
+		elseif ( is_page() ) {
+			// Standard page
+			if( $post->post_parent ){
+				// If child page, get parents 
+				$anc = get_post_ancestors( $post->ID );
+				// Get parents in the right order
+				$anc = array_reverse($anc);
+				// Parent page loop
+				$parents = array();
+				foreach ( $anc as $ancestor ) {
+					$parents[] = '<a href="' . get_permalink($ancestor) . '" title="' . get_the_title($ancestor) . '" itemprop="item">'.
+						'<span itemprop="name">' . get_the_title($ancestor) . '</span></a>';
+				}
+				// Display parent pages
+				$crumbs = array_merge( $crumbs, $parents );
+				// Current page
+				$crumbs[] = '<span itemprop="name">' . get_the_title() . '</span>';
+			} else {
+				// Just display current page if not parents
+				$crumbs[] = '<span itemprop="name">' . get_the_title() . '</span>';
+			}
+		}
+		elseif ( is_tag() ) {
+			// Tag page
+			// Get tag information
+			$term_id = get_query_var('tag_id');
+			$taxonomy = 'post_tag';
+			$args ='include=' . $term_id;
+			$terms = get_terms( $taxonomy, $args );
+			// Display the tag name
+			$crumbs[] = '<span itemprop="name">' . $terms[0]->name . '</span>';
+		}
+		elseif ( is_day() ) {
+			// Day archive
+			// Year link
+			$crumbs[] = '<a href="' . get_year_link( get_the_time('Y') ) . '" title="' . get_the_time('Y') . '" itemprop="item">'.
+				'<span itemprop="name">' . get_the_time('Y') . ' Archives</span></a>';
+			// Month link
+			$crumbs[] = '<a href="' . get_month_link( get_the_time('Y'), get_the_time('m') ) . '" title="' . get_the_time('M') . '" itemprop="item">'.
+				'<span itemprop="name">' . get_the_time('M') . ' Archives</span></a>';
+			// Day display
+			$crumbs[] = '<span itemprop="name">' . get_the_time('jS') . ' ' . get_the_time('M') . ' Archives</span>';
+		}
+		elseif ( is_month() ) {
+			// Month Archive
+			// Year link
+			$crumbs[] = '<a href="' . get_year_link( get_the_time('Y') ) . '" title="' . get_the_time('Y') . '" itemprop="item">'.
+				'<span itemprop="name">' . get_the_time('Y') . ' Archives</span></a>';
+			// Month display
+			$crumbs[] = '<span itemprop="name">' . get_the_time('M') . ' Archives</span>';
+		}
+		elseif ( is_year() ) {
+			// Display year archive
+			$crumbs[] = '<span itemprop="name">' . get_the_time('Y') . ' Archives</span>';
+		}
+		elseif ( is_author() ) {
+			// Auhor archive
+			// Get the author information
+			global $author;
+			$userdata = get_userdata( $author );
+			// Display author name
+			$crumbs[] = '<span itemprop="name">' . 'Author: ' . $userdata->display_name . '</span>';
+		}
+		elseif ( get_query_var('paged') ) {
+			// Paginated archives
+			$crumbs[] = '<span itemprop="name">'.__('Page') . ' ' . get_query_var('paged') . '</span>';
+		}
+		elseif ( is_search() ) {
+			// Search results page
+			$crumbs[] = '<span itemprop="name">Search results for: ' . get_search_query() . '</span>';
+		}
+		elseif ( is_404() ) {
+			// 404 page
+			$crumbs[] = '<li>' . 'Error 404' . '</li>';
+		}
+
+		// Build the breadcrums
+		$n = count( $crumbs );
+		$i = 1;
+		foreach ( $crumbs as $crumb ) {
+			$is_last = ( $i == $n ? 'class="active" ' : '' );
+			$bread[] = '<li ' . $is_last . ' itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">' . $crumb . '<meta itemprop="position" content="' . $i . '" /></li>';
+			$i++;
+		}
+		$breadcrumb = implode( $separator, $bread );
+		$breadcrumb = sprintf( '<ol id="%s" class="%s container" itemscope itemtype="http://schema.org/BreadcrumbList">%s</ol>', $breadcrumb_id, $breadcrumb_class, $breadcrumb );
+		$breadcrumb = sprintf( '<div id="breadcrumb-container" class="container-fluid">%s</div>', $breadcrumb );
+		
+	}
+
+	echo $breadcrumb;
+}
+endif;
+
 
 /**
  * Prints HTML with meta information for the current post-date/time and author.

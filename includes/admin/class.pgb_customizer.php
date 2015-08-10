@@ -187,6 +187,15 @@ class ProGo_Customize {
 				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_nav_search' ),
 			) 
 		);
+		$wp_customize->add_setting( 'pgb_options[show_breadcrumb]',
+			array(
+				//'default' => '0',
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_show_breadcrumb' ),
+			) 
+		);
 		$wp_customize->add_control( 'pgb_options[menu_align]', 
 			array(
 				'label'    => __( 'Main Menu Alignment', 'pgb' ),
@@ -219,6 +228,15 @@ class ProGo_Customize {
 				'type'     => 'checkbox',
 				'value'    => 1,
 				'description' => 'Adds search field to the far right of the navbar'
+			)
+		);
+		$wp_customize->add_control( 'pgb_options[show_breadcrumb]', 
+			array(
+				'label'    => __( 'Include Breadcrumbs', 'pgb' ),
+				'section'  => 'nav',
+				'settings' => 'pgb_options[show_breadcrumb]',
+				'type'     => 'checkbox',
+				'value'    => 1,
 			)
 		);
 		// Footer Settings
@@ -365,6 +383,9 @@ class ProGo_Customize {
 		return esc_attr( $input );
 	}
 	public static function sanitize_nav_search( $input ) {
+		return esc_attr( $input );
+	}
+	public static function sanitize_show_breadcrumb( $input ) {
 		return esc_attr( $input );
 	}
 	public static function sanitize_footer_show( $input ) {

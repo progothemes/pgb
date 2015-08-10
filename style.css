@@ -218,7 +218,8 @@ object {
  	display:inline-block;
  	float:right;
  	font:normal normal normal 14px/1 FontAwesome;
- 	font-size:inherit;text-rendering:auto;
+ 	font-size:inherit;
+ 	text-rendering:auto;
  	-webkit-font-smoothing:antialiased;
  	-moz-osx-font-smoothing:grayscale;
 }
@@ -228,7 +229,8 @@ object {
  	display:inline-block;
  	float:right;
  	font:normal normal normal 14px/1 FontAwesome;
- 	font-size:inherit;text-rendering:auto;
+ 	font-size:inherit;
+ 	text-rendering:auto;
  	-webkit-font-smoothing:antialiased;
  	-moz-osx-font-smoothing:grayscale;
  }
@@ -240,11 +242,12 @@ object {
 
 /*
 ------------------------------------------------------------------
-	HEADER, MENU, SEARCH
+	HEADER, MENU, SEARCH, BREADCRUMBS
 ------------------------------------------------------------------
 */
 
 /* Bootstrap default */
+nav.navbar-fixed-top.affix + #breadcrumbs,
 nav.navbar-fixed-top + #page-content-wrapper {
 	margin-top: 49px;
 }
@@ -253,12 +256,18 @@ nav.navbar-fixed-top + #page-content-wrapper {
 }
 
 /* Bootstrap theme specific */
-.pgb-theme-darkly nav.navbar-fixed-top + #page-content-wrapper,
-.pgb-theme-flatly nav.navbar-fixed-top + #page-content-wrapper,
-.pgb-theme-journal nav.navbar-fixed-top + #page-content-wrapper,
-.pgb-theme-paper nav.navbar-fixed-top + #page-content-wrapper,
-.pgb-theme-readable nav.navbar-fixed-top + #page-content-wrapper,
-.pgb-theme-sandstone nav.navbar-fixed-top + #page-content-wrapper {
+.pgb-theme-darkly nav.navbar-fixed-top.affix + #pagebreadcrumbs,
+.pgb-theme-flatly nav.navbar-fixed-top.affix + #breadcrumbs,
+.pgb-theme-journal nav.navbar-fixed-top.affix + #breadcrumbs,
+.pgb-theme-paper nav.navbar-fixed-top.affix + #breadcrumbs,
+.pgb-theme-readable nav.navbar-fixed-top.affix + #breadcrumbs,
+.pgb-theme-sandstone nav.navbar-fixed-top.affix + #breadcrumbs,
+.pgb-theme-darkly nav.navbar-fixed-top.affix + #page-content-wrapper,
+.pgb-theme-flatly nav.navbar-fixed-top.affix + #page-content-wrapper,
+.pgb-theme-journal nav.navbar-fixed-top.affix + #page-content-wrapper,
+.pgb-theme-paper nav.navbar-fixed-top.affix + #page-content-wrapper,
+.pgb-theme-readable nav.navbar-fixed-top.affix + #page-content-wrapper,
+.pgb-theme-sandstone nav.navbar-fixed-top.affix + #page-content-wrapper {
 	margin-top: 59px;
 }
 .pgb-theme-darkly #main-nav .navbar-brand img,
@@ -269,8 +278,10 @@ nav.navbar-fixed-top + #page-content-wrapper {
 .pgb-theme-sandstone #main-nav .navbar-brand img {
 	max-height: 42px;
 }
-.pgb-theme-simplex nav.navbar-fixed-top + #page-content-wrapper,
-.pgb-theme-superhero nav.navbar-fixed-top + #page-content-wrapper {
+.pgb-theme-simplex nav.navbar-fixed-top.affix + #breadcrumbs,
+.pgb-theme-superhero nav.navbar-fixed-top.affix + #breadcrumbs,
+.pgb-theme-simplex nav.navbar-fixed-top.affix + #page-content-wrapper,
+.pgb-theme-superhero nav.navbar-fixed-top.affix + #page-content-wrapper {
 	margin-top: 39px;
 }
 .pgb-theme-simplex #main-nav .navbar-brand img,
@@ -278,6 +289,9 @@ nav.navbar-fixed-top + #page-content-wrapper {
 	max-height: 24px;
 }
 
+.breadcrumb {
+	background-color: transparent;
+}
 
 /*--------------------------[ WP ADMIN BAR FIXES ]-----------------------------------*/
 /*@media screen and (max-width: 1240px) {
@@ -294,10 +308,11 @@ nav.navbar-fixed-top + #page-content-wrapper {
 }*/
 
 @media screen and (min-width: 783px) {
-	body.admin-bar .navbar-fixed-top {
+	body.admin-bar nav.navbar-fixed-top {
 		top: 31px;
 	}
-	body.admin-bar #page-content-wrapper {
+	body.admin-bar nav.navbar-fixed-top.affix + #breadcrumbs,
+	body.admin-bar nav.navbar-fixed-top.affix + #page-content-wrapper {
 		margin-top: 51px;
 	}
 }
@@ -305,7 +320,8 @@ nav.navbar-fixed-top + #page-content-wrapper {
 	body.admin-bar .navbar-fixed-top {
 		top: 45px;
 	}
-	body.admin-bar #page-content-wrapper {
+	body.admin-bar nav.navbar-fixed-top.affix + #breadcrumbs,
+	body.admin-bar nav.navbar-fixed-top.affix + #page-content-wrapper {
 		margin-top: 51px;
 	}
 }

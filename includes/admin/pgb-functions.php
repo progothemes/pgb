@@ -233,6 +233,22 @@ function is_blog_page() {
 endif;
 
 
+/**
+ * Output Blog Page title
+ * @since ProGo 0.6.3
+ * @return string
+ */
+if ( ! function_exists('blog_page_title') ) :
+function blog_page_title() {
+	if ( is_home() && get_option('page_for_posts') ) {
+		$blog_page_id = get_option('page_for_posts');
+		$page_title = get_the_title( $blog_page_id );
+		echo sprintf( '<h1 class="page-title">%s</h1>', $page_title );
+	}
+}
+endif;
+
+
 
 /**
  * Returns a single option for ProGo
@@ -343,4 +359,16 @@ function pgb_load_block_posts_header() {
 	get_template_part( 'posts', 'header' );
 }
 add_action( 'pgb_block_posts_header', 'pgb_load_block_posts_header', 10 );
+
+/**
+ * Breadcrumbs - pgb_block_breadcrumbs()
+ */
+function pgb_block_breadcrumbs() {
+	do_action( 'pgb_block_breadcrumbs' );
+}
+/* callback */
+function pgb_load_block_breadcrumbs() {
+	pgb_breadcrumbs();
+}
+add_action( 'pgb_block_breadcrumbs', 'pgb_load_block_breadcrumbs', 10 );
 

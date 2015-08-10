@@ -7,12 +7,16 @@
 
 get_header(); ?>
 
-	<div id="content" class="main-content-inner col-sm-12 col-md-8 col-lg-9">
+	<div id="content" class="main-content-inner col-sm-12 col-md-8 col-lg-9" data-file="index.php">
+
+		<?php tha_content_top(); ?>
+
+		<?php blog_page_title(); ?>
+
+		<?php // <!--The Loop ?>
 
 		<?php if ( have_posts() ) : ?>
 
-			<?php /* Start the Loop */ ?>
-			
 			<?php while ( have_posts() ) : the_post(); ?>
 
 				<?php tha_entry_before(); ?>
@@ -50,6 +54,10 @@ get_header(); ?>
 			<?php get_template_part( 'no-results', 'index' ); ?>
 
 		<?php endif; ?>
+
+		<?php // The Loop--> ?>
+
+		<?php tha_content_bottom(); ?>
 
 	</div>
 
