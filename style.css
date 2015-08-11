@@ -178,6 +178,10 @@ object {
 
 
 /* Content */
+#content {
+	position: relative;
+	z-index: -1;
+}
 .main-content-inner,
 .sidebar {
 	padding-bottom: 1.5em;
@@ -247,8 +251,12 @@ object {
 */
 
 /* Bootstrap default */
-nav.navbar-fixed-top.affix + #breadcrumbs,
-nav.navbar-fixed-top + #page-content-wrapper {
+nav.navbar-fixed-top + #breadcrumb-container,
+nav.navbar-fixed-top + #masthead {
+	margin-top: 0;
+}
+nav.navbar-fixed-top.affix + #breadcrumb-container,
+nav.navbar-fixed-top.affix + #masthead {
 	margin-top: 49px;
 }
 #main-nav .navbar-brand img {
@@ -256,18 +264,18 @@ nav.navbar-fixed-top + #page-content-wrapper {
 }
 
 /* Bootstrap theme specific */
-.pgb-theme-darkly nav.navbar-fixed-top.affix + #pagebreadcrumbs,
-.pgb-theme-flatly nav.navbar-fixed-top.affix + #breadcrumbs,
-.pgb-theme-journal nav.navbar-fixed-top.affix + #breadcrumbs,
-.pgb-theme-paper nav.navbar-fixed-top.affix + #breadcrumbs,
-.pgb-theme-readable nav.navbar-fixed-top.affix + #breadcrumbs,
-.pgb-theme-sandstone nav.navbar-fixed-top.affix + #breadcrumbs,
-.pgb-theme-darkly nav.navbar-fixed-top.affix + #page-content-wrapper,
-.pgb-theme-flatly nav.navbar-fixed-top.affix + #page-content-wrapper,
-.pgb-theme-journal nav.navbar-fixed-top.affix + #page-content-wrapper,
-.pgb-theme-paper nav.navbar-fixed-top.affix + #page-content-wrapper,
-.pgb-theme-readable nav.navbar-fixed-top.affix + #page-content-wrapper,
-.pgb-theme-sandstone nav.navbar-fixed-top.affix + #page-content-wrapper {
+.pgb-theme-darkly nav.navbar-fixed-top + #breadcrumb-container,
+.pgb-theme-flatly nav.navbar-fixed-top + #breadcrumb-container,
+.pgb-theme-journal nav.navbar-fixed-top + #breadcrumb-container,
+.pgb-theme-paper nav.navbar-fixed-top + #breadcrumb-container,
+.pgb-theme-readable nav.navbar-fixed-top + #breadcrumb-container,
+.pgb-theme-sandstone nav.navbar-fixed-top + #breadcrumb-container,
+.pgb-theme-darkly nav.navbar-fixed-top + #masthead,
+.pgb-theme-flatly nav.navbar-fixed-top + #masthead,
+.pgb-theme-journal nav.navbar-fixed-top + #masthead,
+.pgb-theme-paper nav.navbar-fixed-top + #masthead,
+.pgb-theme-readable nav.navbar-fixed-top + #masthead,
+.pgb-theme-sandstone nav.navbar-fixed-top + #masthead {
 	margin-top: 59px;
 }
 .pgb-theme-darkly #main-nav .navbar-brand img,
@@ -278,10 +286,10 @@ nav.navbar-fixed-top + #page-content-wrapper {
 .pgb-theme-sandstone #main-nav .navbar-brand img {
 	max-height: 42px;
 }
-.pgb-theme-simplex nav.navbar-fixed-top.affix + #breadcrumbs,
-.pgb-theme-superhero nav.navbar-fixed-top.affix + #breadcrumbs,
-.pgb-theme-simplex nav.navbar-fixed-top.affix + #page-content-wrapper,
-.pgb-theme-superhero nav.navbar-fixed-top.affix + #page-content-wrapper {
+.pgb-theme-simplex nav.navbar-fixed-top + #breadcrumb-container,
+.pgb-theme-superhero nav.navbar-fixed-top + #breadcrumb-container,
+.pgb-theme-simplex nav.navbar-fixed-top + #masthead,
+.pgb-theme-superhero nav.navbar-fixed-top + #masthead {
 	margin-top: 39px;
 }
 .pgb-theme-simplex #main-nav .navbar-brand img,
@@ -295,25 +303,12 @@ body.progo-base .breadcrumb {
 }
 
 /*--------------------------[ WP ADMIN BAR FIXES ]-----------------------------------*/
-/*@media screen and (max-width: 1240px) {
-	nav#main-nav .nav-contain {
-		padding-left: 0;
-		padding-right: 0;
-	}
-}
-@media screen and (min-width: 1241px) and (max-width: 1269px) {
-	nav#main-nav .nav-contain {
-		padding-left: .5%;
-		padding-right: .5%;
-	}
-}*/
-
 @media screen and (min-width: 783px) {
 	body.admin-bar nav.navbar-fixed-top {
 		top: 31px;
 	}
-	body.admin-bar nav.navbar-fixed-top.affix + #breadcrumbs,
-	body.admin-bar nav.navbar-fixed-top.affix + #page-content-wrapper {
+	body.admin-bar nav.navbar-fixed-top + #breadcrumb-container,
+	body.admin-bar nav.navbar-fixed-top + #masthead {
 		margin-top: 51px;
 	}
 }
@@ -321,8 +316,8 @@ body.progo-base .breadcrumb {
 	body.admin-bar .navbar-fixed-top {
 		top: 45px;
 	}
-	body.admin-bar nav.navbar-fixed-top.affix + #breadcrumbs,
-	body.admin-bar nav.navbar-fixed-top.affix + #page-content-wrapper {
+	body.admin-bar nav.navbar-fixed-top + #breadcrumb-container,
+	body.admin-bar nav.navbar-fixed-top + #masthead {
 		margin-top: 51px;
 	}
 }

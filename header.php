@@ -34,12 +34,10 @@
     <?php do_action( 'before' ); ?>
 
     <?php pgb_block_navtop(); ?>
-
     <?php if( pgb_get_option( 'show_breadcrumb' ) == '1' ) pgb_block_breadcrumbs(); ?>
+    <?php pgb_block_header(); ?>
 
     <div id="page-content-wrapper" class="page-content-wrapper-left">
-
-      <?php pgb_block_header(); ?>
 
       <?php tha_header_after();  ?>
       <?php tha_content_before(); ?>
