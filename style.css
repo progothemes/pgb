@@ -289,8 +289,9 @@ nav.navbar-fixed-top + #page-content-wrapper {
 	max-height: 24px;
 }
 
-.breadcrumb {
+body.progo-base .breadcrumb {
 	background-color: transparent;
+	margin-bottom: 0;
 }
 
 /*--------------------------[ WP ADMIN BAR FIXES ]-----------------------------------*/

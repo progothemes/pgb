@@ -194,6 +194,7 @@ function load_custom_wp_admin_style() {
 add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
 
 function pgb_body_classes( $classes ) {
+	$classes[] = 'progo-base';
 	$classes[] = 'pgb-theme-' . pgb_get_option('bootstrap_theme', 'default');
 	return $classes;
 }
