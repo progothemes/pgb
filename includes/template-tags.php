@@ -190,28 +190,27 @@ function pgb_breadcrumbs() {
 	// Our breadcrumb trail
 	$breadcrumb         = '';
 	$bread              = array();
-	$crumbs             = array();
 	// Settings
 	$separator          = '';
 	$breadcrumb_id      = 'breadcrumbs';
 	$breadcrumb_class   = 'breadcrumb';
 	$home_title         = 'Home';
+	$error_404          = 'Error 404';
 	// If you have any custom post types with custom taxonomies, put the taxonomy name below (e.g. product_cat)
 	$custom_taxonomy    = 'product_cat';
 	// Get the query & post information
 	global $post,$wp_query;
 
 	// Do not display on the homepage
-	if ( !is_front_page() ) {
-
-		// Home page
-		$crumbs[] = '<a href="' . get_home_url() . '" title="' . $home_title . '" itemprop="item">'.
-			'<span itemprop="name">' . $home_title . '</span></a>';
+	if ( ! is_front_page() ) {
+		$crumbs = array(
+			'<a href="' . get_home_url() . '" title="' . $home_title . '" itemprop="item">'.
+			'<span itemprop="name">' . $home_title . '</span></a>'
+			);
 
 		if ( is_archive() && !is_tax() && !is_category() ) {
 			$crumbs[] = '<span itemprop="name">' . post_type_archive_title( $prefix, false ) . '</span>';
 		}
-
 		elseif ( is_archive() && is_tax() && !is_category() ) {
 			// If post is a custom post type
 			$post_type = get_post_type();
@@ -225,7 +224,6 @@ function pgb_breadcrumbs() {
 			$custom_tax_name = get_queried_object()->name;
 			$crumbs[] = '<span itemprop="name">' . $custom_tax_name . '</span>';
 		}
-
 		elseif ( is_blog_page() ) {
 			if ( is_home() && get_option('page_for_posts') ) {
 				$blog_page_id = get_option('page_for_posts');
@@ -233,7 +231,6 @@ function pgb_breadcrumbs() {
 				$crumbs[] = '<span itemprop="name">' . $blog_page_title . '</span>';
 			}
 		}
-		
 		elseif ( is_single() ) {
 			// If post is a custom post type
 			$post_type = get_post_type();
@@ -247,7 +244,8 @@ function pgb_breadcrumbs() {
 			// Get post category info
 			$category = get_the_category();
 			// Get last category post is in
-			$last_category = end(array_values($category));
+			$category_vals = array_values( $category );
+			$last_category = end( $category_vals );
 			// Get parent any categories and create array
 			$get_cat_parents = rtrim(get_category_parents($last_category->term_id, true, ','),',');
 			$cat_parents = explode(',',$get_cat_parents);
@@ -356,7 +354,7 @@ function pgb_breadcrumbs() {
 		}
 		elseif ( is_404() ) {
 			// 404 page
-			$crumbs[] = '<li>' . 'Error 404' . '</li>';
+			$crumbs[] = '<span itemprop="name">' . $error_404 . '</span>';
 		}
 
 		// Build the breadcrums
@@ -370,9 +368,7 @@ function pgb_breadcrumbs() {
 		$breadcrumb = implode( $separator, $bread );
 		$breadcrumb = sprintf( '<ol id="%s" class="%s container" itemscope itemtype="http://schema.org/BreadcrumbList">%s</ol>', $breadcrumb_id, $breadcrumb_class, $breadcrumb );
 		$breadcrumb = sprintf( '<div id="breadcrumb-container" class="container-fluid">%s</div>', $breadcrumb );
-		
 	}
-
 	echo $breadcrumb;
 }
 endif;
@@ -437,57 +433,89 @@ function pgb_rich_snippets() {
 	$post_id = get_queried_object_id();
 	$post_object = get_post( $post_id );
 
-	$snippet = array(
-		"@context" => "http://schema.org",
-		"url" => get_permalink( $post_id ),
-		);
-	
 	/* Front Page */
 	if ( is_front_page() ) {
 		$front_page_snippet = array(
+			"@context" => "http://schema.org",
 			"@type" => get_option( 'rich_snippet_type', 'WebSite' ),
+			"url" => get_bloginfo('url'),
 			"name" => get_bloginfo( 'name' ),
 			"logo" => pgb_get_logo( false ),
+			"potentialAction" => array(
+				"@type" => "SearchAction",
+				"target" => get_bloginfo( 'url' ) . "/?s={search}",
+				"query-input" => "required name=search"
+				)
 			);
-		$snippet = array_merge( $snippet, $front_page_snippet );
+		pgb_print_snippet( $front_page_snippet );
+	}
+
+	/* Search Results Page */
+	elseif ( is_search() ) {
+		$search_page_snippet = array(
+			"@context" => "http://schema.org",
+			"@type" => "SearchResultsPage",
+			"url" => get_search_link(),
+			"mainEntityOfPage" => array(
+				"@type" => "SearchAction",
+				"query" => get_search_query(),
+				)
+			);
+		pgb_print_snippet( $search_page_snippet );
 	}
 
 	/* Blog Page */
-	if ( is_blog_page() ) {
-		$blog_snippet = array(
+	elseif ( is_blog_page() ) {
+		$blog_page_snippet = array(
 			"@type" => 'Blog',
+			"url" => get_permalink( $post_id ),
 			"BlogPost" => array(),
 		);
 		if ( have_posts() ) : while ( have_posts() ) : the_post();
-			$blog_snippet["BlogPost"][] = array(
+			$blog_page_snippet["BlogPost"][] = array(
 				"@type" => "BlogPosting",
 				"headline" => get_the_title(),
 				"datePublished" => get_the_date( "Y-m-d\TH:i:sP" ),
 				"articleBody" => wp_strip_all_tags( get_the_content() ),
 				);
 		endwhile; endif;
-		$snippet = array_merge( $snippet, $blog_snippet );
+		pgb_print_snippet( $blog_page_snippet );
 	}
 
 	/* Blog Post */
 	if ( is_single() ) {
-		$post_snippet = array(
+		$single_post_snippet = array(
 			"@type" => 'BlogPosting',
+			"url" => get_permalink( $post_id ),
 			"headline" => get_the_title( $post_id ),
-			"image" => array(
-				( has_post_thumbnail( $post_id ) ? wp_get_attachment_url( get_post_thumbnail_id( $post_id ) ) : '' )
-				),
 			"datePublished" => get_the_date( "Y-m-d\TH:i:sP", $post_id ),
 			"articleBody" => wp_strip_all_tags( $post_object->post_content ),
 			"author" => get_the_author_meta( 'user_nicename', $post_object->post_author ),
 			);
-		$snippet = array_merge( $snippet, $post_snippet );
+		if ( has_post_thumbnail( $post_id ) ) {
+			$post_thumbnail_id =  get_post_thumbnail_id( $post_id );
+			$post_thumbnail = get_post( $post_thumbnail_id );
+			$image_snippet = array(
+				"image" => array(
+					"@type" => "ImageObject",
+					"contentUrl" => wp_get_attachment_url( $post_thumbnail_id ),
+					"datePublished" => $post_thumbnail->post_date,
+					"description" => $post_thumbnail->post_content,
+					"name" => $post_thumbnail->post_title,
+					)
+				);
+			$single_post_snippet = array_merge( $single_post_snippet, $image_snippet );
+		}
+		pgb_print_snippet( $single_post_snippet );
 	}
 
-	$snippet = array_filter( $snippet );
-	$json = json_encode( $snippet, JSON_UNESCAPED_SLASHES );
-
-	print( sprintf( '<script type="application/ld+json">%s</script>', $json ) );
+}
+function pgb_print_snippet( $snippet = false ) {
+	if ( is_array( $snippet ) ) {
+		$snippet = array_filter( $snippet );
+		$json = json_encode( $snippet, JSON_UNESCAPED_SLASHES );
+		print( sprintf( '<script type="application/ld+json">%s</script>', $json ) );
+	}
 }
 endif;
 
