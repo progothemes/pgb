@@ -6,6 +6,10 @@
  * @link http://codex.wordpress.org/Theme_Customization_API
  * @since ProGo 0.4
  */
+
+
+// Setup the Theme Customizer settings and controls...
+add_action( 'customize_register' , array( 'ProGo_Customize' , 'register' ) );
 class ProGo_Customize {
 
 	/**
@@ -189,11 +193,29 @@ class ProGo_Customize {
 		);
 		$wp_customize->add_setting( 'pgb_options[show_breadcrumb]',
 			array(
-				//'default' => '0',
+				//'default' => '1',
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
 				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_show_breadcrumb' ),
+			) 
+		);
+		$wp_customize->add_setting( 'pgb_options[login_link_nav_position]',
+			array(
+				'default' => array(),
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_array' ),
+			) 
+		);
+		$wp_customize->add_setting( 'pgb_options[login_link_page]',
+			array(
+				//'default' => 'static',
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_nav_position' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[menu_align]', 
@@ -239,6 +261,30 @@ class ProGo_Customize {
 				'value'    => 1,
 			)
 		);
+		$wp_customize->add_control( 
+			new PGB_Customize_Multiple_Select_Control(
+				$wp_customize,
+				'pgb_options[login_link_nav_position]', 
+				array(
+					'label'    => __( 'Show Login Link in Navbar(s)', 'pgb' ),
+					'section'  => 'nav',
+					'settings' => 'pgb_options[login_link_nav_position]',
+					'type'     => 'multiple-select',
+					'description' => 'Hold CTRL and click to select or deselect multiple options.',
+					'choices'  => array( '- none -' ) + get_registered_nav_menus(),
+					)
+				)
+		);
+		$wp_customize->add_control( 'pgb_options[login_link_page]', 
+			array(
+				'label'    => __( 'Set Login Page', 'pgb' ),
+				'section'  => 'nav',
+				'settings' => 'pgb_options[login_link_page]',
+				'type'     => 'select',
+				'choices'  => array( 0 => 'WordPress Default' ) + pgb_get_pages_by_id(),
+			)
+		);
+
 		// Footer Settings
 		$wp_customize->add_section( 'pgb_options[footer]',
 			array(
@@ -388,6 +434,9 @@ class ProGo_Customize {
 	public static function sanitize_show_breadcrumb( $input ) {
 		return esc_attr( $input );
 	}
+	public static function sanitize_show_login_nav( $input ) {
+		return esc_attr( $input );
+	}
 	public static function sanitize_footer_show( $input ) {
 		return esc_attr( $input );
 	}
@@ -395,10 +444,12 @@ class ProGo_Customize {
 		return esc_attr( $input );
 	}
 
-}
+	public static function sanitize_array( $input ) {
+		$input = array_map('esc_attr', $input);
+		return $input;
+	}
 
-// Setup the Theme Customizer settings and controls...
-add_action( 'customize_register' , array( 'ProGo_Customize' , 'register' ) );
+}
 
 // Output custom CSS to live site
 //add_action( 'wp_head' , array( 'ProGo_Customize' , 'header_output' ) );
@@ -406,3 +457,52 @@ add_action( 'customize_register' , array( 'ProGo_Customize' , 'register' ) );
 // Enqueue live preview javascript in Theme Customizer admin screen
 add_action( 'customize_preview_init' , array( 'ProGo_Customize' , 'live_preview' ) );
 
+
+
+
+
+/**
+ * Custom Controls Classes
+ */
+if ( class_exists('WP_Customize_Control') ) :
+	/**
+	 * Multiple select customize control class.
+	 */
+	class PGB_Customize_Multiple_Select_Control extends WP_Customize_Control {
+
+		/**
+		* The type of customize control being rendered.
+		*/
+		public $type = 'multiple-select';
+
+		/**
+		* Displays the multiple select on the customize screen.
+		*/
+		public function render_content() {
+
+			if ( empty( $this->choices ) ) return;
+
+			$options = false;
+			foreach ( $this->choices as $value => $label ) {
+				$selected = '';//( is_array( $this->value() ) && in_array( $value, $this->value() ) ) ? selected( 1, 1, false ) : '';
+				$options .= '<option value="' . esc_attr( $value ) . '"' . $selected . '>' . $label . '</option>';
+			}
+
+			$description = ( ! empty( $this->description ) ? '<span class="description customize-control-description">' . esc_attr( $this->description ) . '</span>' : '' );
+
+			if ( $options ) { ?>
+				<label>
+					<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+					<select <?php echo $this->link(); ?> multiple="multiple" class="form-control">
+						<?php echo $options; ?>
+					</select>
+					<?php echo $description; ?>
+				</label>
+			<?php }
+
+			return;
+		}
+	}
+
+	// Any other custom controls?
+endif;

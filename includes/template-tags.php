@@ -366,8 +366,8 @@ function pgb_breadcrumbs() {
 			$i++;
 		}
 		$breadcrumb = implode( $separator, $bread );
-		$breadcrumb = sprintf( '<ol id="%s" class="%s container" itemscope itemtype="http://schema.org/BreadcrumbList">%s</ol>', $breadcrumb_id, $breadcrumb_class, $breadcrumb );
-		$breadcrumb = sprintf( '<div id="breadcrumb-container" class="container-fluid">%s</div>', $breadcrumb );
+		$breadcrumb = sprintf( '<ol id="%s" class="%s" itemscope itemtype="http://schema.org/BreadcrumbList">%s</ol>', $breadcrumb_id, $breadcrumb_class, $breadcrumb );
+		$breadcrumb = sprintf( '<div id="breadcrumb-container"><div class="container">%s</div></div>', $breadcrumb );
 	}
 	echo $breadcrumb;
 }
@@ -554,3 +554,20 @@ function pgb_category_transient_flusher() {
 }
 add_action( 'edit_category', 'pgb_category_transient_flusher' );
 add_action( 'save_post',     'pgb_category_transient_flusher' );
+
+
+
+if ( ! function_exists('pgb_remove_admin_bar') ) :
+/**
+ * Hide Admin bar from all non-Administrators
+ *
+ * @param none
+ * @return none
+ */
+function pgb_remove_admin_bar() {
+	if (!current_user_can('administrator') && !is_admin()) {
+		show_admin_bar(false);
+	}
+}
+add_action('after_setup_theme', 'pgb_remove_admin_bar');
+endif;

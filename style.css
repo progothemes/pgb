@@ -4,7 +4,7 @@
  Description:  ProGo Base is WordPress, Underscores, Bootstrap, Theme Hook Alliance, get-out-the-way-lemme-do-it all-in-one "Theme Framework".
  Author:       ProGo
  Author URI:   http://www.progo.com
- Version:      0.6.2
+ Version:      0.7.0
  License:      GPLv2 or later
  License URI:  http://www.gnu.org/licenses/gpl-2.0.html
  Tags:         custom-colors, custom-header, custom-menu, featured-images, full-width-template, light, post-formats, responsive-layout, theme-options
@@ -253,7 +253,7 @@ object {
 /* Bootstrap default */
 nav.navbar-fixed-top + #breadcrumb-container,
 nav.navbar-fixed-top + #masthead {
-	margin-top: 0;
+	margin-top: 49px;
 }
 nav.navbar-fixed-top.affix + #breadcrumb-container,
 nav.navbar-fixed-top.affix + #masthead {
@@ -300,6 +300,7 @@ nav.navbar-fixed-top.affix + #masthead {
 body.progo-base .breadcrumb {
 	background-color: transparent;
 	margin-bottom: 0;
+	padding-left: 0;
 }
 
 /*--------------------------[ WP ADMIN BAR FIXES ]-----------------------------------*/
@@ -307,19 +308,21 @@ body.progo-base .breadcrumb {
 	body.admin-bar nav.navbar-fixed-top {
 		top: 31px;
 	}
+	/*
 	body.admin-bar nav.navbar-fixed-top + #breadcrumb-container,
 	body.admin-bar nav.navbar-fixed-top + #masthead {
 		margin-top: 51px;
-	}
+	}*/
 }
 @media screen and (min-width: 601px) and (max-width: 782px) {
 	body.admin-bar .navbar-fixed-top {
 		top: 45px;
 	}
+	/*
 	body.admin-bar nav.navbar-fixed-top + #breadcrumb-container,
 	body.admin-bar nav.navbar-fixed-top + #masthead {
 		margin-top: 51px;
-	}
+	}*/
 }
 
 

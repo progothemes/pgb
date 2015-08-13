@@ -35,6 +35,7 @@ define( 'THEMEURI', $theme_uri );
 define( 'THEMEAUTHORURI', $author_uri );
 
 require_once( ADMIN_PATH . 'admin/class.pgb_customizer.php' ); // Theme Customizer
+require_once( ADMIN_PATH . 'admin/class.pgb_loginout.php' ); // Login / Log Out
 //require_once( ADMIN_PATH . 'admin/class.post_formats.php' ); // Post Formats Meta Boxes
 require_once( ADMIN_PATH . 'admin/pgb-filters.php' ); // Theme Filters
 require_once( ADMIN_PATH . 'admin/pgb-functions.php' ); // Theme Functions

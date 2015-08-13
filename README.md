@@ -28,6 +28,10 @@ Once we figure out what FAQs may be, they may be added here and there. This is a
 
 ## Change Log
 
+### Version 0.7.0
+* New Login/LogOut menu item and controller class
+* New Customizer Multi-Select Controller
+
 ### Version 0.6.3
 * Added custom breadcrumbs functionality
 * Breadcrumbs include Schema markup

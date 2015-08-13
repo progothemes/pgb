@@ -289,6 +289,65 @@ function pgb_remove_menu_elements() {
 }
 
 
+
+/**
+ * Get Pages as ID/Title array pair
+ *
+ * @param none
+ * @uses get_pages()
+ * @return array
+ */
+function pgb_get_pages_by_id() {
+	$pages_by_id = array();
+	$args = array(
+		'sort_order' => 'asc',
+		'sort_column' => 'post_title',
+		'hierarchical' => 0,
+		'exclude' => array(
+			get_option('page_on_front'),
+			get_option('page_for_posts')
+			),
+		'post_type' => 'page',
+		'post_status' => 'publish'
+		);
+	$pages = get_pages( $args );
+	foreach ($pages as $page) {
+		$pages_by_id[$page->ID] = $page->post_title;
+	}
+	return $pages_by_id;
+}
+/**
+ * Get registered Nav menus as array
+ *
+ * @param none
+ * @uses get_registered_nav_menus()
+ * @return array
+ */
+function pgb_get_menus() {
+	$menus = get_registered_nav_menus();
+	return $menus;
+}
+/**
+ * Print registered Nav menus as (multi) select
+ *
+ * @param $multiple boolean
+ * @uses pgb_get_menus()
+ * @return HTML (multi) select form input
+ */
+function pgb_menus( $multiple = true ) {
+	
+	$menus = pgb_get_menus();
+	if ( ! $menus ) return false;
+	
+	$options = '';
+	foreach ( $menus as $location => $description ) {
+		$options .= "<option value=\"{$location}\">{$description}</option>";
+	}
+	
+	print( sprintf( "<select %s class=\"form-control\">%s</select>", ( $multiple ? 'multiple="multiple"' : '' ), $options) );
+}
+
+
 /**
  * Load PGB Template Parts
  *
