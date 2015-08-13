@@ -8,7 +8,7 @@
 
 /* Actions */
 add_action( 'after_setup_theme', array( 'PGB_Login_Out', 'init' ) );
-add_action( 'init', array( 'PGB_Login_Out', 'pgb_redirect_login_page' ) );
+//add_action( 'init', array( 'PGB_Login_Out', 'pgb_redirect_login_page' ) ); // redirect all attempts to access wp-login.php to custom login page (see Warning below)
 add_action( 'wp_login_failed', array( 'PGB_Login_Out', 'pgb_login_failed' ) );
 add_action( 'wp_logout', array( 'PGB_Login_Out', 'pgb_logout_redirect' ) );
 add_action( 'login_enqueue_scripts', array( 'PGB_Login_Out', 'pgb_login_logo' ) );
@@ -56,7 +56,9 @@ class PGB_Login_Out {
 	}
 
 	/**
-	 * Redirect login page to custom page
+	 * Redirect login page (wp-login.php) to custom page
+	 *
+	 * WARNING: if this is active, and there is no login form on the set login page, no one (including admin's) will be able to log into WordPress!
 	 *
 	 * @since ProGo 0.7.0
 	 * @param none
@@ -81,8 +83,11 @@ class PGB_Login_Out {
 	 */
 	public static function pgb_login_failed() {
 		if ( self::$login_url ) {
-			wp_redirect( self::$login_url . '?login=failed' );
-			exit;
+			$page_viewed = basename($_SERVER['REQUEST_URI']);
+			if( $page_viewed == "wp-login.php" ) {
+				wp_redirect( self::$login_url . '?login=failed' );
+				exit;
+			}
 		}
 	}
 
@@ -97,7 +102,8 @@ class PGB_Login_Out {
 	 */
 	public static function pgb_verify_username_password( $user, $username, $password ) {
 		if ( self::$login_url ) {
-			if( $username == "" || $password == "" ) {
+			$page_viewed = basename($_SERVER['REQUEST_URI']);
+			if( $page_viewed == "wp-login.php" && ( $username == "" || $password == "" ) ) {
 				wp_redirect( self::$login_url . "?login=empty" );
 				exit;
 			}
