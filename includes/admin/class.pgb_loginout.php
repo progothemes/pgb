@@ -4,6 +4,7 @@
  * Contains methods for customizing login functionality.
  * 
  * @since ProGo 0.7.0
+ * @description
  */
 
 /* Actions */
@@ -45,8 +46,8 @@ class PGB_Login_Out {
 	 *
 	 * @since ProGo 0.7.0
 	 * @param none
-	 * @uses pgb_get_option()
-	 * @uses get_post()
+	 * @uses pgb_get_login_page()
+	 * @uses get_permalink()
 	 * @return object or false
 	 */
 	public static function pgb_get_login_page_url() {
