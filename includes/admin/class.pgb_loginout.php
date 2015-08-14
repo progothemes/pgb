@@ -21,6 +21,7 @@ add_filter( 'wp_nav_menu_items', array( 'PGB_Login_Out', 'pgb_add_loginout_link'
 class PGB_Login_Out {
 
 	public static $login_url = false;
+	public static $redirect_url = false;
 
 	public static function init() {
 		self::$login_url = self::pgb_get_login_page_url();
@@ -48,12 +49,26 @@ class PGB_Login_Out {
 	 * @param none
 	 * @uses pgb_get_login_page()
 	 * @uses get_permalink()
-	 * @return object or false
+	 * @return permalink or false
 	 */
 	public static function pgb_get_login_page_url() {
 		$page = self::pgb_get_login_page();
 		if ( ! $page ) return false;
 		return get_permalink( $page->ID );
+	}
+	/**
+	 * Get Login Redirect Page URL
+	 *
+	 * @since ProGo 0.7.0
+	 * @param none
+	 * @uses pgb_get_login_page()
+	 * @uses get_permalink()
+	 * @return object or false
+	 */
+	public static function pgb_get_redirect_page_url() {
+		$redirect_page_id = pgb_get_option( 'login_redirect_page', get_option('page_on_front') );
+		if ( ! $redirect_page_id ) return false;
+		return get_permalink( $redirect_page_id );
 	}
 
 	/**
@@ -118,7 +133,7 @@ class PGB_Login_Out {
 	 * @param string $redirect_to URL to redirect to.
 	 * @param string $request URL the user is coming from.
 	 * @param object $user Logged user's data.
-	 * @return string
+	 * @return string $redirect_to
 	 */
 	public static function pgb_login_redirect( $redirect_to, $request, $user ) {
 		//is there a user to check?
@@ -129,7 +144,8 @@ class PGB_Login_Out {
 				// redirect admins to the default place
 				return admin_url();
 			} else {
-				return home_url() . '?auth=true'; // redirect everyone else to...
+				$redirect_to = ( self::pgb_get_redirect_page_url() ?: home_url() );
+				return $redirect_to . '?auth=true'; // redirect everyone else to...
 			}
 		}
 		return $redirect_to;

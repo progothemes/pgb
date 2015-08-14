@@ -218,6 +218,15 @@ class ProGo_Customize {
 				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_nav_position' ),
 			) 
 		);
+		$wp_customize->add_setting( 'pgb_options[login_redirect_page]',
+			array(
+				//'default' => 'static',
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_nav_position' ),
+			) 
+		);
 		$wp_customize->add_control( 'pgb_options[menu_align]', 
 			array(
 				'label'    => __( 'Main Menu Alignment', 'pgb' ),
@@ -270,18 +279,28 @@ class ProGo_Customize {
 					'section'  => 'nav',
 					'settings' => 'pgb_options[login_link_nav_position]',
 					'type'     => 'multiple-select',
-					'description' => 'Hold CTRL and click to select or deselect multiple options.',
-					'choices'  => array( '- none -' ) + get_registered_nav_menus(),
+					'description' => 'Hold CTRL and click to select or deselect multiple options. Select "none" to disable.',
+					'choices'  => array( '-- none --' ) + get_registered_nav_menus(),
 					)
 				)
 		);
 		$wp_customize->add_control( 'pgb_options[login_link_page]', 
 			array(
-				'label'    => __( 'Set Login Page', 'pgb' ),
+				'label'    => __( 'Set Login Form Page', 'pgb' ),
 				'section'  => 'nav',
 				'settings' => 'pgb_options[login_link_page]',
 				'type'     => 'select',
-				'choices'  => array( 0 => 'WordPress Default' ) + pgb_get_pages_by_id(),
+				'choices'  => array( 0 => '* WordPress Default' ) + pgb_get_pages_by_id(),
+			)
+		);
+		$wp_customize->add_control( 'pgb_options[login_redirect_page]', 
+			array(
+				'label'    => __( 'Set Login Redirect Page', 'pgb' ),
+				'section'  => 'nav',
+				'settings' => 'pgb_options[login_redirect_page]',
+				'type'     => 'select',
+				'description' => '',
+				'choices'  => array( get_option('page_on_front') => '* Front Page' ) + pgb_get_pages_by_id(),
 			)
 		);
 
