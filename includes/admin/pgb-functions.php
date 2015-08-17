@@ -239,11 +239,11 @@ endif;
  * @return string
  */
 if ( ! function_exists('blog_page_title') ) :
-function blog_page_title() {
+function blog_page_title( $before = '<h1 class="page-title">', $after = '</h1>' ) {
 	if ( is_home() && get_option('page_for_posts') ) {
 		$blog_page_id = get_option('page_for_posts');
 		$page_title = get_the_title( $blog_page_id );
-		echo sprintf( '<h1 class="page-title">%s</h1>', $page_title );
+		echo $before, $page_title, $after;
 	}
 }
 endif;
