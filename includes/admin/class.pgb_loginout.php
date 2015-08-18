@@ -144,7 +144,7 @@ class PGB_Login_Out {
 				// redirect admins to the default place
 				return admin_url();
 			} else {
-				$redirect_to = ( self::pgb_get_redirect_page_url() ?: home_url() );
+				$redirect_to = ( self::pgb_get_redirect_page_url() ? self::pgb_get_redirect_page_url() : home_url() );
 				return $redirect_to . '?auth=true'; // redirect everyone else to...
 			}
 		}
