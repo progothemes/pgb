@@ -540,8 +540,8 @@ function pgb_rich_snippets() {
 function pgb_print_snippet( $snippet = false ) {
 	if ( is_array( $snippet ) ) {
 		$snippet = array_filter( $snippet );
-		if (version_compare(phpversion(), '5.4.0', '<')) {
-			$json = json_encode( $snippet );
+		if ( version_compare( phpversion(), '5.4.0', '<' ) ) {
+			$json = str_replace( '\\/', '/', json_encode( $snippet ) );
 		} else {
 			$json = json_encode( $snippet, JSON_UNESCAPED_SLASHES );
 		}
