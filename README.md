@@ -28,6 +28,9 @@ Once we figure out what FAQs may be, they may be added here and there. This is a
 
 ## Change Log
 
+### Version 0.8.0
+* Added WooCommerce Support
+
 ### Version 0.7.0
 * New Login/LogOut menu item and controller class
 * New Customizer Multi-Select Controller

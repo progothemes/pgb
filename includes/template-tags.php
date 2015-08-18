@@ -208,8 +208,8 @@ function pgb_breadcrumbs() {
 			'<span itemprop="name">' . $home_title . '</span></a>'
 			);
 
-		if ( is_archive() && !is_tax() && !is_category() ) {
-			$crumbs[] = '<span itemprop="name">' . post_type_archive_title( $prefix, false ) . '</span>';
+		if ( is_archive() && !is_tax() && !is_category() && ! is_day() && ! is_month() && ! is_year() ) {
+			$crumbs[] = '<span itemprop="name">' . post_type_archive_title( '', false ) . '</span>';
 		}
 		elseif ( is_archive() && is_tax() && !is_category() ) {
 			// If post is a custom post type
@@ -235,45 +235,51 @@ function pgb_breadcrumbs() {
 			// If post is a custom post type
 			$post_type = get_post_type();
 			// If it is a custom post type display name and link
-			if($post_type != 'post') {
-				$post_type_object = get_post_type_object($post_type);
+			if ( $post_type != 'post' ) {
+				$post_type_object = get_post_type_object( $post_type );
 				$post_type_archive = get_post_type_archive_link($post_type);
 				$crumbs[] = '<a href="' . $post_type_archive . '" title="' . $post_type_object->labels->name . '" itemprop="item">'.
 					'<span itemprop="name">' . $post_type_object->labels->name . '</span></a>';
 			}
-			// Get post category info
-			$category = get_the_category();
-			// Get last category post is in
-			$category_vals = array_values( $category );
-			$last_category = end( $category_vals );
-			// Get parent any categories and create array
-			$get_cat_parents = rtrim(get_category_parents($last_category->term_id, true, ','),',');
-			$cat_parents = explode(',',$get_cat_parents);
-			// Loop through parent categories and store in variable $cat_display
-			$cat_display = array();
-			foreach ( $cat_parents as $parents ) {
-				$cat_display[] = '<span itemprop="name">'.$parents.'</span>';
+			
+			// Get post categories
+			$categories = get_the_category();
+			if ( is_array( $categories ) && ! empty( $categories ) ) {
+				// Get last category post is in
+				$category_vals = array_values( $categories );
+				$last_category = end( $category_vals );
+				// Get parent any categories and create array
+				$get_cat_parents = rtrim( get_category_parents( $last_category->term_id, true, ',' ), ',' );
+				$cat_parents = explode( ',', $get_cat_parents);
+				// Loop through parent categories and store in variable $cat_display
+				$cat_display = array();
+				foreach ( $cat_parents as $parents ) {
+					$cat_display[] = '<span itemprop="name">'.$parents.'</span>';
+				}
+				// If it's a custom post type within a custom taxonomy
+				$taxonomy_exists = taxonomy_exists( $custom_taxonomy );
+				if ( empty($last_category) && !empty($custom_taxonomy) && $taxonomy_exists ) {
+					$taxonomy_terms  = get_the_terms( $post->ID, $custom_taxonomy );
+					$cat_id		     = $taxonomy_terms[0]->term_id;
+					$cat_nicename	 = $taxonomy_terms[0]->slug;
+					$cat_link		 = get_term_link($taxonomy_terms[0]->term_id, $custom_taxonomy);
+					$cat_name		 = $taxonomy_terms[0]->name;
+				}
+				// Check if the post is in a category
+				if ( ! empty( $last_category ) ) {
+					$crumbs = array_merge( $crumbs, $cat_display );
+					$crumbs[] = '<span itemprop="name">' . get_the_title() . '</span>';
+				// Else if post is in a custom taxonomy
+				}
+				elseif( ! empty( $cat_id ) ) {
+					$crumbs[] = '<a href="' . $cat_link . '" title="' . $cat_name . '" itemprop="item">'.
+						'<span itemprop="name">' . $cat_name . '</span></a>';
+					$crumbs[] = '<span itemprop="name">' . get_the_title() . '</span>';
+				} else {
+					$crumbs[] = '<span itemprop="name">' . get_the_title() . '</span>';
+				}
 			}
-			// If it's a custom post type within a custom taxonomy
-			$taxonomy_exists = taxonomy_exists($custom_taxonomy);
-			if ( empty($last_category) && !empty($custom_taxonomy) && $taxonomy_exists ) {
-				$taxonomy_terms  = get_the_terms( $post->ID, $custom_taxonomy );
-				$cat_id		     = $taxonomy_terms[0]->term_id;
-				$cat_nicename	 = $taxonomy_terms[0]->slug;
-				$cat_link		 = get_term_link($taxonomy_terms[0]->term_id, $custom_taxonomy);
-				$cat_name		 = $taxonomy_terms[0]->name;
-			}
-			// Check if the post is in a category
-			if(!empty($last_category)) {
-				$crumbs = array_merge( $crumbs, $cat_display );
-				$crumbs[] = '<span itemprop="name">' . get_the_title() . '</span>';
-			// Else if post is in a custom taxonomy
-			}
-			elseif(!empty($cat_id)) {
-				$crumbs[] = '<a href="' . $cat_link . '" title="' . $cat_name . '" itemprop="item">'.
-					'<span itemprop="name">' . $cat_name . '</span></a>';
-				$crumbs[] = '<span itemprop="name">' . get_the_title() . '</span>';
-			} else {
+			else {
 				$crumbs[] = '<span itemprop="name">' . get_the_title() . '</span>';
 			}
 		}
@@ -367,11 +373,32 @@ function pgb_breadcrumbs() {
 		}
 		$breadcrumb = implode( $separator, $bread );
 		$breadcrumb = sprintf( '<ol id="%s" class="%s" itemscope itemtype="http://schema.org/BreadcrumbList">%s</ol>', $breadcrumb_id, $breadcrumb_class, $breadcrumb );
-		$breadcrumb = sprintf( '<div id="breadcrumb-container"><div class="container">%s</div></div>', $breadcrumb );
 	}
 	echo $breadcrumb;
 }
 endif;
+
+
+/**
+ * WooCommerce Breadcrumbs need updating
+ *
+ * @since ProGo 0.8.0
+ */
+add_filter( 'woocommerce_breadcrumb_defaults', 'pgb_woocommerce_breadcrumbs' );
+function pgb_woocommerce_breadcrumbs() {
+	return array(
+		'delimiter'   => '',
+		'wrap_before' => '<ol id="breadcrumbs" class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList" itemprop="breadcrumb">',
+		'wrap_after'  => '</ol>',
+		'before'      => '<li class itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">',
+		'after'       => '</li>',
+		'home'        => _x( 'Home', 'breadcrumb', 'woocommerce' ),
+	);
+}
+add_action( 'init', 'pgb_remove_wc_breadcrumbs' );
+function pgb_remove_wc_breadcrumbs() {
+	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
+}
 
 
 /**

@@ -4,7 +4,7 @@
  Description:  ProGo Base is WordPress, Underscores, Bootstrap, Theme Hook Alliance, get-out-the-way-lemme-do-it all-in-one "Theme Framework".
  Author:       ProGo
  Author URI:   http://www.progo.com
- Version:      0.7.0
+ Version:      0.8.0
  License:      GPLv2 or later
  License URI:  http://www.gnu.org/licenses/gpl-2.0.html
  Tags:         custom-colors, custom-header, custom-menu, featured-images, full-width-template, light, post-formats, responsive-layout, theme-options
@@ -180,7 +180,7 @@ object {
 /* Content */
 #content {
 	position: relative;
-	z-index: -1;
+	/*z-index: -1;*/
 }
 .main-content-inner,
 .sidebar {
@@ -301,6 +301,9 @@ body.progo-base .breadcrumb {
 	background-color: transparent;
 	margin-bottom: 0;
 	padding-left: 0;
+}
+.woocommerce-page .breadcrumb li:last-child span {
+	/* color: #333; */
 }
 
 /*--------------------------[ WP ADMIN BAR FIXES ]-----------------------------------*/

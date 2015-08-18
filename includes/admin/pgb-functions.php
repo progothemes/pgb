@@ -426,8 +426,15 @@ function pgb_block_breadcrumbs() {
 	do_action( 'pgb_block_breadcrumbs' );
 }
 /* callback */
-function pgb_load_block_breadcrumbs() {
-	pgb_breadcrumbs();
-}
+function pgb_load_block_breadcrumbs() { ?>
+	<div id="breadcrumb-container">
+		<div class="container">
+			<?php 
+			if( function_exists('is_woocommerce') && is_woocommerce() ) { woocommerce_breadcrumb(); }
+			else { pgb_breadcrumbs(); } 
+			?>
+		</div>
+	</div>
+<?php }
 add_action( 'pgb_block_breadcrumbs', 'pgb_load_block_breadcrumbs', 10 );
 
