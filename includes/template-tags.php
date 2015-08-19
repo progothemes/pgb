@@ -457,6 +457,7 @@ if ( ! function_exists( 'pgb_rich_snippets' ) ) :
 add_action( 'wp_head', 'pgb_rich_snippets', 10 );
 function pgb_rich_snippets() {
 
+	global $post, $wp_query;
 	$post_id = get_queried_object_id();
 	$post_object = get_post( $post_id );
 
@@ -464,16 +465,21 @@ function pgb_rich_snippets() {
 	if ( is_front_page() ) {
 		$front_page_snippet = array(
 			"@context" => "http://schema.org",
-			"@type" => get_option( 'rich_snippet_type', 'WebSite' ),
+			"@type" => ( get_option( 'rich_snippet_type', false ) ? get_option( 'rich_snippet_type', 'WebSite' ) : 'WebSite' ),
 			"url" => get_bloginfo('url'),
 			"name" => get_bloginfo( 'name' ),
 			"logo" => pgb_get_logo( false ),
-			"potentialAction" => array(
-				"@type" => "SearchAction",
-				"target" => get_bloginfo( 'url' ) . "/?s={search}",
-				"query-input" => "required name=search"
-				)
 			);
+		if ( pgb_includes_search() ) {
+			$page_includes_search = array(
+				"potentialAction" => array(
+					"@type" => "SearchAction",
+					"target" => get_bloginfo( 'url' ) . "/?s={search}",
+					"query-input" => "required name=search"
+					)
+				);
+			$front_page_snippet = array_merge( $front_page_snippet, $page_includes_search );
+		}
 		pgb_print_snippet( $front_page_snippet );
 	}
 
@@ -535,14 +541,51 @@ function pgb_rich_snippets() {
 		}
 		pgb_print_snippet( $single_post_snippet );
 	}
-
 }
+endif;
+
+
+if ( ! function_exists( 'pgb_print_snippet' ) ) :
+/**
+ * Prints the rich snippet JSON object to the page header
+ *
+ * @since ProGo 0.7.0
+ * @param array $snippet
+ * @return string JSON object script printed to wp_head
+ */
 function pgb_print_snippet( $snippet = false ) {
 	if ( is_array( $snippet ) ) {
 		$snippet = array_filter( $snippet );
 		$json = json_encode( $snippet, JSON_UNESCAPED_SLASHES );
 		print( sprintf( '<script type="application/ld+json">%s</script>', $json ) );
 	}
+}
+endif;
+
+
+if ( ! function_exists( 'pgb_includes_search' ) ) :
+/**
+ * Check if page contains search
+ *
+ * @since ProGo 0.8.0
+ * @param none
+ * @return boolean If page includes search form return TRUE
+ */
+function pgb_includes_search() {
+
+	global $post, $wp_query;
+	$includes_search = false;
+
+	if ( pgb_get_option( 'nav_search' ) == '1' ) $includes_search = true;
+	
+	if ( function_exists('wp_get_sidebars_widgets') ) {
+		$sidebars_widgets = wp_get_sidebars_widgets();
+		foreach ($sidebars_widgets as $sidebar_widget_array) {
+			if ( in_array( 'search-2', $sidebar_widget_array ) ) $includes_search = true;
+		}
+	}
+
+	return $includes_search;
 }
 endif;
 
