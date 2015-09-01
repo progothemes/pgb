@@ -22,7 +22,7 @@ Use add/remove_action to modify template structure via plugin, rather than writi
 * Contributors: monkishtypist, chousmith, edurose, stokesman, progothemes
 * Tags: bootstrap, light, custom-header, custom-menu, fixed-layout, responsive-layout, two-columns
 * Requires at least: 4.1
-* Tested up to: 4.2.2
+* Tested up to: 4.3
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
