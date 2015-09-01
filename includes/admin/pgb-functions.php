@@ -515,6 +515,8 @@ add_action( 'pgb_block_page_title', 'pgb_load_block_page_title', 10 );
 
 /**
  * Load Page/Post Title block - pgb_block_post_title()
+ *
+ * @deprecated since v1.0
  */
 function pgb_block_post_title() {
 	do_action( 'pgb_block_post_title' );

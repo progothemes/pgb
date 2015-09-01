@@ -33,16 +33,18 @@ Once we figure out what FAQs may be, they may be added here and there. This is a
 ## Change Log
 
 ### Version 1.0.0
-* Renamed Nav positions for better compatibility
+* New functions to return specific pages, page arrays, and more
 * New validate.js for form validation (beta)
 * New admin-side pgb.js
 * Login/Logout menu link now part of Menu Customizer
 * Updated bootstrap nav-walker
 * Updated customizer options and organization for WP 4.3
-* Subtitles for pages
+* Renamed Nav positions for better compatibility
 * Page layout with header for each page (moving toward material design)
 * Footer updates to include menu position and copyright section
-* New functions to return specific pages, page arrays, and more
+* Page and post titles moved to masthead
+* Subtitles for pages
+* Renamed files: header to masthead, navtop to navbar
 
 ### Version 0.8.0
 * Added WooCommerce Support

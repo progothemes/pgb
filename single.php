@@ -17,7 +17,7 @@ get_header(); ?>
 
 				<?php tha_entry_top(); ?>
 
-				<?php pgb_block_post_title(); ?>
+				<?php //pgb_block_post_title(); // Post title moved to masthead on single pages ?>
 
 				<?php get_template_part( 'content', get_post_format() ); ?>
 

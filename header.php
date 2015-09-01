@@ -35,7 +35,7 @@
 
     <?php pgb_block_navbar(); ?>
 
-    <?php pgb_block_header(); ?>
+    <?php pgb_block_masthead(); ?>
 
     <div id="page-content-wrapper" class="page-content-wrapper-left">
 
