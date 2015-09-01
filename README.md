@@ -5,6 +5,10 @@ Useful as a Base theme, stand-alone, starting point to fork and rename and build
 
 Built by ProGo, a collection of Developers and Designers and Marketers working together to create a pure foundation that we could use, with hopes that others might find it useful as well.
 
+## Features
+#### Action-hook based template parts
+Use add/remove_action to modify template structure via plugin, rather than writing a child theme every time
+
 ## Installation
 
 1. In your admin panel, go to Appearance -> Themes and click the Add New button.
@@ -27,6 +31,18 @@ Built by ProGo, a collection of Developers and Designers and Marketers working t
 Once we figure out what FAQs may be, they may be added here and there. This is a work in progress. Thank you for bearing with us.
 
 ## Change Log
+
+### Version 1.0.0
+* Renamed Nav positions for better compatibility
+* New validate.js for form validation (beta)
+* New admin-side pgb.js
+* Login/Logout menu link now part of Menu Customizer
+* Updated bootstrap nav-walker
+* Updated customizer options and organization for WP 4.3
+* Subtitles for pages
+* Page layout with header for each page (moving toward material design)
+* Footer updates to include menu position and copyright section
+* New functions to return specific pages, page arrays, and more
 
 ### Version 0.8.0
 * Added WooCommerce Support

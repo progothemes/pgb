@@ -34,11 +34,14 @@ define( 'THEMEVERSION', $theme_version );
 define( 'THEMEURI', $theme_uri );
 define( 'THEMEAUTHORURI', $author_uri );
 
-require_once( ADMIN_PATH . 'admin/class.pgb_customizer.php' ); // Theme Customizer
-require_once( ADMIN_PATH . 'admin/class.pgb_loginout.php' ); // Login / Log Out
-//require_once( ADMIN_PATH . 'admin/class.post_formats.php' ); // Post Formats Meta Boxes
 require_once( ADMIN_PATH . 'admin/pgb-filters.php' ); // Theme Filters
 require_once( ADMIN_PATH . 'admin/pgb-functions.php' ); // Theme Functions
+
+//require_once( ADMIN_PATH . 'admin/class.post_formats.php' ); // Post Formats Meta Boxes
+require_once( ADMIN_PATH . 'admin/class.pgb_customizer.php' ); // Theme Customizer
+require_once( ADMIN_PATH . 'admin/class.pgb_subtitles.php');
+require_once( ADMIN_PATH . 'pgb-edit-wp-navwalker.php' ); // Nav Walker for Admin Nav Menus
+require_once( ADMIN_PATH . 'admin/class.pgb_loginout.php' ); // Login / Log Out
 
 //add_action('wp_ajax_pgb_ajax_post_action', 'pgb_ajax_callback');
 

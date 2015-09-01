@@ -17,7 +17,7 @@ get_header(); ?>
 
 				<?php tha_entry_top(); ?>
 
-				<?php get_template_part( 'posts', 'header' ); ?>
+				<?php pgb_block_post_title(); ?>
 
 				<?php get_template_part( 'content', get_post_format() ); ?>
 

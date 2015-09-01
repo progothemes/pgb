@@ -8,20 +8,28 @@
  */
 
 /* Actions */
-add_action( 'after_setup_theme', array( 'PGB_Login_Out', 'init' ) );
-//add_action( 'init', array( 'PGB_Login_Out', 'pgb_redirect_login_page' ) ); // redirect all attempts to access wp-login.php to custom login page (see Warning below)
 add_action( 'wp_login_failed', array( 'PGB_Login_Out', 'pgb_login_failed' ) );
 add_action( 'wp_logout', array( 'PGB_Login_Out', 'pgb_logout_redirect' ) );
 add_action( 'login_enqueue_scripts', array( 'PGB_Login_Out', 'pgb_login_logo' ) );
 /* Filters */
 add_filter( 'authenticate', array( 'PGB_Login_Out', 'pgb_verify_username_password' ), 1, 3 );
 add_filter( 'login_redirect', array( 'PGB_Login_Out', 'pgb_login_redirect' ), 10, 3 );
-add_filter( 'wp_nav_menu_items', array( 'PGB_Login_Out', 'pgb_add_loginout_link' ), 10, 2 );
+
+
 
 class PGB_Login_Out {
 
 	public static $login_url = false;
 	public static $redirect_url = false;
+
+	public function __construct() {
+		// add custom menu fields to menu
+		add_filter( 'wp_setup_nav_menu_item', array( $this, 'pgb_add_custom_nav_fields' ) );
+		// save menu custom fields
+		add_action( 'wp_update_nav_menu_item', array( $this, 'pgb_update_custom_nav_fields'), 10, 3 );
+		// edit menu walker
+		add_filter( 'wp_edit_nav_menu_walker', array( $this, 'pgb_edit_walker'), 10, 2 );
+	}
 
 	public static function init() {
 		self::$login_url = self::pgb_get_login_page_url();
@@ -166,37 +174,6 @@ class PGB_Login_Out {
 	}
 
 	/**
-	 * Add LoginOut in Top Menu
-	 *
-	 * @since ProGo 0.7.0
-	 * @param $items nav menu items
-	 * @param $args nav menu args
-	 * @return string new menu item
-	 */
-	public static function pgb_add_loginout_link( $items, $args ) {
-
-		if( ! pgb_get_option( 'login_link_nav_position' ) ) return $items;
-
-		$theme_locations = pgb_get_option( 'login_link_nav_position' );
-
-		$login_link = ( self::$login_url ? self::$login_url : wp_login_url() );
-
-		if ( in_array( $args->theme_location, $theme_locations ) ) {
-			$link = false;
-			if ( is_user_logged_in() ) {
-				$link = '<a title="Log Out" href="' . wp_logout_url( $login_link ) . '">Log out</a>';
-			}
-			else {
-				$link = '<a title="Login" href="' . $login_link . '">Login</a>';
-			}
-			$item = sprintf( '<li id="menu-item-login-out" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-login-out">%s</li>', $link );
-			$items .= $item;
-		}
-
-		return $items;
-	}
-
-	/**
 	 * Login Out Error Messages
 	 *
 	 * @since ProGo 0.7.0
@@ -247,6 +224,108 @@ class PGB_Login_Out {
 		</style>
 	<?php }
 
+
+
+
+
+	/**
+	 * Custom login meta-box do
+	 *
+	 * @since ProGo 0.8.0
+	 * @param none
+	 * @return none
+	 */
+	public function add_login_nav_menu_meta_box() {
+		add_meta_box( 'pgb_login_nav_link', __( 'Login / Logout', 'pgb' ), array( $this, 'render_login_nav_menu_meta_box' ), 'nav-menus', 'side', 'low' );
+	}
+
+	/**
+	 * Custom login meta-box render
+	 *
+	 * NOTES: JavaScript requires '.tabs-panel-active .categorychecklist li input:checked' to return true.
+	 *
+	 * @since ProGo 0.8.0
+	 * @param none
+	 * @return HTML meta-box
+	 */
+	public function render_login_nav_menu_meta_box() { ?>
+			<div id="pgb-login-link" class="posttypediv">
+				<div id="tabs-panel-pgb-login" class="tabs-panel tabs-panel-active">
+					<ul id ="pgb-login-checklist" class="categorychecklist form-no-clear">
+						<li>
+							<label class="menu-item-title">
+								<input type="checkbox" class="menu-item-checkbox" name="menu-item[-1][menu-item-object-id]" value="-1"> Login / Logout Link
+							</label>
+							<input type="hidden" class="menu-item-type" name="menu-item[-1][menu-item-type]" value="custom">
+							<input type="hidden" class="menu-item-title" name="menu-item[-1][menu-item-title]" value="Login">
+							<input type="hidden" class="menu-item-url" name="menu-item[-1][menu-item-url]" value="<?=wp_login_url(); ?>">
+							<input type="hidden" class="menu-item-classes" name="menu-item[-1][menu-item-classes]" value="pgb-login-link">
+						</li>
+					</ul>
+				</div>
+				<p class="button-controls">
+					<span class="add-to-menu">
+						<input type="submit" class="button-secondary submit-add-to-menu right" value="Add to Menu" name="add-post-type-menu-item" id="submit-pgb-login-link">
+						<span class="spinner"></span>
+					</span>
+				</p>
+			</div>
+	<?php }
+
+	/**
+	 * Add custom fields to $item nav object
+	 * in order to be used in custom Walker
+	 *
+	 * @access      public
+	 * @since       1.0 
+	 * @return      void
+	*/
+	function pgb_add_custom_nav_fields( $menu_item ) {
+
+		$menu_item->logoutpage = get_post_meta( $menu_item->ID, '_pgb_menu_item_logoutpage', true );
+		$menu_item->logouttext = get_post_meta( $menu_item->ID, '_pgb_menu_item_logouttext', true );
+		return $menu_item;
+
+	}
+
+	/**
+	 * Save menu custom fields
+	 *
+	 * @access      public
+	 * @since       1.0 
+	 * @return      void
+	*/
+	function pgb_update_custom_nav_fields( $menu_id, $menu_item_db_id, $args ) {
+
+		if ( isset($_REQUEST['menu-item-logoutpage']) && is_array( $_REQUEST['menu-item-logoutpage'] ) ) {
+			if ( isset($_REQUEST['menu-item-logoutpage'][$menu_item_db_id]) ) {
+				$logout_url_value = $_REQUEST['menu-item-logoutpage'][$menu_item_db_id];
+				update_post_meta( $menu_item_db_id, '_pgb_menu_item_logoutpage', $logout_url_value );
+			}
+		}
+		if ( isset($_REQUEST['menu-item-logouttext']) && is_array( $_REQUEST['menu-item-logouttext'] ) ) {
+			if ( isset($_REQUEST['menu-item-logouttext'][$menu_item_db_id]) ) {
+				$logout_text_value = $_REQUEST['menu-item-logouttext'][$menu_item_db_id];
+				update_post_meta( $menu_item_db_id, '_pgb_menu_item_logouttext', $logout_text_value );
+			}
+		}
+
+	}
+
+	/**
+	 * Define new Walker edit
+	 *
+	 * @access      public
+	 * @since       1.0 
+	 * @return      void
+	*/
+	function pgb_edit_walker($walker,$menu_id) {
+
+		return 'PGB_Walker_Nav_Menu_Edit';
+
+	}
+
 }
 
-	
+$nav_link = new PGB_Login_Out();
+add_action( 'admin_init', array( $nav_link, 'add_login_nav_menu_meta_box' ) );

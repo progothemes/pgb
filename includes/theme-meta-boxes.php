@@ -46,32 +46,6 @@ function pgb_page_opttions_cb( $post ) {
 	}
 	echo '</select><br><br>';
 
-	$page_footer = get_post_meta( $post->ID, 'metabox_page_footer_option', true );
-	echo '<label for="page_footer">';
-	_e( 'Use Custom Footer', 'myplugin_textdomain' );
-	echo '</label> ';
-	echo '<select id="page_footer" name="page_footer">';
-	echo '<option value="default" '.($page_footer=='default'?'selected="selected"':'').'>Use Theme Default</option>';
-	echo '<option value="custom" '.($page_footer=='custom'?'selected="selected"':'').'>Use Custom Footer on This Page</option>';
-	echo '<option value="hide" '.($page_footer=='hide'?'selected="selected"':'').'>Hide Footer on This Page</option>';
-	echo '</select><br>';
-
-	$custom_footer = get_post_meta( $post->ID, 'custom_footer_layout', true );
-	echo '<label for="custom_footer">';
-	_e( 'Custom Footer Layout', 'myplugin_textdomain' );
-	echo '</label> ';
-	echo '<select id="custom_footer" name="custom_footer">';
-	$cw_options = array(1 	=> 'One',
-						2	=> 'Two',
-						3	=> 'Three',
-						4	=> 'Four');
-	foreach($cw_options as $k => $cw_option)
-	{
-		$sel = $custom_footer == $k ? 'selected="selected"':'';
-		echo '<option value="'.$k.'">'.$cw_option.'</option>';
-	}
-	echo '</select><br><br>';
-
 }
 
 function pgb_save_meta_box_data( $post_id ) {
@@ -122,14 +96,10 @@ function pgb_save_meta_box_data( $post_id ) {
 	// Sanitize user input.
 	$my_data = sanitize_text_field( $_POST['page_layout'] );
 	$my_data2 = sanitize_text_field( $_POST['custom_width'] );
-	$my_data3 = sanitize_text_field( $_POST['page_footer'] );
-	$my_data4 = sanitize_text_field( $_POST['custom_footer'] );
 
 	// Update the meta field in the database.
 	update_post_meta( $post_id, 'metabox_page_layout_option', $my_data );
 	update_post_meta( $post_id, 'custom_container_width', $my_data2 );
-	update_post_meta( $post_id, 'metabox_page_footer_option', $my_data3 );
-	update_post_meta( $post_id, 'custom_footer_layout', $my_data4 );
 }
 add_action( 'save_post', 'pgb_save_meta_box_data' );
 

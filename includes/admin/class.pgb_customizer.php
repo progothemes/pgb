@@ -25,28 +25,29 @@ class ProGo_Customize {
 	 * @since ProGo 0.4
 	 */
 	public static function register ( $wp_customize ) {
-		// Page Layout Settings
+		
+		/**
+		 * SECTION
+		 *
+		 * Page Layout Settings
+		 *
+		 */
 		$wp_customize->add_section( 'pgb_options[layout]', 
 			array(
-				'title' => 'ProGo Layout and Options',
+				'title' => 'Site Layout and Design',
 				'priority' => 10,
 				'description' => '',
 			)
 		);
+		/**
+		 * Container Width
+		 */
 		$wp_customize->add_setting( 'pgb_options[container_width]',
 			array(
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
 				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_container_width' ),
-			) 
-		);
-		$wp_customize->add_setting( 'pgb_options[bootstrap_theme]',
-			array(
-				'type' => 'theme_mod',
-				'capability' => 'edit_theme_options',
-				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_bootstrap_theme' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[container_width]',
@@ -64,6 +65,17 @@ class ProGo_Customize {
 					'960' => '960px',
 				),
 			)
+		);
+		/**
+		 * Bootstrap Theme
+		 */
+		$wp_customize->add_setting( 'pgb_options[bootstrap_theme]',
+			array(
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_bootstrap_theme' ),
+			) 
 		);
 		$wp_customize->add_control( 'pgb_options[bootstrap_theme]',
 			array(
@@ -92,33 +104,17 @@ class ProGo_Customize {
 				),
 			)
 		);
-		// Logo Settings
-		$wp_customize->add_section( 'pgb_options[logo]',
-			array(
-				'title' => 'Logos',
-				'priority' => 30,
-				'description' => '',
-			)
-		);
+
+		/**
+		 * SECTION
+		 *
+		 * Site Identity ( WP Core 4.3 )
+		 *
+		 */
+		/**
+		 * Logo Mobile
+		 */
 		$wp_customize->add_setting( 'pgb_options[logo_mobile]',
-			array(
-				//'default' => '',
-				'type' => 'theme_mod',
-				'capability' => 'edit_theme_options',
-				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_logo' ),
-			) 
-		);
-		$wp_customize->add_setting( 'pgb_options[logo_tablet]',
-			array(
-				//'default' => '',
-				'type' => 'theme_mod',
-				'capability' => 'edit_theme_options',
-				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_logo' ),
-			) 
-		);
-		$wp_customize->add_setting( 'pgb_options[logo_desktop]',
 			array(
 				//'default' => '',
 				'type' => 'theme_mod',
@@ -132,11 +128,24 @@ class ProGo_Customize {
 				$wp_customize, 
 				'pgb_options[logo_mobile]',
 				array(
-					'label' => __( 'Navbar Icon / Mobile Logo', 'pgb' ),
-					'section' => 'pgb_options[logo]',
+					'label' => __( 'Mobile Navbar Logo', 'pgb' ),
+					'priority' => 60,
+					'section' => 'title_tagline',
 					'settings' => 'pgb_options[logo_mobile]',
 					'description' => 'Add your logo to the Bootstrap <a href="http://getbootstrap.com/components/#navbar-brand-image" target="_blank">Brand Image</a> position. Displayed on screens under 768px wide.'
 				)
+			) 
+		);
+		/**
+		 * Logo Tablet
+		 */
+		$wp_customize->add_setting( 'pgb_options[logo_tablet]',
+			array(
+				//'default' => '',
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_logo' ),
 			) 
 		);
 		$wp_customize->add_control(
@@ -144,11 +153,24 @@ class ProGo_Customize {
 				$wp_customize, 
 				'pgb_options[logo_tablet]',
 				array(
-					'label'      => __( 'Tablet Logo', 'pgb' ),
-					'section'    => 'pgb_options[logo]',
+					'label'      => __( 'Tablet Navbar Logo', 'pgb' ),
+					'priority' => 65,
+					'section'    => 'title_tagline',
 					'settings'   => 'pgb_options[logo_tablet]',
 					'description' => 'Tablet logo is displayed on screens 768px to 1024px wide.'
 				)
+			) 
+		);
+		/**
+		 * Logo Desktop
+		 */
+		$wp_customize->add_setting( 'pgb_options[logo_desktop]',
+			array(
+				//'default' => '',
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_logo' ),
 			) 
 		);
 		$wp_customize->add_control(
@@ -156,50 +178,80 @@ class ProGo_Customize {
 				$wp_customize, 
 				'pgb_options[logo_desktop]',
 				array(
-					'label'      => __( 'Desktop Logo', 'pgb' ),
-					'section'    => 'pgb_options[logo]',
+					'label'      => __( 'Desktop Navbar Logo', 'pgb' ),
+					'priority' => 70,
+					'section'    => 'title_tagline',
 					'settings'   => 'pgb_options[logo_desktop]',
 					'description' => 'Desktop Logo is displayed on screen above 1024px wide.'
 				)
 			) 
 		);
-		// Nav Settings
+
+
+		/**
+		 * SECTION
+		 *
+		 * Menu Locations ( WP Core 4.3 )
+		 *
+		 */
+		/**
+		 * Menu Alignment
+		 */
 		$wp_customize->add_setting( 'pgb_options[menu_align]',
 			array(
-				//'default' => 'right',
+				'default' => 'right',
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
 				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_menu_align' ),
 			) 
 		);
-		$wp_customize->add_setting( 'pgb_options[nav_position]',
+		$wp_customize->add_control( 'pgb_options[menu_align]', 
 			array(
-				//'default' => 'static',
-				'type' => 'theme_mod',
-				'capability' => 'edit_theme_options',
-				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_nav_position' ),
-			) 
+				'label'    => __( 'Main Menu Alignment', 'pgb' ),
+				'priority' => 20,
+				'section'  => 'menu_locations',
+				'settings' => 'pgb_options[menu_align]',
+				'type'     => 'radio',
+				'choices'  => array(
+					'right' => 'Right',
+					'left' => 'Left',
+					'center' => 'Center',
+				),
+			)
 		);
-		$wp_customize->add_setting( 'pgb_options[nav_search]',
+
+
+		/**
+		 * SECTION
+		 *
+		 * Login Settings
+		 *
+		 */
+		$wp_customize->add_section( 'pgb_login', 
 			array(
-				//'default' => '0',
-				'type' => 'theme_mod',
-				'capability' => 'edit_theme_options',
-				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_nav_search' ),
-			) 
+				'title' => 'Login Settings',
+				'priority' => 30,
+				'description' => '',
+			)
 		);
-		$wp_customize->add_setting( 'pgb_options[show_breadcrumb]',
-			array(
-				//'default' => '1',
-				'type' => 'theme_mod',
-				'capability' => 'edit_theme_options',
-				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_show_breadcrumb' ),
-			) 
+		/**
+		 * Description
+		 */
+		$wp_customize->add_control(
+			new PGB_Customize_Misc_Control(
+				$wp_customize,
+				'pgb_login-description',
+				array(
+					'section' => 'pgb_login',
+					'label' => __( 'Login Menu Link', 'pgb' ),
+					'description' => __( 'Use these settings to add a "Login / Log out" link to your menus automatically.', 'pgb' ),
+				)
+			)
 		);
+		/**
+		 * Login link in menu
+		 */
 		$wp_customize->add_setting( 'pgb_options[login_link_nav_position]',
 			array(
 				'default' => array(),
@@ -209,40 +261,97 @@ class ProGo_Customize {
 				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_array' ),
 			) 
 		);
+		$wp_customize->add_control( 
+			new PGB_Customize_Multiple_Select_Control(
+				$wp_customize,
+				'pgb_options[login_link_nav_position]', 
+				array(
+					'label'    => __( 'Show Login in the Following Navbar(s)', 'pgb' ),
+					'description' => 'Hold CTRL and click to select or deselect multiple options. Select "none" to disable.',
+					'section'  => 'pgb_login',
+					'settings' => 'pgb_options[login_link_nav_position]',
+					'type'     => 'multiple-select',
+					'choices'  => array( '-- none --' ) + get_registered_nav_menus(),
+					)
+				)
+		);
+		/**
+		 * Login Links-To Page
+		 */
 		$wp_customize->add_setting( 'pgb_options[login_link_page]',
 			array(
-				//'default' => 'static',
+				'default' => 0,
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
 				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_nav_position' ),
 			) 
 		);
+		$wp_customize->add_control( 'pgb_options[login_link_page]', 
+			array(
+				'label'    => __( 'Login Form Page', 'pgb' ),
+				'description' => __( 'This is the login page users will be redirected to upon clicking the Login link in the menu. This page must contain a login form.', 'pgb' ),
+				'section'  => 'pgb_login',
+				'settings' => 'pgb_options[login_link_page]',
+				'type'     => 'select',
+				'choices'  => array( 0 => '* WordPress Default' ) + pgb_get_pages_by_id(),
+			)
+		);
+		/**
+		 * Login Success Redirect Page
+		 */
 		$wp_customize->add_setting( 'pgb_options[login_redirect_page]',
 			array(
-				//'default' => 'static',
+				'default' => get_option('page_on_front'),
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
 				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_nav_position' ),
 			) 
 		);
-		$wp_customize->add_control( 'pgb_options[menu_align]', 
+		$wp_customize->add_control( 'pgb_options[login_redirect_page]', 
 			array(
-				'label'    => __( 'Main Menu Alignment', 'pgb' ),
-				'section'  => 'nav',
-				'settings' => 'pgb_options[menu_align]',
-				'type'     => 'radio',
-				'choices'  => array(
-					'right' => 'Right',
-					'left' => 'Left',
-				),
+				'label' => __( 'Login Success Redirect Page', 'pgb' ),
+				'description' => __( 'This is the page the user will be redirected to upon successful login. Administrators will still be redirected to "/wp-admin/" and are not affected by this selection.', 'pgb' ),
+				'section' => 'pgb_login',
+				'settings' => 'pgb_options[login_redirect_page]',
+				'type' => 'select',
+				'choices' => array( get_option('page_on_front') => '* Front Page' ) + pgb_get_pages_by_id(),
 			)
+		);
+
+
+
+		/**
+		 * SECTION
+		 *
+		 * Navbar
+		 *
+		 */
+		$wp_customize->add_section( 
+			'pgb_navigation', 
+			array(
+				'title' => 'Navbar',
+				'priority' => 200,
+				'description' => '',
+			)
+		);
+		/**
+		 * Navbar Position
+		 */
+		$wp_customize->add_setting( 'pgb_options[nav_position]',
+			array(
+				//'default' => 'static',
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_nav_position' ),
+			) 
 		);
 		$wp_customize->add_control( 'pgb_options[nav_position]', 
 			array(
 				'label'    => __( 'Main Navbar Position', 'pgb' ),
-				'section'  => 'nav',
+				'section'  => 'pgb_navigation',
 				'settings' => 'pgb_options[nav_position]',
 				'type'     => 'radio',
 				'choices'  => array(
@@ -251,68 +360,111 @@ class ProGo_Customize {
 				),
 			)
 		);
+		/**
+		 * Description
+		 */
+		$wp_customize->add_control(
+			new PGB_Customize_Misc_Control(
+				$wp_customize,
+				'pgb_navigation_search-description',
+				array(
+					'section' => 'pgb_navigation',
+					'label' => __( 'Search', 'pgb' ),
+				)
+			)
+		);
+		/**
+		 * Include Search in Navbar
+		 */
+		$wp_customize->add_setting( 'pgb_options[nav_search]',
+			array(
+				//'default' => '0',
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_nav_search' ),
+			) 
+		);
 		$wp_customize->add_control( 'pgb_options[nav_search]', 
 			array(
 				'label'    => __( 'Show Search in Main Navbar', 'pgb' ),
-				'section'  => 'nav',
+				'section'  => 'pgb_navigation',
 				'settings' => 'pgb_options[nav_search]',
 				'type'     => 'checkbox',
 				'value'    => 1,
 				'description' => 'Adds search field to the far right of the navbar'
 			)
 		);
+
+
+		/**
+		 * SECTION
+		 *
+		 * Header
+		 */
+		$wp_customize->add_section( 
+			'pgb_header', 
+			array(
+				'title' => 'Header',
+				'priority' => 210,
+				'description' => '',
+			)
+		);
+		/**
+		 * Show Breadcrumbs
+		 */
+		$wp_customize->add_setting( 'pgb_options[show_breadcrumb]',
+			array(
+				'default' => '1',
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_show_breadcrumb' ),
+			) 
+		);
 		$wp_customize->add_control( 'pgb_options[show_breadcrumb]', 
 			array(
 				'label'    => __( 'Include Breadcrumbs', 'pgb' ),
-				'section'  => 'nav',
+				'section'  => 'pgb_header',
 				'settings' => 'pgb_options[show_breadcrumb]',
 				'type'     => 'checkbox',
 				'value'    => 1,
 			)
 		);
-		$wp_customize->add_control( 
-			new PGB_Customize_Multiple_Select_Control(
-				$wp_customize,
-				'pgb_options[login_link_nav_position]', 
-				array(
-					'label'    => __( 'Show Login Link in Navbar(s)', 'pgb' ),
-					'section'  => 'nav',
-					'settings' => 'pgb_options[login_link_nav_position]',
-					'type'     => 'multiple-select',
-					'description' => 'Hold CTRL and click to select or deselect multiple options. Select "none" to disable.',
-					'choices'  => array( '-- none --' ) + get_registered_nav_menus(),
-					)
-				)
-		);
-		$wp_customize->add_control( 'pgb_options[login_link_page]', 
-			array(
-				'label'    => __( 'Set Login Form Page', 'pgb' ),
-				'section'  => 'nav',
-				'settings' => 'pgb_options[login_link_page]',
-				'type'     => 'select',
-				'choices'  => array( 0 => '* WordPress Default' ) + pgb_get_pages_by_id(),
-			)
-		);
-		$wp_customize->add_control( 'pgb_options[login_redirect_page]', 
-			array(
-				'label'    => __( 'Set Login Redirect Page', 'pgb' ),
-				'section'  => 'nav',
-				'settings' => 'pgb_options[login_redirect_page]',
-				'type'     => 'select',
-				'description' => '',
-				'choices'  => array( get_option('page_on_front') => '* Front Page' ) + pgb_get_pages_by_id(),
-			)
-		);
 
-		// Footer Settings
-		$wp_customize->add_section( 'pgb_options[footer]',
+		
+
+		/**
+		 * SECTION
+		 *
+		 * Footer Settings
+		 *
+		 */
+		$wp_customize->add_section( 'pgb_footer',
 			array(
 				'title' => 'Footer',
-				'priority' => 130,
+				'priority' => 230,
 				'description' => ''
 			)
 		);
-		$wp_customize->add_setting( 'pgb_options[footer_show]',
+		/**
+		 * Description
+		 */
+		$wp_customize->add_control(
+			new PGB_Customize_Misc_Control(
+				$wp_customize,
+				'pgb_footer_widgets-description',
+				array(
+					'section' => 'pgb_footer',
+					'label' => __( 'Footer Widgets Block', 'pgb' ),
+					'description' => __( 'Add footer widgets below page content', 'pgb' ),
+				)
+			)
+		);
+		/**
+		 * Show Footer Widgets Area
+		 */
+		$wp_customize->add_setting( 'pgb_options[footer_show_widgets]',
 			array(
 				//'default' => '1',
 				'type' => 'theme_mod',
@@ -321,29 +473,32 @@ class ProGo_Customize {
 				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_footer_show' ),
 			) 
 		);
-		$wp_customize->add_setting( 'pgb_options[footer_columns]',
-			array(
-				//'default' => '3',
-				'type' => 'theme_mod',
-				'capability' => 'edit_theme_options',
-				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_footer_columns' ),
-			) 
-		);
-		$wp_customize->add_control( 'pgb_options[footer_show]', 
+		$wp_customize->add_control( 'pgb_options[footer_show_widgets]', 
 			array(
 				'label'    => __( 'Show Footer Widgets', 'pgb' ),
-				'section'  => 'pgb_options[footer]',
-				'settings' => 'pgb_options[footer_show]',
+				'section'  => 'pgb_footer',
+				'settings' => 'pgb_options[footer_show_widgets]',
 				'type'     => 'checkbox',
 				'value'    => '1',
 			)
 		);
-		$wp_customize->add_control( 'pgb_options[footer_columns]', 
+		/**
+		 * Number of Columns
+		 */
+		$wp_customize->add_setting( 'pgb_options[footer_widgets_columns]',
+			array(
+				'default' => '4',
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_footer_widgets_columns' ),
+			) 
+		);
+		$wp_customize->add_control( 'pgb_options[footer_widgets_columns]', 
 			array(
 				'label'    => __( 'Number of Columns', 'pgb' ),
-				'section'  => 'pgb_options[footer]',
-				'settings' => 'pgb_options[footer_columns]',
+				'section'  => 'pgb_footer',
+				'settings' => 'pgb_options[footer_widgets_columns]',
 				'type'     => 'select',
 				'choices'  => array(
 					'1' => '1',
@@ -353,6 +508,78 @@ class ProGo_Customize {
 					),
 			)
 		);
+		/**
+		 * Linebreak
+		 */
+		$wp_customize->add_control(
+			new PGB_Customize_LineBreak_Control(
+				$wp_customize,
+				'pgb_footer_widgets-description-linebreak',
+				array(
+					'section' => 'pgb_footer',
+				)
+			)
+		);
+		/**
+		 * Description
+		 */
+		$wp_customize->add_control(
+			new PGB_Customize_Misc_Control(
+				$wp_customize,
+				'pgb_footer_copyright-description',
+				array(
+					'section' => 'pgb_footer',
+					'label' => __( 'Footer Copyright', 'pgb' ),
+					'description' => __( 'Add copyright text to your blog', 'pgb' ),
+				)
+			)
+		);
+		/**
+		 * Show Footer Copyright Area
+		 */
+		$wp_customize->add_setting( 'pgb_options[footer_show_copyright]',
+			array(
+				'default' => '1',
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_footer_show' ),
+			) 
+		);
+		$wp_customize->add_control( 'pgb_options[footer_show_copyright]', 
+			array(
+				'label'    => __( 'Show Copyright', 'pgb' ),
+				'section'  => 'pgb_footer',
+				'settings' => 'pgb_options[footer_show_copyright]',
+				'type'     => 'checkbox',
+				'value'    => '1',
+			)
+		);
+		/**
+		 * Footer Copyright Text
+		 */
+		$wp_customize->add_setting( 'pgb_options[footer_copyright_text]',
+			array(
+				'default' => 'Copyright &copy; ' . date( 'Y' ) . ' - ' . get_bloginfo( 'name' ),
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_footer_show' ),
+			) 
+		);
+		$wp_customize->add_control( 'pgb_options[footer_copyright_text]', 
+			array(
+				'label'    => __( 'Custom Copyright Text', 'pgb' ),
+				'section'  => 'pgb_footer',
+				'settings' => 'pgb_options[footer_copyright_text]',
+				'type'     => 'text',
+				'input_attrs' => array(
+					'placeholder' => __( 'Copyright &copy; ' . date( 'Y' ) . ' - ' . get_bloginfo( 'name' ), 'pgb' ),
+					),
+			)
+		);
+
+
 	}
 
 	/**
@@ -459,7 +686,7 @@ class ProGo_Customize {
 	public static function sanitize_footer_show( $input ) {
 		return esc_attr( $input );
 	}
-	public static function sanitize_footer_columns( $input ) {
+	public static function sanitize_footer_widgets_columns( $input ) {
 		return esc_attr( $input );
 	}
 
@@ -489,14 +716,8 @@ if ( class_exists('WP_Customize_Control') ) :
 	 */
 	class PGB_Customize_Multiple_Select_Control extends WP_Customize_Control {
 
-		/**
-		* The type of customize control being rendered.
-		*/
 		public $type = 'multiple-select';
 
-		/**
-		* Displays the multiple select on the customize screen.
-		*/
 		public function render_content() {
 
 			if ( empty( $this->choices ) ) return;
@@ -523,5 +744,40 @@ if ( class_exists('WP_Customize_Control') ) :
 		}
 	}
 
-	// Any other custom controls?
+	/**
+	 * Arbitrary Misc Text control class
+	 */
+	class PGB_Customize_Misc_Control extends WP_Customize_Control {
+
+		public $settings = 'blogname';
+		public $description = '';
+		public $type = 'misc';
+		public $output = '';
+
+		public function render_content() {
+
+			if ( ! empty( $this->label ) )
+				$this->output .= '<span class="customize-control-title">' . esc_html( $this->label ) . '</span>';
+
+			if ( ! empty( $this->description ) )
+				$this->output .= '<p class="description">' . $this->description . '</p>';
+
+			echo $this->output;
+
+			return;
+		}
+	}
+
+	/**
+	 * Section Line Break control class
+	 */
+	class PGB_Customize_LineBreak_Control extends WP_Customize_Control {
+
+		public $settings = 'blogname';
+
+		public function render_content() { ?>
+			<hr />
+		<?php }
+	}
+
 endif;

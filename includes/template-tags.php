@@ -128,6 +128,16 @@ function pgb_comment( $comment, $args, $depth ) {
 endif; // ends check for pgb_comment()
 
 
+add_action( 'comment_form_after', 'pgb_comments_after' );
+if ( ! function_exists( 'pgb_comments_after' ) ) :
+/**
+ * After Comments
+ */
+function pgb_comments_after() {
+	print '<script type="text/javascript"> jQuery(\'#commentform\').validate(); </script>';
+}
+endif;
+
 if ( ! function_exists( 'pgb_the_attached_image' ) ) :
 /**
  * Prints the attached image with a link to the next attached image.
@@ -183,10 +193,13 @@ endif;
 
 if ( ! function_exists( 'pgb_breadcrumbs' ) ) :
 /**
- * Breadcrumb functionality
+ * Breadcrumbs
+ *
+ * @return HTML breadcrumbs
  * @since ProGo 0.6.3
  */
 function pgb_breadcrumbs() {
+
 	// Our breadcrumb trail
 	$breadcrumb         = '';
 	$bread              = array();
@@ -203,6 +216,13 @@ function pgb_breadcrumbs() {
 
 	// Do not display on the homepage
 	if ( ! is_front_page() ) {
+
+		// WooCommerce
+		if ( function_exists('is_woocommerce') && is_woocommerce() ) {
+			woocommerce_breadcrumb();
+			return; // Exit breadcrumb function
+		}
+
 		$crumbs = array(
 			'<a href="' . get_home_url() . '" title="' . $home_title . '" itemprop="item">'.
 			'<span itemprop="name">' . $home_title . '</span></a>'
@@ -375,6 +395,7 @@ function pgb_breadcrumbs() {
 		$breadcrumb = sprintf( '<ol id="%s" class="%s" itemscope itemtype="http://schema.org/BreadcrumbList">%s</ol>', $breadcrumb_id, $breadcrumb_class, $breadcrumb );
 	}
 	echo $breadcrumb;
+	return;
 }
 endif;
 
@@ -585,13 +606,50 @@ function pgb_includes_search() {
 	if ( function_exists('wp_get_sidebars_widgets') ) {
 		$sidebars_widgets = wp_get_sidebars_widgets();
 		foreach ($sidebars_widgets as $sidebar_widget_array) {
-			if ( in_array( 'search-2', $sidebar_widget_array ) ) $includes_search = true;
+			if ( is_array( $sidebar_widget_array ) && in_array( 'search-2', $sidebar_widget_array ) ) $includes_search = true;
 		}
 	}
 
 	return $includes_search;
 }
 endif;
+
+
+
+if ( ! function_exists( 'pgb_footer_widget_columns' ) ) :
+/**
+ * Render Footer Widget columns
+ *
+ * @since ProGo 0.9.0
+ * @param none
+ * @return HTML
+ */
+function pgb_footer_widget_columns() {
+	$footer_columns = pgb_get_option( 'footer_widgets_columns', '4' );
+	$n = 12 / $footer_columns;
+	$classes = array();
+	// Build column width classes
+	for ( $i = 1 ; $i <= $footer_columns; $i++) {
+		$class_xs = 'col-xs-12';
+		$class_sm = 'col-sm-6';
+		$class_md = 'col-md-' . $n;
+		if ( ! ( $footer_columns % 2 == 0 ) && $i == 1 ) {
+			$class_sm = 'col-sm-12'; // For odd number of columns, we will set the first one full width
+		}
+		$classes[$i] = $class_xs . ' ' . $class_sm . ' ' . $class_md;
+	}
+	// Render the widget areas
+	for ( $i = 1 ; $i <= $footer_columns; $i++) { ?>
+		<div class="<?php echo $classes[$i]; ?>">
+			<?php 
+				$n = ( $i == 1 ? '' : '-'.$i );
+				dynamic_sidebar( 'footer-widget'.$n );
+			?>
+		</div>
+	<?php }
+}
+endif;
+
 
 
 /**

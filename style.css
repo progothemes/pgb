@@ -4,7 +4,7 @@
  Description:  ProGo Base is WordPress, Underscores, Bootstrap, Theme Hook Alliance, get-out-the-way-lemme-do-it all-in-one "Theme Framework".
  Author:       ProGo
  Author URI:   http://www.progo.com
- Version:      0.8.0
+ Version:      1.0.0
  License:      GPLv2 or later
  License URI:  http://www.gnu.org/licenses/gpl-2.0.html
  Tags:         custom-colors, custom-header, custom-menu, featured-images, full-width-template, light, post-formats, responsive-layout, theme-options
@@ -297,6 +297,32 @@ nav.navbar-fixed-top.affix + #masthead {
 	max-height: 24px;
 }
 
+@media screen and (min-width: 768px) {
+	.navbar-text.navbar-avatar {
+		margin-top: 9px;
+		margin-bottom: 9px;
+		padding-left: 15px;
+	}
+	.navbar-text.navbar-avatar img {
+		border-radius: 50%;
+	}
+	.pgb-theme-darkly #main-nav .navbar-text.navbar-avatar,
+	.pgb-theme-flatly #main-nav .navbar-text.navbar-avatar,
+	.pgb-theme-journal #main-nav .navbar-text.navbar-avatar,
+	.pgb-theme-paper #main-nav .navbar-text.navbar-avatar,
+	.pgb-theme-readable #main-nav .navbar-text.navbar-avatar,
+	.pgb-theme-sandstone #main-nav .navbar-text.navbar-avatar{
+		margin-top: 14px;
+		margin-bottom: 14px;
+	}
+	.pgb-theme-simplex #main-nav .navbar-text.navbar-avatar,
+	.pgb-theme-superhero #main-nav .navbar-text.navbar-avatar {
+		margin-top: 4px;
+		margin-bottom: 4px;
+	}
+
+}
+
 body.progo-base .breadcrumb {
 	background-color: transparent;
 	margin-bottom: 0;
@@ -361,4 +387,10 @@ form.navbar-form.navbar-right {
 	.tabletlogo, .desktoplogo {
 		display: none;
 	}
+}
+
+
+/*-------------------[ GLYPHICONS ] ------------------*/
+.input-group-addon.glyphicon {
+	top: 0;
 }

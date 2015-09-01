@@ -52,16 +52,25 @@ function pgb_setup() {
 		// Enable support for various Post Formats
 		add_theme_support( 'post-formats', array( 'aside', 'audio', 'image', 'link', 'quote', 'video' ) );
 
-    // Enable support for Title Tag
-    add_theme_support( 'title-tag' );
+    	// Enable support for Title Tag
+    	add_theme_support( 'title-tag' );
+
+    	// Enable Custom Header Image theme support
+    	// add_theme_support( 'custom-header' );
 	}
 
 	/**
 	 * This theme uses wp_nav_menu() in one location.
 	*/
 	register_nav_menus( array(
-		'primary'  	 => __( 'Main Menu', 'pgb' ),
+		'primary'	=> __( 'Main Menu', 'pgb' ),
+		'footer'	=> __( 'Footer Menu', 'pgb' ),
 	) );
+
+	/**
+	 * Add WooCommerce Support
+	 */
+	add_theme_support( 'woocommerce' );
 
 }
 endif; // pgb_setup
@@ -169,6 +178,8 @@ function pgb_scripts() {
 	// load bootstrap wp js
 	wp_enqueue_script( 'pgb-bootstrapwpjs', get_template_directory_uri() . '/includes/js/bootstrap-wp.js', array('jquery') );
 
+	wp_enqueue_script( 'jquery.validate', get_template_directory_uri() . '/includes/js/jquery.validate.js', array('jquery') );
+
 	wp_enqueue_script( 'pgb-customthemejs', get_template_directory_uri() . '/includes/js/custom-theme.js', array('jquery') );
 
 	wp_enqueue_script( 'pgb-skip-link-focus-fix', get_template_directory_uri() . '/includes/js/skip-link-focus-fix.js', array(), '20140924', true );
@@ -189,7 +200,8 @@ function load_custom_wp_admin_style() {
         wp_enqueue_style( 'custom_wp_admin_css' );
         wp_enqueue_style( 'wp-color-picker' );
         wp_enqueue_script( 'wp-color-picker-script', get_template_directory_uri() . '/includes/js/color-picker.js', array( 'wp-color-picker' ), false, true );
-        wp_enqueue_script('postformats-js', ADMIN_DIR .'admin/js/postformats.js', array( 'jquery' ));
+        wp_enqueue_script( 'postformats-js', ADMIN_DIR .'admin/js/postformats.js', array( 'jquery' ), false, true );
+        wp_enqueue_script( 'pgb-js', ADMIN_DIR .'admin/js/pgb.js', array( 'jquery' ), false, true );
 }
 add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
 

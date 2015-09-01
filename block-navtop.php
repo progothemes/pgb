@@ -8,6 +8,13 @@
 $topmenustyle           = '';
 $menuleftright          = 'navbar-' . pgb_get_option('menu_align', 'right');
 
+$avatar = '';
+if ( is_user_logged_in() ) {
+	$user_id = get_current_user_id();
+	$current_user = wp_get_current_user();
+	$avatar = '<div class="navbar-text navbar-avatar navbar-right"><a title="Update My Profile" id="user-profile-link" href="' . get_edit_user_link( $user_id ) . '">' . get_avatar( $user_id, $size = '32' ) . '</a></div>';
+}
+
 // Static or Fixed navigation bar
 $topmenustyle = sprintf( 'navbar-%s-top', pgb_get_option( 'nav_position', 'static' ) );
 
@@ -28,6 +35,7 @@ $topmenustyle = sprintf( 'navbar-%s-top', pgb_get_option( 'nav_position', 'stati
 			</div>
 			<div class="collapse navbar-collapse navbar-responsive-collapse">
 				<?php if( pgb_get_option( 'nav_search' ) == '1' ) get_template_part( 'searchform', 'nav' ); // Show search form ?>
+				<?php echo $avatar; ?>
 				<?php // Main Menu
 				wp_nav_menu(
 					array(
@@ -41,6 +49,7 @@ $topmenustyle = sprintf( 'navbar-%s-top', pgb_get_option( 'nav_position', 'stati
 				);
 				?>
 			</div>
+
 		</div>
 	</div>
 	<!-- .navbar --> 

@@ -37,6 +37,10 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 
+		if ( 'custom' == $item->type && strpos($item->post_name, 'login') === 0 && is_user_logged_in() ) {
+				$item->title = ( ! empty($item->logouttext) ? $item->logouttext : $item->title );
+				$item->url = ( ! empty($item->logoutpage) ? wp_logout_url( $item->logoutpage ) : $item->url );
+		}
 		/**
 		 * Dividers, Headers or Disabled
 		 * =============================
