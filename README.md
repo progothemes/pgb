@@ -32,6 +32,9 @@ Once we figure out what FAQs may be, they may be added here and there. This is a
 
 ## Change Log
 
+### Version 1.0.1
+* Page post titles updated, archive titles added and formatted
+
 ### Version 1.0.0
 * New functions to return specific pages, page arrays, and more
 * New validate.js for form validation (beta)
