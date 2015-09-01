@@ -442,28 +442,28 @@ add_filter( 'wp_nav_menu_args', 'modify_nav_menu_args' );
  */
 
 /**
- * Load Header block - pgb_block_header()
+ * Load Masthead block - pgb_block_masthead()
  */
-function pgb_block_header() {
-	do_action( 'pgb_block_header' );
+function pgb_block_masthead() {
+	do_action( 'pgb_block_masthead' );
 }
 /* callback */
-function pgb_load_block_header() {
-	locate_template( 'block-header.php', true );
+function pgb_load_block_masthead() {
+	locate_template( 'block-masthead.php', true );
 }
-add_action( 'pgb_block_header', 'pgb_load_block_header', 10 );
+add_action( 'pgb_block_masthead', 'pgb_load_block_masthead', 10 );
 
 /**
- * Load Top Nav block - pgb_block_navtop()
+ * Load Navbar block - pgb_block_navbar()
  */
-function pgb_block_navtop() {
-	do_action( 'pgb_block_navtop' );
+function pgb_block_navbar() {
+	do_action( 'pgb_block_navbar' );
 }
 /* callback */
-function pgb_load_block_navtop() {
-	locate_template( 'block-navtop.php', true );
+function pgb_load_block_navbar() {
+	locate_template( 'block-navbar.php', true );
 }
-add_action( 'pgb_block_navtop', 'pgb_load_block_navtop', 10 );
+add_action( 'pgb_block_navbar', 'pgb_load_block_navbar', 10 );
 
 /**
  * Load Footer Widget Area block - pgb_block_footerwidgets()
@@ -490,7 +490,7 @@ function pgb_load_block_footercopyright() {
 add_action( 'pgb_block_footercopyright', 'pgb_load_block_footercopyright', 10 );
 
 /**
- * Load Link pages block - pgb_block_header()
+ * Load Link pages block - pgb_block_linkpages()
  */
 function pgb_block_linkpages() {
 	do_action( 'pgb_block_linkpages' );
@@ -502,7 +502,7 @@ function pgb_load_block_linkpages() {
 add_action( 'pgb_block_linkpages', 'pgb_load_block_linkpages', 10 );
 
 /**
- * Load Page Title block - pgb_block_header()
+ * Load Page Title block - pgb_block_page_title()
  */
 function pgb_block_page_title() {
 	do_action( 'pgb_block_page_title' );
@@ -514,7 +514,7 @@ function pgb_load_block_page_title() {
 add_action( 'pgb_block_page_title', 'pgb_load_block_page_title', 10 );
 
 /**
- * Load Page/Post Title block - pgb_block_header()
+ * Load Page/Post Title block - pgb_block_post_title()
  */
 function pgb_block_post_title() {
 	do_action( 'pgb_block_post_title' );

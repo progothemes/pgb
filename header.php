@@ -33,7 +33,7 @@
     <?php tha_header_before(); ?>
     <?php do_action( 'before' ); ?>
 
-    <?php pgb_block_navtop(); ?>
+    <?php pgb_block_navbar(); ?>
 
     <?php pgb_block_header(); ?>
 
