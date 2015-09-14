@@ -33,6 +33,7 @@
     <?php tha_header_before(); ?>
     <?php do_action( 'before' ); ?>
 
+    <?php if ( has_nav_menu('secondary') || '1' === pgb_get_option( 'nav_search' ) ) pgb_block_navbartop(); ?>
     <?php pgb_block_navbar(); ?>
 
     <?php pgb_block_masthead(); ?>

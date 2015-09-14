@@ -17,6 +17,8 @@
 		elseif ( is_blog_page() ) :
 			blog_page_title();
 			get_the_subtitle( blog_page_id(), '<h3 class="page-sub-title">', '</h3>', true );
+		elseif ( is_search() ) :
+			printf( '<h1 class="page-title">%s%s</h1>', __( 'Search Results for: ', 'pgb' ), '<span>' . get_search_query() . '</span>' );
 		elseif ( is_archive() ) :
 			if ( is_category() ) {
 				printf( '<h1 class="page-title">%s</h1>', single_cat_title( '', false ) );

@@ -1,4 +1,10 @@
-(function ($) {
+/**
+ * Custom JavaScript for PGB Frontend
+ *
+ */
+var brandImage;
+
+(function($) {
 	
 	// If Search Field empty, focus on submit
 	$(document).on('click', 'form[role="search"] button[type="submit"]', function(event) {
@@ -13,18 +19,37 @@
 		};
 	});
 
-	$(window).load(function(){
+	// Vertically center nav-bar logo image (mobile logo)
+	var brand;
+	brand = brandImage = {
 
-		// Vertically center nav-bar logo image (mobile logo)
-		if ( $('.navbar-brand img').is(':visible') ) {
-			var brandimgh = $('.navbar-brand img').height(),
-				mainnavh = $('#main-nav').height(),
-				offset = Math.min( ( mainnavh - brandimgh ) / 2, 10 );
-			$('.navbar-brand').css({
+		h      : undefined, // Brand image height
+		navh   : undefined, // Main navbar height
+		img    : undefined, // Brand image element
+		a      : undefined, // Brand image wrapper
+		offset : undefined, // Brand image calculated offset
+
+		init : function() {
+			brand.a = $('.navbar-brand');
+			brand.img = brand.a.find('img').filter(':visible');
+			brand.h = brand.img.height();
+			console.log(brand.a);
+			console.log(brand.img);
+			brand.navh = $('#main-nav').height();
+			brand.offset = Math.min( ( brand.navh - brand.h ) / 2, 10 );
+			brand.setImageOffset( brand.offset );
+		},
+
+		setImageOffset : function( offset ) {
+			brand.a.css({
 				"padding-top": offset + "px",
 				"padding-bottom": offset + "px"
-			}); 
+			});
+			console.log('brand.offset.'+offset);
 		}
 
-	});
+	}
+
+	$(function() { brandImage.init(); });
+
 }(jQuery));

@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * WARNING!
+ *
+ * This file has been modified from the original Bootstrap Navwalker. It includes customizations for the login/logout link and avatar.
+ */
+
+/**
  * Class Name: wp_bootstrap_navwalker
  * GitHub URI: https://github.com/twittem/wp-bootstrap-navwalker
  * Description: A custom WordPress nav walker class to implement the Bootstrap 3 navigation style in a custom theme using the WordPress built in menu manager.
@@ -37,6 +43,9 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 
+		/**
+		 * Custom updates for Login/Logout menu item
+		 */
 		if ( 'custom' == $item->type && strpos($item->post_name, 'login') === 0 && is_user_logged_in() ) {
 				$item->title = ( ! empty($item->logouttext) ? $item->logouttext : $item->title );
 				$item->url = ( ! empty($item->logoutpage) ? wp_logout_url( $item->logoutpage ) : $item->url );
@@ -57,6 +66,8 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 			$output .= $indent . '<li role="presentation" class="dropdown-header">' . esc_attr( $item->title );
 		} else if ( strcasecmp($item->attr_title, 'disabled' ) == 0 ) {
 			$output .= $indent . '<li role="presentation" class="disabled"><a href="#">' . esc_attr( $item->title ) . '</a>';
+		} else if ( strcasecmp( $item->post_name, 'avatar') == 0 ) {
+			$output .= $indent . '<li role="avatar" class="profile"><a href="' . get_edit_user_link() . '">' . get_avatar( get_current_user_id(), $size = '32' ) . '</a>';
 		} else {
 
 			$class_names = $value = '';

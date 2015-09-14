@@ -7,7 +7,7 @@
 
 get_header(); ?>
 
-	<div id="content" class="main-content-inner col-sm-12 col-md-8 col-lg-9" data-file="home.php">
+	<div id="content" class="main-content-inner col-sm-12 col-md-8 col-lg-9" data-file="index.php">
 
 		<?php tha_content_top(); ?>
 

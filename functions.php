@@ -64,6 +64,7 @@ function pgb_setup() {
 	*/
 	register_nav_menus( array(
 		'primary'	=> __( 'Main Menu', 'pgb' ),
+		'secondary'	=> __( 'Top Menu', 'pgb' ),
 		'footer'	=> __( 'Footer Menu', 'pgb' ),
 	) );
 

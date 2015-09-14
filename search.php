@@ -9,23 +9,12 @@ get_header(); ?>
 
 	<div id="content" class="main-content-inner col-sm-12 col-md-8 col-lg-9">
 
+		<?php tha_content_top(); ?>
+
+		<?php // <!--The Loop ?>
+
 		<?php if ( have_posts() ) : ?>
 
-			<div class="row">
-
-				<div class="col-md-12">
-
-					<header class="page-header">
-
-						<h2 class="page-title"><?php printf( __( 'Search Results for: %s', 'pgb' ), '<span>' . get_search_query() . '</span>' ); ?></h2>
-
-					</header><!-- .page-header -->
-
-				</div>
-
-			</div>
-
-			<?php // start the loop. ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 
 				<?php tha_entry_before(); ?>
@@ -34,7 +23,7 @@ get_header(); ?>
 
 					<?php tha_entry_top(); ?>
 
-					<?php get_template_part( 'posts', 'header' ); ?>
+					<?php pgb_block_post_title(); ?>
 
 					<div class="col-md-12">
 
@@ -60,9 +49,9 @@ get_header(); ?>
 
 		<?php else : ?>
 
-			<?php get_template_part( 'no-results', 'search' ); ?>
+			<?php get_template_part( 'no-results', 'archive' ); ?>
 
-		<?php endif; // end of loop. ?>
+		<?php endif; ?>
 
 	</div>
 

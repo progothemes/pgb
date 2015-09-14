@@ -216,7 +216,7 @@ class ProGo_Customize {
 				'choices'  => array(
 					'right' => 'Right',
 					'left' => 'Left',
-					'center' => 'Center',
+					//'center' => 'Center',
 				),
 			)
 		);

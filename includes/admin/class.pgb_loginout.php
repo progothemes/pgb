@@ -261,6 +261,15 @@ class PGB_Login_Out {
 							<input type="hidden" class="menu-item-url" name="menu-item[-1][menu-item-url]" value="<?=wp_login_url(); ?>">
 							<input type="hidden" class="menu-item-classes" name="menu-item[-1][menu-item-classes]" value="pgb-login-link">
 						</li>
+						<li>
+							<label class="menu-item-title">
+								<input type="checkbox" class="menu-item-checkbox" name="menu-item[-2[menu-item-object-id]" value="-2"> Avatar
+							</label>
+							<input type="hidden" class="menu-item-type" name="menu-item[-2][menu-item-type]" value="custom">
+							<input type="hidden" class="menu-item-title" name="menu-item[-2][menu-item-title]" value="Avatar">
+							<input type="hidden" class="menu-item-url" name="menu-item[-2][menu-item-url]" value="<?=get_edit_user_link(); ?>">
+							<input type="hidden" class="menu-item-classes" name="menu-item[-2][menu-item-classes]" value="pgb-avatar-link">
+						</li>
 					</ul>
 				</div>
 				<p class="button-controls">

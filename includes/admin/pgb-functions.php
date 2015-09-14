@@ -466,6 +466,18 @@ function pgb_load_block_navbar() {
 add_action( 'pgb_block_navbar', 'pgb_load_block_navbar', 10 );
 
 /**
+ * Load Navtop block - pgb_block_navbartop()
+ */
+function pgb_block_navbartop() {
+	do_action( 'pgb_block_navbartop' );
+}
+/* callback */
+function pgb_load_block_navtop() {
+	locate_template( 'block-navtop.php', true );
+}
+add_action( 'pgb_block_navbartop', 'pgb_load_block_navtop', 10 );
+
+/**
  * Load Footer Widget Area block - pgb_block_footerwidgets()
  */
 function pgb_block_footerwidgets() {
