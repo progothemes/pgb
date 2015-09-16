@@ -250,13 +250,13 @@ object {
 ------------------------------------------------------------------
 */
 
+#masthead {
+	margin-top: 0;
+}
 @media screen and (min-width: 768px) {
 	#top-nav {
 		border-radius: 0;
 		margin-bottom: 0;
-	}
-	.page-header {
-		margin-top: 0;
 	}
 
 	/* Bootstrap default theme */

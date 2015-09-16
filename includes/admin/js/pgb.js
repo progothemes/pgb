@@ -55,12 +55,12 @@ var pgbCustomNavs;
 		},
 
 		loginCheckedUpdate : function( checkedState ) {
-			console.log( checkedState );
+			//console.log( checkedState );
 		},
 
 		loginSelectUpdate : function( linkURL ) {
 			nav.login.field.url.val( linkURL );
-			console.log( linkURL );
+			//console.log( linkURL );
 		},
 
 	}

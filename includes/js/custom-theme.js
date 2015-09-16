@@ -33,8 +33,6 @@ var brandImage;
 			brand.a = $('.navbar-brand');
 			brand.img = brand.a.find('img').filter(':visible');
 			brand.h = brand.img.height();
-			console.log(brand.a);
-			console.log(brand.img);
 			brand.navh = $('#main-nav').height();
 			brand.offset = Math.min( ( brand.navh - brand.h ) / 2, 10 );
 			brand.setImageOffset( brand.offset );
@@ -45,7 +43,6 @@ var brandImage;
 				"padding-top": offset + "px",
 				"padding-bottom": offset + "px"
 			});
-			console.log('brand.offset.'+offset);
 		}
 
 	}

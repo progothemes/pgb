@@ -38,10 +38,10 @@
 
     <?php pgb_block_masthead(); ?>
 
+    <?php tha_header_after();  ?>
     <div id="page-content-wrapper" class="page-content-wrapper-left">
 
-      <?php tha_header_after();  ?>
-      <?php tha_content_before(); ?>
-      <div class="main-content">
-        <div class="container">
-          <div class="row">
+        <?php tha_content_before(); ?>
+        <div class="main-content">
+            <div class="container">
+                <div class="row">
