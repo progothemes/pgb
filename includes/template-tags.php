@@ -12,7 +12,7 @@ if ( ! function_exists( 'pgb_content_nav' ) ) :
  * Display navigation to next/previous pages when applicable
  */
 function pgb_content_nav( $nav_id ) {
-	global $wp_query, $post;
+	global $wp_query, $post, $paged;
 
 	// Don't print empty markup on single pages if there's nowhere to navigate.
 	if ( is_single() ) {
@@ -31,22 +31,22 @@ function pgb_content_nav( $nav_id ) {
 
 	?>
 	<nav role="navigation" id="<?php echo esc_attr( $nav_id ); ?>" class="<?php echo $nav_class; ?>">
-		<h3 class="sr-only"><?php _e( 'Post navigation', 'pgb' ); ?></h3>
+		<h3 class="sr-only"><?php ( is_single() ? _e( 'Post navigation', 'pgb' ) : _e( 'Page navigation', 'pgb' ) ); ?></h3>
 		<ul class="pager">
 
 		<?php if ( is_single() ) : // navigation links for single posts ?>
 
-			<?php previous_post_link( '<li class="nav-previous previous">%link</li>', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'pgb' ) . '</span> %title' ); ?>
-			<?php next_post_link( '<li class="nav-next next">%link</li>', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'pgb' ) . '</span>' ); ?>
+			<?php previous_post_link( '<li class="nav-previous previous" data-post-id="' . ( $previous ? $previous->ID : '' ) . '">%link</li>', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'pgb' ) . '</span> %title' ); ?>
+			<?php next_post_link( '<li class="nav-next next" data-post-id="' .( $next ? $next->ID : '' ) . '">%link</li>', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'pgb' ) . '</span>' ); ?>
 
-		<?php elseif ( $wp_query->max_num_pages > 1 && ( is_home() || is_archive() || is_search() ) ) : // navigation links for home, archive, and search pages ?>
+		<?php elseif ( $wp_query->max_num_pages >= 1 && ( is_home() || is_archive() || is_search() ) ) : // navigation links for home, archive, and search pages ?>
 
 			<?php if ( get_next_posts_link() ) : ?>
-			<li class="nav-previous previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'pgb' ) ); ?></li>
+			<li class="nav-previous previous" data-page-number="<?php echo ( $paged < $wp_query->max_num_pages ? $paged+1 : $paged ); ?>"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'pgb' ) ); ?></li>
 			<?php endif; ?>
 
 			<?php if ( get_previous_posts_link() ) : ?>
-			<li class="nav-next next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?></li>
+			<li class="nav-next next" data-page-number="<?php echo ( $paged > 1 ? $paged-1 : $paged ); ?>"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?></li>
 			<?php endif; ?>
 
 		<?php endif; ?>

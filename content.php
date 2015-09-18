@@ -33,7 +33,7 @@
 		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
 		
 		<?php pgb_block_linkpages(); ?>
-	
+
 	</div><!-- .entry-content -->
 
 <?php endif; ?>

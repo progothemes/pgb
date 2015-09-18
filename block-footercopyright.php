@@ -4,10 +4,10 @@
  *
  */
 
-$show_footer_copyright = pgb_get_option( 'footer_show_copyright', '1' );
+$show_footer_copyright = pgb_get_option( 'footer_show_copyright', false );
 $default_copyright = 'Copyright &copy; ' . date( 'Y' ) . ' - ' . get_bloginfo( 'name' );
 
-if( !empty( $show_footer_copyright ) && '1' == $show_footer_copyright ) { ?>
+if( !empty( $show_footer_copyright ) && '1' === $show_footer_copyright ) { ?>
 <footer id="colophon" class="site-footer" role="contentinfo">
 	<?php tha_footer_top(); ?>
 	<div class="container">
