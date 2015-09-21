@@ -6,14 +6,34 @@
 *
 * @return string
 */
+$fixed = pgb_get_option( 'nav_position', false );
+$topmenustyle = '';
+$datafix = '';
 
-$is_affix = ( 'fixed' === pgb_get_option( 'nav_position', 'static' ) ? true : false );
-$topmenustyle = sprintf( 'navbar-%s-top', pgb_get_option( 'nav_position', 'static' ) );
+if ( 'fixed' === $fixed ) {
+	$topmenustyle = 'navbar-fixed-top';
+	$datafix = 'data-spy="affix" data-offset-top="0"';
+}
+
 $topnav_width = pgb_get_option( 'topnav_width', 'container' );
-$topnav_width_inner = ( 'container-fluid' === $topnav_width ? 'container' : 'container-fluid' );
+switch ($topnav_width) {
+	case 'container-fluid':
+		$topmenustyle = 'navbar-static-top';
+		$topnav_width_inner = 'container';
+		break;
+	case 'full':
+		$topmenustyle = 'navbar-static-top';
+		$topnav_width_inner = 'container-fluid';
+		break;
+	case 'container':
+	default:
+		$topnav_width_inner = 'container-fluid';
+		break;
+}
+
 
 ?>
-<nav id="top-nav" class="navbar navbar-inverse site-navigation hidden-xs <?=$topmenustyle; ?> <?=$topnav_width; ?>" <?php echo ( $is_affix ? 'data-spy="affix" data-offset-top="0"' : '' ); ?> >
+<nav id="top-nav" class="navbar navbar-inverse site-navigation hidden-xs <?=$topmenustyle; ?> <?=$topnav_width; ?>" <?php echo $datafix; ?> >
 	<div  class="<?=$topnav_width_inner; ?> nav-contain" role="navigation">
 		<div class="navbar-inner">
 			<?php if( '1' === pgb_get_option( 'nav_search' ) ) get_template_part( 'searchform', 'nav' ); // Show search form ?>

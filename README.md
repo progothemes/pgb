@@ -32,6 +32,9 @@ Once we figure out what FAQs may be, they may be added here and there. This is a
 
 ## Change Log
 
+### Version 1.0.2
+* Updated navbar customizer layouts
+
 ### Version 1.0.1
 * Page post titles updated, archive titles added and formatted
 * Search Results page titles fixed

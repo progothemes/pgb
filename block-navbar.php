@@ -5,15 +5,34 @@
 * @return string
 */
 
-$menuleftright          = 'navbar-' . pgb_get_option('menu_align', 'right');
+$menuleftright = 'navbar-' . pgb_get_option('menu_align', 'right');
+$fixed = pgb_get_option( 'nav_position', false );
+$menustyle = '';
+$datafix = '';
 
-// Static or Fixed navigation bar
-$is_affix = ( 'fixed' === pgb_get_option( 'nav_position', 'static' ) ? true : false );
-$menustyle = sprintf( 'navbar-%s-top', pgb_get_option( 'nav_position', 'static' ) );
+if ( 'fixed' === $fixed ) {
+	$menustyle = 'navbar-fixed-top';
+	$datafix = 'data-spy="affix" data-offset-top="0"';
+}
+
 $navbar_width = pgb_get_option( 'navbar_width', 'container' );
-$navbar_width_inner = ( 'container-fluid' === $navbar_width ? 'container' : 'container-fluid' );
+switch ($navbar_width) {
+	case 'container-fluid':
+		$menustyle = 'navbar-static-top';
+		$navbar_width_inner = 'container';
+		break;
+	case 'full':
+		$menustyle = 'navbar-static-top';
+		$navbar_width_inner = 'container-fluid';
+		break;
+	case 'container':
+	default:
+		$navbar_width_inner = 'container-fluid';
+		break;
+}
+
 ?>
-<nav id="main-nav" class="navbar navbar-default site-navigation <?=$menustyle; ?> <?=$navbar_width; ?>" <?php echo ( $is_affix ? 'data-spy="affix" data-offset-top="0"' : '' ); ?> >
+<nav id="main-nav" class="navbar navbar-default site-navigation <?=$menustyle; ?> <?=$navbar_width; ?>" <?php echo $datafix; ?> >
 	<div  class="<?=$navbar_width_inner; ?> nav-contain" role="navigation">
 		<div class="navbar-header"> 
 			<!-- .navbar-toggle is used as the toggle for collapsed navbar content -->
