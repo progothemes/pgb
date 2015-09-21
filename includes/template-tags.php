@@ -198,7 +198,7 @@ if ( ! function_exists( 'pgb_breadcrumbs' ) ) :
  * @return HTML breadcrumbs
  * @since ProGo 0.6.3
  */
-function pgb_breadcrumbs() {
+function pgb_get_breadcrumbs() {
 
 	// Our breadcrumb trail
 	$breadcrumb         = '';
@@ -394,7 +394,11 @@ function pgb_breadcrumbs() {
 		$breadcrumb = implode( $separator, $bread );
 		$breadcrumb = sprintf( '<ol id="%s" class="%s" itemscope itemtype="http://schema.org/BreadcrumbList">%s</ol>', $breadcrumb_id, $breadcrumb_class, $breadcrumb );
 	}
-	echo $breadcrumb;
+	return $breadcrumb;
+}
+function pgb_breadcrumbs() {
+	$breadcrumbs = pgb_get_breadcrumbs();
+	print $breadcrumbs;
 	return;
 }
 endif;

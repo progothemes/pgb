@@ -225,114 +225,14 @@ class ProGo_Customize {
 		/**
 		 * SECTION
 		 *
-		 * Login Settings
-		 *
-		 */
-		$wp_customize->add_section( 'pgb_login', 
-			array(
-				'title' => 'Login Settings',
-				'priority' => 30,
-				'description' => '',
-			)
-		);
-		/**
-		 * Description
-		 */
-		$wp_customize->add_control(
-			new PGB_Customize_Misc_Control(
-				$wp_customize,
-				'pgb_login-description',
-				array(
-					'section' => 'pgb_login',
-					'label' => __( 'Login Menu Link', 'pgb' ),
-					'description' => __( 'Use these settings to add a "Login / Log out" link to your menus automatically.', 'pgb' ),
-				)
-			)
-		);
-		/**
-		 * Login link in menu
-		 */
-		$wp_customize->add_setting( 'pgb_options[login_link_nav_position]',
-			array(
-				'default' => array(),
-				'type' => 'theme_mod',
-				'capability' => 'edit_theme_options',
-				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_array' ),
-			) 
-		);
-		$wp_customize->add_control( 
-			new PGB_Customize_Multiple_Select_Control(
-				$wp_customize,
-				'pgb_options[login_link_nav_position]', 
-				array(
-					'label'    => __( 'Show Login in the Following Navbar(s)', 'pgb' ),
-					'description' => 'Hold CTRL and click to select or deselect multiple options. Select "none" to disable.',
-					'section'  => 'pgb_login',
-					'settings' => 'pgb_options[login_link_nav_position]',
-					'type'     => 'multiple-select',
-					'choices'  => array( '-- none --' ) + get_registered_nav_menus(),
-					)
-				)
-		);
-		/**
-		 * Login Links-To Page
-		 */
-		$wp_customize->add_setting( 'pgb_options[login_link_page]',
-			array(
-				'default' => 0,
-				'type' => 'theme_mod',
-				'capability' => 'edit_theme_options',
-				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_nav_position' ),
-			) 
-		);
-		$wp_customize->add_control( 'pgb_options[login_link_page]', 
-			array(
-				'label'    => __( 'Login Form Page', 'pgb' ),
-				'description' => __( 'This is the login page users will be redirected to upon clicking the Login link in the menu. This page must contain a login form.', 'pgb' ),
-				'section'  => 'pgb_login',
-				'settings' => 'pgb_options[login_link_page]',
-				'type'     => 'select',
-				'choices'  => array( 0 => '* WordPress Default' ) + pgb_get_pages_by_id(),
-			)
-		);
-		/**
-		 * Login Success Redirect Page
-		 */
-		$wp_customize->add_setting( 'pgb_options[login_redirect_page]',
-			array(
-				'default' => get_option('page_on_front'),
-				'type' => 'theme_mod',
-				'capability' => 'edit_theme_options',
-				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_nav_position' ),
-			) 
-		);
-		$wp_customize->add_control( 'pgb_options[login_redirect_page]', 
-			array(
-				'label' => __( 'Login Success Redirect Page', 'pgb' ),
-				'description' => __( 'This is the page the user will be redirected to upon successful login. Administrators will still be redirected to "/wp-admin/" and are not affected by this selection.', 'pgb' ),
-				'section' => 'pgb_login',
-				'settings' => 'pgb_options[login_redirect_page]',
-				'type' => 'select',
-				'choices' => array( get_option('page_on_front') => '* Front Page' ) + pgb_get_pages_by_id(),
-			)
-		);
-
-
-
-		/**
-		 * SECTION
-		 *
 		 * Navbar
 		 *
 		 */
 		$wp_customize->add_section( 
 			'pgb_navigation', 
 			array(
-				'title' => 'Navbar',
-				'priority' => 200,
+				'title' => 'Navbars',
+				'priority' => 80,
 				'description' => '',
 			)
 		);
@@ -361,6 +261,61 @@ class ProGo_Customize {
 			)
 		);
 		/**
+		 * Navbar Width
+		 */
+		$wp_customize->add_setting( 'pgb_options[navbar_width]',
+			array(
+					'default' => 'container',
+					'type' => 'theme_mod',
+					'capability' => 'edit_theme_options',
+					'transport' => 'refresh',
+					'sanitize_callback' => '',
+			) 
+		);
+		$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'pgb_options[navbar_width]', 
+			array(
+				'label' => __( 'Navbar Width', 'problogger' ),
+				'priority' => 10,
+				'section' => 'pgb_navigation',
+				'settings' => 'pgb_options[navbar_width]',
+				'description' => __( 'Default is Container Width. Other Options are Full Width with Container Width Content, or Full Width with Full Width Content.', 'problogger' ),
+				'type' => 'select',
+				'choices' => array(
+					'container' => 'Container Width',
+					'container-fluid' => 'Full Width + Container',
+					'full' => 'Full Width'
+					),
+			)
+		) );
+
+		/**
+		 * Top Navbar Width
+		 */
+		$wp_customize->add_setting( 'pgb_options[topnav_width]',
+			array(
+					'default' => 'container',
+					'type' => 'theme_mod',
+					'capability' => 'edit_theme_options',
+					'transport' => 'refresh',
+					'sanitize_callback' => '',
+			) 
+		);
+		$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'pgb_options[topnav_width]', 
+			array(
+				'label' => __( 'Top Navbar Width', 'problogger' ),
+				'priority' => 10,
+				'section' => 'pgb_navigation',
+				'settings' => 'pgb_options[topnav_width]',
+				'type' => 'select',
+				'choices' => array(
+					'container' => 'Container Width',
+					'container-fluid' => 'Full Width + Container',
+					'full' => 'Full Width'
+					),
+			)
+		) );
+
+		/**
 		 * Description
 		 */
 		$wp_customize->add_control(
@@ -387,12 +342,12 @@ class ProGo_Customize {
 		);
 		$wp_customize->add_control( 'pgb_options[nav_search]', 
 			array(
-				'label'    => __( 'Show Search in Main Navbar', 'pgb' ),
+				'label'    => __( 'Show Search in Top Navbar', 'pgb' ),
 				'section'  => 'pgb_navigation',
 				'settings' => 'pgb_options[nav_search]',
 				'type'     => 'checkbox',
 				'value'    => 1,
-				'description' => 'Adds search field to the far right of the navbar'
+				'description' => 'Adds search field to the right of the top navbar'
 			)
 		);
 
