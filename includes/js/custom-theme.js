@@ -34,7 +34,7 @@ var brandImage;
 			brand.img = brand.a.find('img').filter(':visible');
 			brand.h = brand.img.height();
 			brand.navh = $('#main-nav').height();
-			brand.offset = Math.min( ( brand.navh - brand.h ) / 2, 10 );
+			brand.offset = Math.min( ( brand.navh - brand.h ) / 2, 15 );
 			brand.setImageOffset( brand.offset );
 		},
 
