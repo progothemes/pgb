@@ -7,60 +7,20 @@
  * @package pgb
  */
 
-get_header(); ?>
+$template = false;
+if ( function_exists('pgb_get_option') )
+	$template = pgb_get_option( 'default_page_template', 'right' );
 
-	<div id="content" class="main-content-inner col-sm-12 col-md-8 col-lg-9">
+if ( 'full' === $template ) :
 
-		<?php tha_content_top(); ?>
+	locate_template( 'page-nosidebar.php', true );
 
-		<?php // <!--The Loop ?>
+elseif ( 'left' === $template ) :
 
-		<?php if ( have_posts() ) : ?>
+	locate_template( 'page-sidebarleft.php', true );
 
-			<?php while ( have_posts() ) : the_post(); ?>
+else :
 
-				<?php tha_entry_before(); ?>
+	locate_template( 'page-sidebarright.php', true );
 
-				<article id="post-<?php the_ID(); ?>" <?php post_class( 'row' ); ?>>
-
-					<?php tha_entry_top(); ?>
-
-					<?php //pgb_block_post_title(); ?>
-
-					<div class="col-md-12">
-
-						<div class="row">
-
-							<?php get_template_part( 'content', get_post_format() ); ?>
-
-						</div>
-
-					</div>
-
-					<?php get_template_part( 'posts', 'footer' ); ?>
-
-					<?php tha_entry_bottom(); ?>
-
-				</article><!-- #post-## -->
-
-				<?php tha_entry_after(); ?>
-
-				<?php
-					// If comments are open or we have at least one comment, load up the comment template
-					if ( comments_open() || '0' != get_comments_number() )
-						comments_template();
-				?>
-
-			<?php endwhile; // end of the loop. ?>
-
-		<?php endif; ?>
-
-		<?php // The Loop--> ?>
-
-		<?php tha_content_bottom(); ?>
-
-	</div>
-
-	<?php get_sidebar(); ?>
-
-<?php get_footer(); ?>
+endif;

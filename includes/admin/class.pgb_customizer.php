@@ -104,6 +104,30 @@ class ProGo_Customize {
 				),
 			)
 		);
+		/**
+		 * Default Page Template
+		 */
+		$wp_customize->add_setting( 'pgb_options[default_page_template]',
+			array(
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => '',
+			) 
+		);
+		$wp_customize->add_control( 'pgb_options[default_page_template]',
+			array(
+				'label'    => __( 'Default Page Template', 'pgb' ),
+				'section'  => 'pgb_options[layout]',
+				'settings' => 'pgb_options[default_page_template]',
+				'type'     => 'select',
+				'choices'  => array(
+					'right' => 'Right Sidebar',
+					'left' => 'Left Sidebar',
+					'full' => 'No Sidebar',
+				),
+			)
+		);
 
 		/**
 		 * SECTION
