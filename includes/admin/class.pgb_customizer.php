@@ -244,6 +244,32 @@ class ProGo_Customize {
 				),
 			)
 		);
+		/**
+		 * Top Menu Alignment
+		 */
+		$wp_customize->add_setting( 'pgb_options[topmenu_align]',
+			array(
+				'default' => 'right',
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_menu_align' ),
+			) 
+		);
+		$wp_customize->add_control( 'pgb_options[topmenu_align]', 
+			array(
+				'label'    => __( 'Top Menu Alignment', 'pgb' ),
+				'priority' => 20,
+				'section'  => 'menu_locations',
+				'settings' => 'pgb_options[topmenu_align]',
+				'type'     => 'radio',
+				'choices'  => array(
+					'right' => 'Right',
+					'left' => 'Left',
+					//'center' => 'Center',
+				),
+			)
+		);
 
 
 		/**
