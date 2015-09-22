@@ -6,7 +6,7 @@
 *
 * @return string
 */
-$fixed = pgb_get_option( 'nav_position', false );
+$fixed = pgb_get_option( 'topnav_position', 'static' );
 $topmenustyle = '';
 $datafix = '';
 

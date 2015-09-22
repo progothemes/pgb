@@ -285,6 +285,30 @@ class ProGo_Customize {
 			)
 		);
 		/**
+		 * Top Navbar Position
+		 */
+		$wp_customize->add_setting( 'pgb_options[topnav_position]',
+			array(
+				'default' => 'static',
+				'type' => 'theme_mod',
+				'capability' => 'edit_theme_options',
+				'transport' => 'refresh',
+				'sanitize_callback' => '',
+			) 
+		);
+		$wp_customize->add_control( 'pgb_options[topnav_position]', 
+			array(
+				'label'    => __( 'Top Navbar Position', 'pgb' ),
+				'section'  => 'pgb_navigation',
+				'settings' => 'pgb_options[topnav_position]',
+				'type'     => 'radio',
+				'choices'  => array(
+					'static' => 'Static',
+					'fixed' => 'Fixed',
+				),
+			)
+		);
+		/**
 		 * Navbar Width
 		 */
 		$wp_customize->add_setting( 'pgb_options[navbar_width]',
