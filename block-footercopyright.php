@@ -13,7 +13,18 @@ if( !empty( $show_footer_copyright ) && '1' === $show_footer_copyright ) { ?>
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-8 pull-right text-right">
-				<?php wp_nav_menu( array( 'theme_location' => 'footer', 'items_wrap' => '<ul id="%1$s" class="nav nav-pills navbar-right %2$s">%3$s</ul>', 'depth' => 1 ) ); ?>
+				<?php 
+				wp_nav_menu( 
+					array( 
+						'theme_location' => 'footer',
+						'container' => false,
+						'menu_class' => 'nav navbar-nav list-inline',
+						'fallback_cb' => '',
+						'depth' => 1,
+						'walker' => new wp_bootstrap_navwalker()
+						) 
+					); 
+				?>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-4 pull-left">
 				<div class="site-copyright">
