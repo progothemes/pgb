@@ -2,14 +2,14 @@
  * Custom JavaScript for PGB Frontend
  *
  */
-var brandImage;
+var navbarBrandImages;
 
 (function($) {
 	
 	// If Search Field empty, focus on submit
-	$(document).on('click', 'form[role="search"] button[type="submit"]', function(event) {
+	$('form[role="search"]').submit(function(event) {
 		event.preventDefault();
-		var searchform = $(this).closest('form'),
+		var searchform = $(this),
 			searchinput = searchform.find('input');
 		if ( ! searchinput.val() ) {
 			searchinput.focus();
@@ -21,32 +21,29 @@ var brandImage;
 
 	// Vertically center nav-bar logo image (mobile logo)
 	var brand;
-	brand = brandImage = {
+	brand = navbarBrandImages = {
 
-		h      : undefined, // Brand image height
-		navh   : undefined, // Main navbar height
-		img    : undefined, // Brand image element
-		a      : undefined, // Brand image wrapper
-		offset : undefined, // Brand image calculated offset
+		a	: undefined, // Brand image wrapper
 
 		init : function() {
 			brand.a = $('.navbar-brand');
-			brand.img = brand.a.find('img').filter(':visible');
-			brand.h = brand.img.height();
-			brand.navh = $('#main-nav').height();
-			brand.offset = Math.min( ( brand.navh - brand.h ) / 2, 15 );
-			brand.setImageOffset( brand.offset );
+			brand.setImageOffset( brand.a );
 		},
 
-		setImageOffset : function( offset ) {
-			brand.a.css({
-				"padding-top": offset + "px",
-				"padding-bottom": offset + "px"
+		setImageOffset : function( a ) {
+			a.each(function(){
+				var h1 = $(this).find('img').filter(':visible').height(),
+					h2 = $(this).closest('nav').height(),
+					offset = Math.min( ( h2 - h1 ) / 2, 15 );
+				$(this).css({
+					"padding-top": offset + "px",
+					"padding-bottom": offset + "px"
+				});
 			});
 		}
 
 	}
 
-	$(function() { brandImage.init(); });
+	$(function() { navbarBrandImages.init(); });
 
 }(jQuery));
