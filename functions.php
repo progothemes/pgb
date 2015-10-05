@@ -115,6 +115,15 @@ function pgb_widgets_init() {
 		'after_title'   => '</h3>',
 	) );
 
+	register_sidebar( array(
+		'name'          => __( 'Footer Copyright (right)', 'pgb' ),
+		'id'            => 'footer-copyright',
+		'before_widget' => '<div id="%1$s" class="col-xs-12 col-sm-12 col-md-8 pull-right text-right">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+	) );
+
 	// Footer widget areas
 	register_sidebars( 4, array(
         'name' 			=> 'Footer Widget %d',

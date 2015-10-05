@@ -12,20 +12,22 @@ if( !empty( $show_footer_copyright ) && '1' === $show_footer_copyright ) { ?>
 	<?php tha_footer_top(); ?>
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-8 pull-right text-right">
-				<?php 
-				wp_nav_menu( 
-					array( 
-						'theme_location' => 'footer',
-						'container' => false,
-						'menu_class' => 'nav navbar-nav list-inline',
-						'fallback_cb' => '',
-						'depth' => 1,
-						'walker' => new wp_bootstrap_navwalker()
-						) 
-					); 
-				?>
-			</div>
+			<?php if ( ! dynamic_sidebar( 'footer-copyright' ) ) : ?>
+				<div class="col-xs-12 col-sm-12 col-md-8 pull-right text-right">
+					<?php 
+					wp_nav_menu( 
+						array( 
+							'theme_location' => 'footer',
+							'container' => false,
+							'menu_class' => 'list-inline navbar-right',
+							'fallback_cb' => '',
+							'depth' => 1,
+							'walker' => new wp_bootstrap_navwalker()
+							) 
+						); 
+					?>
+				</div>
+			<?php endif; ?>
 			<div class="col-xs-12 col-sm-12 col-md-4 pull-left">
 				<div class="site-copyright">
 					<?php echo pgb_get_option( 'footer_copyright_text', $default_copyright ); ?>
