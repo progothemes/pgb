@@ -32,7 +32,7 @@ var navbarBrandImages;
 
 		setImageOffset : function( a ) {
 			a.each(function(){
-				var h1 = $(this).find('img').filter(':visible').height(),
+				var h1 = $(this).find('div').filter(function() { return $(this).css('display') !== "none" }).find('img').height(),
 					h2 = $(this).closest('nav').height(),
 					offset = Math.min( ( h2 - h1 ) / 2, 15 );
 				$(this).css({
@@ -41,6 +41,7 @@ var navbarBrandImages;
 				});
 			});
 		}
+		// Why not just use ':visible' filter above? Because we want to center the brand image vertically even if it is contained in a hidden menu, as some menus reveal on scroll, etc.
 
 	}
 
