@@ -6,8 +6,8 @@
  * @since 0.3.0
  * @return html
  */
-add_filter( 'comment_form_default_fields', 'progo_bootstrap3_comment_form_fields' );
-function progo_bootstrap3_comment_form_fields( $fields ) {
+add_filter( 'comment_form_default_fields', 'pgb_bootstrap3_comment_form_fields' );
+function pgb_bootstrap3_comment_form_fields( $fields ) {
     $commenter = wp_get_current_commenter();
 
     $req      = get_option( 'require_name_email' );
@@ -24,8 +24,8 @@ function progo_bootstrap3_comment_form_fields( $fields ) {
 
     return $fields;
 }
-add_filter( 'comment_form_defaults', 'progo_bootstrap3_comment_form' );
-function progo_bootstrap3_comment_form( $args ) {
+add_filter( 'comment_form_defaults', 'pgb_bootstrap3_comment_form' );
+function pgb_bootstrap3_comment_form( $args ) {
     $args['comment_field']      = '<div class="form-group comment-form-comment"><label for="comment">' . 
                                     __( 'Comment', 'pgb' ) . 
                                     '</label> <textarea class="form-control" id="comment" name="comment" cols="45" rows="8" aria-required="true" required></textarea></div>';

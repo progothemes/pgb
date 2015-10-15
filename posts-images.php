@@ -21,21 +21,11 @@ if ( has_post_thumbnail( $post->ID ) ) {
 
 	?>
 
-	<?php if ( is_blog_page() && $post_thumbnail_id ) { // Blog or Featured Posts pages only ?>
+	<?php if ( pgb_is_blog_page() && $post_thumbnail_id ) { // Blog or Featured Posts pages only ?>
 
 		<div class="entry-image thumbnail alignleft col-xs-12 col-md-6">
 
 			<?php echo the_post_thumbnail( $size, $attr ); ?>
-
-			<?php // Captions disabled on blog pages
-			/*
-			if ( ! empty( $alt_text ) ) { ?>
-			<div class="caption">
-				<p class="text-center"><?php _e( $alt_text, 'pgb' ); ?></p>
-			</div>
-			<?php } 
-			*/
-			?>
 
 		</div>
 

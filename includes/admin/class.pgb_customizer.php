@@ -9,8 +9,8 @@
 
 
 // Setup the Theme Customizer settings and controls...
-add_action( 'customize_register' , array( 'ProGo_Customize' , 'register' ) );
-class ProGo_Customize {
+add_action( 'customize_register' , array( 'PGB_Customize' , 'register' ) );
+class PGB_Customize {
 
 	/**
 	 * This hooks into 'customize_register' (available as of WP 3.4) and allows
@@ -47,7 +47,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_container_width' ),
+				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_container_width' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[container_width]',
@@ -74,7 +74,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_bootstrap_theme' ),
+				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_bootstrap_theme' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[bootstrap_theme]',
@@ -144,7 +144,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_logo' ),
+				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_logo' ),
 			) 
 		);
 		$wp_customize->add_control(
@@ -169,7 +169,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_logo' ),
+				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_logo' ),
 			) 
 		);
 		$wp_customize->add_control(
@@ -194,7 +194,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_logo' ),
+				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_logo' ),
 			) 
 		);
 		$wp_customize->add_control(
@@ -227,7 +227,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_menu_align' ),
+				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_menu_align' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[menu_align]', 
@@ -253,7 +253,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_menu_align' ),
+				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_menu_align' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[topmenu_align]', 
@@ -295,7 +295,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_nav_position' ),
+				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_nav_position' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[nav_position]', 
@@ -411,7 +411,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_nav_search' ),
+				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_nav_search' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[nav_search]', 
@@ -448,7 +448,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_show_breadcrumb' ),
+				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_show_breadcrumb' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[show_breadcrumb]', 
@@ -499,7 +499,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_footer_show' ),
+				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_footer_show' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[footer_show_widgets]', 
@@ -520,7 +520,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_footer_widgets_columns' ),
+				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_footer_widgets_columns' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[footer_widgets_columns]', 
@@ -572,7 +572,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_footer_show' ),
+				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_footer_show' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[footer_show_copyright]', 
@@ -593,7 +593,7 @@ class ProGo_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'ProGo_Customize', 'sanitize_footer_show' ),
+				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_footer_show' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[footer_copyright_text]', 
@@ -727,10 +727,10 @@ class ProGo_Customize {
 }
 
 // Output custom CSS to live site
-//add_action( 'wp_head' , array( 'ProGo_Customize' , 'header_output' ) );
+//add_action( 'wp_head' , array( 'PGB_Customize' , 'header_output' ) );
 
 // Enqueue live preview javascript in Theme Customizer admin screen
-add_action( 'customize_preview_init' , array( 'ProGo_Customize' , 'live_preview' ) );
+add_action( 'customize_preview_init' , array( 'PGB_Customize' , 'live_preview' ) );
 
 
 

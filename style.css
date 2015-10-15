@@ -4,7 +4,8 @@
  Description:  ProGo Base is WordPress, Underscores, Bootstrap, Theme Hook Alliance, get-out-the-way-lemme-do-it all-in-one "Theme Framework".
  Author:       ProGo
  Author URI:   http://www.progo.com
- Version:      1.0.2
+ Version:      1.1.0
+ Text Domain:  pgb
  License:      GPLv2 or later
  License URI:  http://www.gnu.org/licenses/gpl-2.0.html
  Tags:         custom-colors, custom-header, custom-menu, featured-images, full-width-template, light, post-formats, responsive-layout, theme-options
@@ -149,34 +150,6 @@ object {
 }
 
 
-/* Text meant only for screen readers */
-.screen-reader-text {
-	clip: rect(1px, 1px, 1px, 1px);
-	position: absolute !important;
-}
-
-.screen-reader-text:hover,
-.screen-reader-text:active,
-.screen-reader-text:focus {
-	background-color: #f1f1f1;
-	border-radius: 3px;
-	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
-	clip: auto !important;
-	color: #21759b;
-	display: block;
-	font-size: 14px;
-	font-weight: bold;
-	height: auto;
-	left: 5px;
-	line-height: normal;
-	padding: 15px 23px 14px;
-	text-decoration: none;
-	top: 5px;
-	width: auto;
-	z-index: 100000; /* Above WP toolbar */
-}
-
-
 /* Content */
 #content {
 	position: relative;
@@ -187,17 +160,9 @@ object {
 	padding-bottom: 1.5em;
 }
 
-.hentry,
-.entry-summary {
-	/*margin: 0 0 1.5em; /* switching to Bootstrap '.row' instead */
-}
-
 /* Clearing */
 .clear {
 	clear: both;
-}
-.noshow {
-	display: none;
 }
 
 /*---------[ widget styling ]----------*/
@@ -206,8 +171,7 @@ object {
 .widget_nav_menu ul.sub-menu li,
 .widget_pages ul.children li { padding-left: 15px; }
 
-/* Hiding the search widget's button in widgets.
-*/
+/* Hiding the search widget's button in widgets.*/
 .widget_search .search-form input[type="submit"] { display: none; }
 
 /* Make sure select elements fit in widgets */

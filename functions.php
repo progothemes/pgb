@@ -2,7 +2,7 @@
 /**
  * ProGo Base Theme version
  */
-define( 'PGB_THEME_VERSION', '0.5.1' );
+define( 'PGB_THEME_VERSION', '1.1.0' );
 
 
 
@@ -52,11 +52,14 @@ function pgb_setup() {
 		// Enable support for various Post Formats
 		add_theme_support( 'post-formats', array( 'aside', 'audio', 'image', 'link', 'quote', 'video' ) );
 
-    	// Enable support for Title Tag
-    	add_theme_support( 'title-tag' );
+		// Enable support for Title Tag
+		add_theme_support( 'title-tag' );
 
-    	// Enable Custom Header Image theme support
-    	// add_theme_support( 'custom-header' );
+		// Enable Custom Header Image theme support
+		add_theme_support( 'custom-header' );
+
+		// Enable Custom Background Image theme support
+		add_theme_support( 'custom-background' );
 	}
 
 	/**
@@ -213,7 +216,7 @@ function pgb_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'pgb_scripts' );
 
-function load_custom_wp_admin_style() {
+function pgb_load_custom_wp_admin_style() {
         wp_register_style( 'custom_wp_admin_css', ADMIN_DIR . 'admin/css/admin-style.css' );
         wp_enqueue_style( 'custom_wp_admin_css' );
         wp_enqueue_style( 'wp-color-picker' );
@@ -221,7 +224,7 @@ function load_custom_wp_admin_style() {
         wp_enqueue_script( 'postformats-js', ADMIN_DIR .'admin/js/postformats.js', array( 'jquery' ), false, true );
         wp_enqueue_script( 'pgb-js', ADMIN_DIR .'admin/js/pgb.js', array( 'jquery' ), false, true );
 }
-add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
+add_action( 'admin_enqueue_scripts', 'pgb_load_custom_wp_admin_style' );
 
 function pgb_body_classes( $classes ) {
 	$classes[] = 'progo-base';

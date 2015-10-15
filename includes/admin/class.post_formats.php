@@ -6,19 +6,19 @@
 /**
  * Calls the class on the post edit screen.
  */
-function call_postFormatsClass() {
-	new postFormatsClass();
+function pgb_call_postFormatsClass() {
+	new PGB_postFormatsClass();
 }
 
 if ( is_admin() ) {
-	add_action( 'load-post.php', 'call_postFormatsClass' );
-	add_action( 'load-post-new.php', 'call_postFormatsClass' );
+	add_action( 'load-post.php', 'pgb_call_postFormatsClass' );
+	add_action( 'load-post-new.php', 'pgb_call_postFormatsClass' );
 }
 
 /** 
  * The Class.
  */
-class postFormatsClass {
+class PGB_postFormatsClass {
 
 	/**
 	 * Define meta boxes

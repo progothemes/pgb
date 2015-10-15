@@ -4,9 +4,9 @@
  * @package     ProGo Base
  */
 
-add_action( 'init', array( 'ProGo_Subtitle', '_setup' ) );
+add_action( 'init', array( 'PGB_Subtitle', '_setup' ) );
 
-class ProGo_Subtitle {
+class PGB_Subtitle {
 
 	const TEXTDOMAIN = 'pgb';
 
@@ -17,8 +17,8 @@ class ProGo_Subtitle {
 	 * @internal
 	 */
 	static function _setup() {
-		add_action( 'admin_init', array( 'ProGo_Subtitle', '_admin_init' ) );
-		add_action( 'save_post', array( 'ProGo_Subtitle', '_save_post' ) );
+		add_action( 'admin_init', array( 'PGB_Subtitle', '_admin_init' ) );
+		add_action( 'save_post', array( 'PGB_Subtitle', '_save_post' ) );
 	}
 
 	/**
@@ -43,16 +43,16 @@ class ProGo_Subtitle {
 		}
 
 		// Setup Field / Meta Box
-		if ( ProGo_Subtitle::is_supported_post_type( $post_type ) ) {
-			if ( ProGo_Subtitle::edit_form_after_title_supported( $post_type ) ) {
-				add_action( 'admin_head', array( 'ProGo_Subtitle', '_add_admin_styles' ) );
-				add_action( 'edit_form_after_title', array( 'ProGo_Subtitle', '_add_subtitle_field' ) );
+		if ( PGB_Subtitle::is_supported_post_type( $post_type ) ) {
+			if ( PGB_Subtitle::edit_form_after_title_supported( $post_type ) ) {
+				add_action( 'admin_head', array( 'PGB_Subtitle', '_add_admin_styles' ) );
+				add_action( 'edit_form_after_title', array( 'PGB_Subtitle', '_add_subtitle_field' ) );
 			} else {
-				add_action( 'add_meta_boxes', array( 'ProGo_Subtitle', '_add_meta_boxes' ) );
+				add_action( 'add_meta_boxes', array( 'PGB_Subtitle', '_add_meta_boxes' ) );
 			}
 
-			add_filter( 'manage_edit-' . $post_type . '_columns', array( 'ProGo_Subtitle', 'manage_subtitle_columns' ) );
-			add_action( 'manage_' . $post_type . '_posts_custom_column', array( 'ProGo_Subtitle', 'manage_subtitle_columns_content' ), 10, 2 );
+			add_filter( 'manage_edit-' . $post_type . '_columns', array( 'PGB_Subtitle', 'manage_subtitle_columns' ) );
+			add_action( 'manage_' . $post_type . '_posts_custom_column', array( 'PGB_Subtitle', 'manage_subtitle_columns_content' ), 10, 2 );
 
 		}
 
@@ -73,7 +73,7 @@ class ProGo_Subtitle {
 		foreach ( $columns as $column => $value ) {
 			$new_columns[ $column ] = $value;
 			if ( 'title' == $column ) {
-				$new_columns['progo_material_subtitle'] = __( 'Subtitle', ProGo_Subtitle::TEXTDOMAIN );
+				$new_columns['progo_material_subtitle'] = __( 'Subtitle', PGB_Subtitle::TEXTDOMAIN );
 			}
 		}
 
@@ -92,7 +92,7 @@ class ProGo_Subtitle {
 	public static function manage_subtitle_columns_content( $column_name, $post_id ) {
 
 		if ( $column_name == 'progo_material_subtitle' ) {
-			echo get_the_subtitle( $post_id, '', '', false );
+			echo pgb_get_the_subtitle( $post_id, '', '', false );
 		}
 
 	}
@@ -144,7 +144,7 @@ class ProGo_Subtitle {
 	 * @uses  apply_filters( 'progo_material_meta_box_title' )
 	 */
 	static function get_meta_box_title( $post_type ) {
-		return apply_filters( 'progo_material_meta_box_title', __( 'Subtitle', ProGo_Subtitle::TEXTDOMAIN ), $post_type );
+		return apply_filters( 'progo_material_meta_box_title', __( 'Subtitle', PGB_Subtitle::TEXTDOMAIN ), $post_type );
 	}
 
 	/**
@@ -153,14 +153,14 @@ class ProGo_Subtitle {
 	 * @since  2.0
 	 * @internal
 	 *
-	 * @uses  ProGo_Subtitle::get_supported_post_types()
+	 * @uses  PGB_Subtitle::get_supported_post_types()
 	 * @uses  apply_filters( 'progo_material_meta_box_title' )
-	 * @uses  ProGo_Subtitle::_add_subtitle_meta_box()
+	 * @uses  PGB_Subtitle::_add_subtitle_meta_box()
 	 */
 	static function _add_meta_boxes() {
-		$post_types = ProGo_Subtitle::get_supported_post_types();
+		$post_types = PGB_Subtitle::get_supported_post_types();
 		foreach ( $post_types as $post_type ) {
-			add_meta_box( 'progo_material_subtitle_panel',  ProGo_Subtitle::get_meta_box_title( $post_type ), array( 'ProGo_Subtitle', '_add_subtitle_meta_box' ), $post_type, 'normal', 'high' );
+			add_meta_box( 'progo_material_subtitle_panel',  PGB_Subtitle::get_meta_box_title( $post_type ), array( 'PGB_Subtitle', '_add_subtitle_meta_box' ), $post_type, 'normal', 'high' );
 		}
 	}
 
@@ -170,13 +170,13 @@ class ProGo_Subtitle {
 	 * @since  2.0
 	 * @internal
 	 *
-	 * @uses  ProGo_Subtitle::_get_post_meta()
+	 * @uses  PGB_Subtitle::_get_post_meta()
 	 * @uses  apply_filters( 'progo_material_subtitle_field_description' )
 	 */
 	static function _add_subtitle_meta_box() {
 		global $post;
 		echo '<input type="hidden" name="progo_material_noncename" id="progo_material_noncename" value="' . wp_create_nonce( 'progo-material-subtitle' ) . '" />';
-		echo '<input type="text" id="wpsubtitle" name="progo_material_subtitle" value="' . esc_attr( ProGo_Subtitle::_get_post_meta( $post->ID ) ) . '" style="width:99%;" />';
+		echo '<input type="text" id="wpsubtitle" name="progo_material_subtitle" value="' . esc_attr( PGB_Subtitle::_get_post_meta( $post->ID ) ) . '" style="width:99%;" />';
 		echo apply_filters( 'progo_material_subtitle_field_description', '', $post );
 	}
 
@@ -186,7 +186,7 @@ class ProGo_Subtitle {
 	 * @since  2.2
 	 * @internal
 	 *
-	 * @uses  ProGo_Subtitle::_get_post_meta()
+	 * @uses  PGB_Subtitle::_get_post_meta()
 	 * @uses  apply_filters( 'progo_material_subtitle_field_description' )
 	 */
 	static function _add_subtitle_field() {
@@ -194,7 +194,7 @@ class ProGo_Subtitle {
 		echo '<input type="hidden" name="progo_material_noncename" id="progo_material_noncename" value="' . wp_create_nonce( 'progo-material-subtitle' ) . '" />';
 		echo '<div id="subtitlediv" class="top">';
 			echo '<div id="subtitlewrap">';
-				echo '<input type="text" id="wpsubtitle" name="progo_material_subtitle" value="' . esc_attr( ProGo_Subtitle::_get_post_meta( $post->ID ) ) . '" autocomplete="off" placeholder="' . esc_attr( apply_filters( 'progo_material_subtitle_field_placeholder', __( 'Enter subtitle here', ProGo_Subtitle::TEXTDOMAIN ) ) ) . '" />';
+				echo '<input type="text" id="wpsubtitle" name="progo_material_subtitle" value="' . esc_attr( PGB_Subtitle::_get_post_meta( $post->ID ) ) . '" autocomplete="off" placeholder="' . esc_attr( apply_filters( 'progo_material_subtitle_field_placeholder', __( 'Enter subtitle here', PGB_Subtitle::TEXTDOMAIN ) ) ) . '" />';
 			echo '</div>';
 
 		// Description
@@ -211,7 +211,7 @@ class ProGo_Subtitle {
 	 * @since  2.0
 	 * @internal
 	 *
-	 * @uses  ProGo_Subtitle::get_supported_post_types()
+	 * @uses  PGB_Subtitle::get_supported_post_types()
 	 *
 	 * @param  int  $post_id  Post ID or object.
 	 */
@@ -224,12 +224,12 @@ class ProGo_Subtitle {
 		}
 
 		// Verify nonce
-		if ( ! ProGo_Subtitle::_verify_posted_nonce( 'progo_material_noncename', 'progo-material-subtitle' ) ) {
+		if ( ! PGB_Subtitle::_verify_posted_nonce( 'progo_material_noncename', 'progo-material-subtitle' ) ) {
 			return;
 		}
 
 		// Check edit capability
-		if ( ! ProGo_Subtitle::_verify_post_edit_capability( $post_id ) ) {
+		if ( ! PGB_Subtitle::_verify_post_edit_capability( $post_id ) ) {
 			return;
 		}
 	
@@ -255,7 +255,7 @@ class ProGo_Subtitle {
 		), 'objects' );
 
 		// Check supported post type
-		if ( isset( $_POST['post_type'] ) && ProGo_Subtitle::is_supported_post_type( $_POST['post_type'] ) ) {
+		if ( isset( $_POST['post_type'] ) && PGB_Subtitle::is_supported_post_type( $_POST['post_type'] ) ) {
 			if ( 'page' == $_POST['post_type'] && current_user_can( 'edit_page', $post_id ) ) {
 				return true;
 			} elseif ( 'post' == $_POST['post_type'] && current_user_can( 'edit_post', $post_id ) ) {
@@ -336,7 +336,7 @@ class ProGo_Subtitle {
 	 * @return  boolean
 	 */
 	static function is_supported_post_type( $post_type ) {
-		$post_types = ProGo_Subtitle::get_supported_post_types();
+		$post_types = PGB_Subtitle::get_supported_post_types();
 		if ( in_array( $post_type, $post_types ) ) {
 			return true;
 		}
@@ -348,16 +348,16 @@ class ProGo_Subtitle {
 	 *
 	 * @since  2.0
 	 *
-	 * @uses  ProGo_Subtitle::_get_post_meta()
+	 * @uses  PGB_Subtitle::_get_post_meta()
 	 * @uses  apply_filters( 'progo_material_subtitle' )
 	 *
 	 * @param   int|object  $post  Post ID or object.
 	 * @return  string             The filtered subtitle meta value.
 	 */
-	static function get_the_subtitle( $post = 0 ) {
+	static function pgb_get_the_subtitle( $post = 0 ) {
 		$post = get_post( $post );
-		if ( $post && ProGo_Subtitle::is_supported_post_type( $post->post_type ) ) {
-			$subtitle = ProGo_Subtitle::_get_post_meta( $post );
+		if ( $post && PGB_Subtitle::is_supported_post_type( $post->post_type ) ) {
+			$subtitle = PGB_Subtitle::_get_post_meta( $post );
 			return apply_filters( 'progo_material_subtitle', $subtitle, $post );
 		}
 		return '';
@@ -384,15 +384,15 @@ class ProGo_Subtitle {
  *
  * @since  1.0
  *
- * @uses  get_the_subtitle()
+ * @uses  pgb_get_the_subtitle()
  *
  * @param   string  $before  Before the subtitle.
  * @param   string  $after   After the subtitle.
  * @param   bool    $echo    Output if true, return if false.
  * @return  string           The subtitle string.
  */
-function the_subtitle( $before = '', $after = '', $echo = true ) {
-	return get_the_subtitle( 0, $before, $after, $echo );
+function pgb_the_subtitle( $before = '', $after = '', $echo = true ) {
+	return pgb_get_the_subtitle( 0, $before, $after, $echo );
 }
 
 /**
@@ -400,7 +400,7 @@ function the_subtitle( $before = '', $after = '', $echo = true ) {
  *
  * @since  1.0
  *
- * @uses  ProGo_Subtitle::get_the_subtitle()
+ * @uses  PGB_Subtitle::pgb_get_the_subtitle()
  *
  * @param   int|object  $post    Post ID or object.
  * @param   string      $before  Before the subtitle.
@@ -408,8 +408,8 @@ function the_subtitle( $before = '', $after = '', $echo = true ) {
  * @param   bool        $echo    Output if true, return if false.
  * @return  string               The subtitle string.
  */
-function get_the_subtitle( $post = 0, $before = '', $after = '', $echo = false ) {
-	$subtitle = ProGo_Subtitle::get_the_subtitle( $post );
+function pgb_get_the_subtitle( $post = 0, $before = '', $after = '', $echo = false ) {
+	$subtitle = PGB_Subtitle::pgb_get_the_subtitle( $post );
 
 	if ( ! empty( $subtitle ) ) {
 		$subtitle = $before . $subtitle . $after;

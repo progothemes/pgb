@@ -244,7 +244,7 @@ function pgb_get_breadcrumbs() {
 			$custom_tax_name = get_queried_object()->name;
 			$crumbs[] = '<span itemprop="name">' . $custom_tax_name . '</span>';
 		}
-		elseif ( is_blog_page() ) {
+		elseif ( pgb_is_blog_page() ) {
 			if ( is_home() && get_option('page_for_posts') ) {
 				$blog_page_id = get_option('page_for_posts');
 				$blog_page_title = get_the_title( $blog_page_id );
@@ -523,7 +523,7 @@ function pgb_rich_snippets() {
 	}
 
 	/* Blog Page */
-	elseif ( is_blog_page() ) {
+	elseif ( pgb_is_blog_page() ) {
 		$blog_page_snippet = array(
 			"@type" => 'Blog',
 			"url" => get_permalink( $post_id ),

@@ -23,8 +23,6 @@ get_header(); ?>
 
 					<?php tha_entry_top(); ?>
 
-					<?php //pgb_block_post_title(); ?>
-
 					<div class="col-md-12">
 
 						<div class="row">

@@ -32,8 +32,8 @@ switch ($navbar_width) {
 }
 
 ?>
-<nav id="main-nav" class="navbar navbar-default site-navigation <?=$menustyle; ?> <?=$navbar_width; ?>" <?php echo $datafix; ?> >
-	<div  class="<?=$navbar_width_inner; ?> nav-contain" role="navigation">
+<nav id="main-nav" class="navbar navbar-default site-navigation <?php echo $menustyle; ?> <?php echo $navbar_width; ?>" <?php echo $datafix; ?> >
+	<div  class="<?php echo $navbar_width_inner; ?> nav-contain" role="navigation">
 		<div class="navbar-header"> 
 			<!-- .navbar-toggle is used as the toggle for collapsed navbar content -->
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -46,7 +46,6 @@ switch ($navbar_width) {
 			<a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php echo pgb_get_logo(); ?></a>
 		</div>
 		<div class="collapse navbar-collapse navbar-responsive-collapse">
-			<?php // if ( '1' === pgb_get_option( 'nav_search' ) ) get_template_part( 'searchform', 'nav' ); // Show search form ?>
 			<?php // Main Menu
 			wp_nav_menu(
 				array(

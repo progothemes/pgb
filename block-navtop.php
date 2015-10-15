@@ -33,8 +33,8 @@ switch ($topnav_width) {
 
 
 ?>
-<nav id="top-nav" class="navbar navbar-inverse site-navigation hidden-xs <?=$topmenustyle; ?> <?=$topnav_width; ?>" <?php echo $datafix; ?> >
-	<div  class="<?=$topnav_width_inner; ?> nav-contain" role="navigation">
+<nav id="top-nav" class="navbar navbar-inverse site-navigation hidden-xs <?php echo $topmenustyle; ?> <?php echo $topnav_width; ?>" <?php echo $datafix; ?> >
+	<div  class="<?php echo $topnav_width_inner; ?> nav-contain" role="navigation">
 		<div class="navbar-inner">
 			<?php if( '1' === pgb_get_option( 'nav_search' ) ) get_template_part( 'searchform', 'nav' ); // Show search form ?>
 			<?php // Main Menu

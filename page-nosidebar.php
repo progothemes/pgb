@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page with no sidebar
+ * Template Name: No Sidebar
  *
  * @package pgb
  */

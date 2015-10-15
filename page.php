@@ -8,7 +8,9 @@
  */
 
 $template = false;
+
 if ( function_exists('pgb_get_option') )
+
 	$template = pgb_get_option( 'default_page_template', 'right' );
 
 if ( 'full' === $template ) :

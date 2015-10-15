@@ -10,10 +10,10 @@
 	<?php
 		if ( is_single() || is_page() ) :
 			the_title( '<h1 class="post-title">', '</h1>' );
-			the_subtitle( '<h3 class="page-sub-title">', '</h3>' );
+			pgb_the_subtitle( '<h3 class="page-sub-title">', '</h3>' );
 		else :
 			the_title( '<h2 class="page-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
-			the_subtitle( '<h3 class="page-sub-title">', '</h3>' );
+			pgb_the_subtitle( '<h3 class="page-sub-title">', '</h3>' );
 		endif;
 	?>
 	<?php if ( 'post' == get_post_type() ) : ?>

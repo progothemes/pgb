@@ -32,6 +32,13 @@ Once we figure out what FAQs may be, they may be added here and there. This is a
 
 ## Change Log
 
+### Version 1.1.0
+* Updated title tag support per https://make.wordpress.org/themes/2015/08/25/title-tag-support-now-required/
+* Added theme text domain
+* Updated string translation support
+* Added .pot file
+* Removed `upload-theme.php`
+
 ### Version 1.0.2
 * Updated navbar customizer layouts
 

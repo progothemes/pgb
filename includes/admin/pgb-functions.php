@@ -215,7 +215,7 @@ function pgb_get_quote() {
  * @return boolean
  */
 if ( ! function_exists('is_blog_page') ) :
-function is_blog_page() {
+function pgb_is_blog_page() {
 	if ( is_front_page() && is_home() ) {
 		// Default homepage (blog on homepage)
 		return true;
@@ -236,12 +236,12 @@ endif;
 /**
  * Output Blog Page ID
  * @since ProGo 0.9.0
- * @uses is_blog_page()
+ * @uses pgb_is_blog_page()
  * @return integer
  */
 if ( ! function_exists('blog_page_id') ) :
-function blog_page_id() {
-	if ( is_blog_page() && get_option('page_for_posts') ) {
+function pgb_blog_page_id() {
+	if ( pgb_is_blog_page() && get_option('page_for_posts') ) {
 		$blog_page_id = get_option('page_for_posts');
 	}
 	return $blog_page_id;
@@ -252,12 +252,12 @@ endif;
 /**
  * Output Blog Page title
  * @since ProGo 0.6.3
- * @uses blog_page_id()
+ * @uses pgb_blog_page_id()
  * @return string
  */
 if ( ! function_exists('blog_page_title') ) :
-function blog_page_title( $before = '<h1 class="page-title">', $after = '</h1>', $blog_page_id = 0, $echo = true ) {
-	$blog_page_id = blog_page_id();
+function pgb_blog_page_title( $before = '<h1 class="page-title">', $after = '</h1>', $blog_page_id = 0, $echo = true ) {
+	$blog_page_id = pgb_blog_page_id();
 	$blog_page_title = get_the_title( $blog_page_id );
 
 	if ( ! empty( $blog_page_id ) ) {
@@ -420,13 +420,13 @@ function pgb_menu_item_exists( $slug = false, $key = false, $value = false ) {
 	return ( empty($items) ? false : $items );
 }
 
-function modify_nav_menu_args( $args )
+function pgb_modify_nav_menu_args( $args )
 {
 	//var_dump($args);
 	return $args;
 }
 
-add_filter( 'wp_nav_menu_args', 'modify_nav_menu_args' );
+add_filter( 'wp_nav_menu_args', 'pgb_modify_nav_menu_args' );
 
 
 

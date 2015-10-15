@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page with Left sidebar
+ * Template Name: Left Sidebar
  *
  * @package pgb
  */
@@ -24,8 +24,6 @@ get_header(); ?>
 				<article id="post-<?php the_ID(); ?>" <?php post_class( 'row' ); ?>>
 
 					<?php tha_entry_top(); ?>
-
-					<?php //pgb_block_post_title(); ?>
 
 					<div class="col-md-12">
 
