@@ -15,7 +15,6 @@ locate_template( '/includes/bootstrap-wp-navwalker.php', true );
 locate_template( '/includes/bootstrap-wp-navwalker-collapse.php', true );
 locate_template( '/includes/template-tags.php', true );
 locate_template( '/includes/theme-meta-boxes.php', true );
-locate_template( '/upload-theme.php', true );
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 /**
