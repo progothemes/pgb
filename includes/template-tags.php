@@ -461,13 +461,18 @@ function pgb_do_posted_on() {
 		);
 		$time_string .= __(', updated on ', 'pgb') . $time_string_update;
 	}
-
+  // get_the_author stuff only works reliably inside The Loop
+  // unless we grab $post->post_author
+  global $post;
+  $author_id = $post->post_author;
+  $author_name = get_the_author_meta( 'nickname', $author_id );
+  
 	printf( __( '<span class="posted-on">Posted on %1$s</span><span class="byline"> by %2$s</span>', 'pgb' ),
 		$time_string,
 		sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s">%3$s</a></span>',
-			esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-			esc_attr( sprintf( __( 'View all posts by %s', 'pgb' ), get_the_author() ) ),
-			esc_html( get_the_author() )
+			esc_url( get_author_posts_url( $author_id ) ),
+			esc_attr( sprintf( __( 'View all posts by %s', 'pgb' ), $author_name ) ),
+			esc_html( $author_name )
 		)
 	);
 }
