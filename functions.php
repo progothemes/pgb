@@ -187,7 +187,12 @@ function pgb_scripts() {
 
 	// Fix for Visual Composer not loading CSS file(s)
 	if ( is_plugin_active( 'js_composer/js_composer.php' ) ) {
-		wp_enqueue_style('js-composer', plugins_url() . '/js_composer/assets/css/js_composer.css');
+		if ( file_exists(plugins_url() . '/js_composer/assets/css/js_composer.min.css') ) {
+			wp_enqueue_style('js-composer', plugins_url() . '/js_composer/assets/css/js_composer.min.css');
+		}
+		elseif ( file_exists(plugins_url() . '/js_composer/assets/css/js_composer.css') ) {
+			wp_enqueue_style('js-composer', plugins_url() . '/js_composer/assets/css/js_composer.css');
+		}
 	}
 
 	// SCRIPTS
