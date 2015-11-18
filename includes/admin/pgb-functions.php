@@ -271,6 +271,22 @@ function pgb_blog_page_title( $before = '<h1 class="page-title">', $after = '</h
 endif;
 
 
+/**
+ * Default Template
+ * @since ProGo 0.1.1
+ * @uses pgb_is_blog_page()
+ * @return integer
+ */
+if ( ! function_exists('pgb_default_template') ) :
+function pgb_default_template() {
+	$template = false;
+	if ( function_exists('pgb_get_option') )
+		$template = pgb_get_option( 'default_page_template', 'right' );
+	return $template;
+}
+endif;
+
+
 
 /**
  * Returns a single option for ProGo

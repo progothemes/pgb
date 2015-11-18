@@ -7,22 +7,17 @@
  * @package pgb
  */
 
-$template = false;
+$template = pgb_default_template();
 
-if ( function_exists('pgb_get_option') )
-
-	$template = pgb_get_option( 'default_page_template', 'right' );
-
-if ( 'full' === $template ) :
-
-	locate_template( 'page-nosidebar.php', true );
-
-elseif ( 'left' === $template ) :
-
-	locate_template( 'page-sidebarleft.php', true );
-
-else :
-
-	locate_template( 'page-sidebarright.php', true );
-
-endif;
+switch ( $template ) {
+	case 'full':
+		locate_template( 'page-nosidebar.php', true );
+		break;
+	case 'left':
+		locate_template( 'page-sidebarleft.php', true );
+		break;
+	case 'right':
+	default:
+		locate_template( 'page-sidebarright.php', true );
+		break;
+}

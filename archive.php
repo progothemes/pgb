@@ -8,7 +8,9 @@
 
 get_header(); ?>
 
-	<div id="content" class="main-content-inner col-sm-12 col-md-8 col-lg-9">
+	<?php if ( $template === 'left' ) get_sidebar(); ?>
+
+	<div id="content" class="main-content-inner col-sm-12 <?php echo ( $template === 'full' ? 'col-md-12 col-lg-12' : 'col-md-8 col-lg-9' ); ?>">
 
 		<?php tha_content_top(); ?>
 
@@ -56,6 +58,6 @@ get_header(); ?>
 
 	</div>
 
-	<?php get_sidebar(); ?>
+	<?php if ( ! $template || $template === 'right' ) get_sidebar(); ?>
 
 <?php get_footer(); ?>
