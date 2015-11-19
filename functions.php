@@ -102,7 +102,7 @@ function pgb_wp_title( $title, $sep ) {
 
 	return $title;
 }
-add_filter( 'wp_title', 'pgb_wp_title', 10, 2 );
+//add_filter( 'wp_title', 'pgb_wp_title', 10, 2 );
 
 /**
  * Register widgetized area and update sidebar with default widgets
