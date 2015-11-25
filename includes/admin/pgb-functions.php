@@ -10,29 +10,42 @@
 if ( ! function_exists( 'pgb_set_container_width' ) ) :
 function pgb_set_container_width() {
 
-	$default_width = '1170';
-	$classname = '.container';
+	$default_width = apply_filters( 'pgb_default_page_width', '1170px' );
+	$classname = apply_filters( 'pgb_page_width_class', '.container' );
 
 	$width = '100%';
-	$max_width = ( pgb_get_option( 'container_width', $default_width ) === "full" ? '100%' : pgb_get_option( 'container_width', $default_width ) . 'px' );
-		
-	$override_width = get_post_meta( get_the_ID(), 'metabox_page_layout_option', true );
-	$custom_width = get_post_meta( get_the_ID(), 'custom_container_width', true );
+  $max_width = $default_width;
+  // load and set the overall option "container_width"
+  $set_width = pgb_get_option( 'container_width', $default_width );
+  if ( !empty( $set_width ) && ( $set_width !== "default" ) ) {
+    if ( $set_width === "full" ) {
+      $max_width = "100%";
+    } else {
+      $max_width = $set_width;
+    }
+  }
+	// check override per page/post
+  $post_id = get_the_ID();
+	$override_width = get_post_meta( $post_id, 'metabox_page_layout_option', true );
+	$custom_width = get_post_meta( $post_id, 'custom_container_width', true );
 			
-	if ( $override_width === "yes" ) :
+	if ( $override_width === "yes" ) {
 
-		if ( empty( $custom_width ) || $custom_width === "default" ) {
-			// do nothing...
-		}
-		elseif ( $custom_width === "full" ) {
-			$max_width = '100%';
-		}
-		else {
-			$max_width = $custom_width . 'px';
-		}
-				
-	endif;
-
+		if ( !empty( $custom_width ) && ( $custom_width !== "default" ) ) {
+      if ( $custom_width === "full" ) {
+        $max_width = '100%';
+      } else {
+        // set to custom_width, which include 'px' at the end
+        $max_width = $custom_width;
+      }
+    }
+	}
+  // run through 1 more filter just in case
+  $max_width = apply_filters( 'pgb_page_width', $max_width, $post_id );
+  // sanitize again
+  $classname = esc_attr( $classname );
+  $max_width = wp_kses( $max_width, array() );
+  // and output
 	$custom_css = sprintf( '%1$s { width: %2$s; max-width: %3$s !important; }', $classname, $width, $max_width );
 
 	return $custom_css;
