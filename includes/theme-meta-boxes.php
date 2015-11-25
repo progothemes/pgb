@@ -33,15 +33,15 @@ function pgb_page_opttions_cb( $post ) {
 	echo '</label> ';
 	echo '<select id="custom_width" name="custom_width">';
 	$cw_options = array(
-    'default' 	=> 'Default',
-    'full' 		=> 'Full Width (100%)',
-    '1366px'	=> '1366px',
-    '1240px'	=> '1240px',
-    '1170px'	=> '1170px',
-    '1080px'	=> '1080px',
-    '960px'		=> '960px'
-  );
-  $cw_options = apply_filters( 'pgb_page_width_options', $cw_options, $post );
+		'default' 	=> 'Default',
+		'full' 		=> 'Full Width (100%)',
+		'1366px'	=> '1366px',
+		'1240px'	=> '1240px',
+		'1170px'	=> '1170px',
+		'1080px'	=> '1080px',
+		'960px'		=> '960px'
+	);
+	$cw_options = apply_filters( 'pgb_page_width_options', $cw_options, $post );
 	foreach($cw_options as $k => $cw_option) {
 		$sel = $custom_width == $k ? 'selected="selected"':'';
 		echo '<option value="'.$k.'" '.$sel.'>'.$cw_option.'</option>';
@@ -95,23 +95,6 @@ function pgb_save_meta_box_data( $post_id ) {
     // Update the meta field in the database.
     update_post_meta( $post_id, 'custom_container_width', $my_data2 );
 	}
-  /*
-	if ( ! isset( $_POST['page_footer'] ) ) {
-		return;
-	}
-	if ( ! isset( $_POST['custom_footer'] ) ) {
-		return;
-	}
-  *
-	// Sanitize user input.
-	$my_data = sanitize_text_field( $_POST['page_layout'] );
-	$my_data2 = sanitize_text_field( $_POST['custom_width'] );
-
-	// Update the meta field in the database.
-	update_post_meta( $post_id, 'metabox_page_layout_option', $my_data );
-	update_post_meta( $post_id, 'custom_container_width', $my_data2 );
-  */
-  //wp_die('update post meta : <pre>'. print_r($_POST,true) .'</pre>');
 }
 add_action( 'save_post', 'pgb_save_meta_box_data' );
 
