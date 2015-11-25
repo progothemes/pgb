@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page with no sidebar
+ * Template Name: No Sidebar
  *
  * @package pgb
  */
@@ -22,8 +22,6 @@ get_header(); ?>
 				<article id="post-<?php the_ID(); ?>" <?php post_class( 'row' ); ?>>
 
 					<?php tha_entry_top(); ?>
-
-					<?php get_template_part( 'posts', 'header' ); ?>
 
 					<div class="col-md-12">
 

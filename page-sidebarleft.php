@@ -1,16 +1,15 @@
 <?php
 /**
- * The template for displaying Archive pages.
- *
+ * Template Name: Left Sidebar
  *
  * @package pgb
  */
 
 get_header(); ?>
 
-	<?php if ( $template === 'left' ) get_sidebar(); ?>
+	<?php get_sidebar(); ?>
 
-	<div id="content" class="main-content-inner col-sm-12 <?php echo ( $template === 'full' ? 'col-md-12 col-lg-12' : 'col-md-8 col-lg-9' ); ?>">
+	<div id="content" class="main-content-inner col-sm-12 col-md-8 col-lg-9">
 
 		<?php tha_content_top(); ?>
 
@@ -25,8 +24,6 @@ get_header(); ?>
 				<article id="post-<?php the_ID(); ?>" <?php post_class( 'row' ); ?>>
 
 					<?php tha_entry_top(); ?>
-
-					<?php pgb_block_post_title(); ?>
 
 					<div class="col-md-12">
 
@@ -46,18 +43,20 @@ get_header(); ?>
 
 				<?php tha_entry_after(); ?>
 
-			<?php endwhile; ?>
+				<?php
+					// If comments are open or we have at least one comment, load up the comment template
+					if ( comments_open() || '0' != get_comments_number() )
+						comments_template();
+				?>
 
-			<?php pgb_content_nav( 'nav-below' ); ?>
-
-		<?php else : ?>
-
-			<?php get_template_part( 'no-results', 'archive' ); ?>
+			<?php endwhile; // end of the loop. ?>
 
 		<?php endif; ?>
 
-	</div>
+		<?php // The Loop--> ?>
 
-	<?php if ( ! $template || $template === 'right' ) get_sidebar(); ?>
+		<?php tha_content_bottom(); ?>
+
+	</div>
 
 <?php get_footer(); ?>

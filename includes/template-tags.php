@@ -12,7 +12,7 @@ if ( ! function_exists( 'pgb_content_nav' ) ) :
  * Display navigation to next/previous pages when applicable
  */
 function pgb_content_nav( $nav_id ) {
-	global $wp_query, $post;
+	global $wp_query, $post, $paged;
 
 	// Don't print empty markup on single pages if there's nowhere to navigate.
 	if ( is_single() ) {
@@ -31,22 +31,22 @@ function pgb_content_nav( $nav_id ) {
 
 	?>
 	<nav role="navigation" id="<?php echo esc_attr( $nav_id ); ?>" class="<?php echo $nav_class; ?>">
-		<h3 class="sr-only"><?php _e( 'Post navigation', 'pgb' ); ?></h3>
+		<h3 class="sr-only"><?php ( is_single() ? _e( 'Post navigation', 'pgb' ) : _e( 'Page navigation', 'pgb' ) ); ?></h3>
 		<ul class="pager">
 
 		<?php if ( is_single() ) : // navigation links for single posts ?>
 
-			<?php previous_post_link( '<li class="nav-previous previous">%link</li>', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'pgb' ) . '</span> %title' ); ?>
-			<?php next_post_link( '<li class="nav-next next">%link</li>', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'pgb' ) . '</span>' ); ?>
+			<?php previous_post_link( '<li class="nav-previous previous" data-post-id="' . ( $previous ? $previous->ID : '' ) . '">%link</li>', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'pgb' ) . '</span> %title' ); ?>
+			<?php next_post_link( '<li class="nav-next next" data-post-id="' .( $next ? $next->ID : '' ) . '">%link</li>', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'pgb' ) . '</span>' ); ?>
 
-		<?php elseif ( $wp_query->max_num_pages > 1 && ( is_home() || is_archive() || is_search() ) ) : // navigation links for home, archive, and search pages ?>
+		<?php elseif ( $wp_query->max_num_pages >= 1 && ( is_home() || is_archive() || is_search() ) ) : // navigation links for home, archive, and search pages ?>
 
 			<?php if ( get_next_posts_link() ) : ?>
-			<li class="nav-previous previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'pgb' ) ); ?></li>
+			<li class="nav-previous previous" data-page-number="<?php echo ( $paged < $wp_query->max_num_pages ? $paged+1 : $paged ); ?>"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'pgb' ) ); ?></li>
 			<?php endif; ?>
 
 			<?php if ( get_previous_posts_link() ) : ?>
-			<li class="nav-next next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?></li>
+			<li class="nav-next next" data-page-number="<?php echo ( $paged > 1 ? $paged-1 : $paged ); ?>"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?></li>
 			<?php endif; ?>
 
 		<?php endif; ?>
@@ -128,6 +128,16 @@ function pgb_comment( $comment, $args, $depth ) {
 endif; // ends check for pgb_comment()
 
 
+add_action( 'comment_form_after', 'pgb_comments_after' );
+if ( ! function_exists( 'pgb_comments_after' ) ) :
+/**
+ * After Comments
+ */
+function pgb_comments_after() {
+	print '<script type="text/javascript"> jQuery(\'#commentform\').validate(); </script>';
+}
+endif;
+
 if ( ! function_exists( 'pgb_the_attached_image' ) ) :
 /**
  * Prints the attached image with a link to the next attached image.
@@ -183,10 +193,13 @@ endif;
 
 if ( ! function_exists( 'pgb_breadcrumbs' ) ) :
 /**
- * Breadcrumb functionality
+ * Breadcrumbs
+ *
+ * @return HTML breadcrumbs
  * @since ProGo 0.6.3
  */
-function pgb_breadcrumbs() {
+function pgb_get_breadcrumbs() {
+
 	// Our breadcrumb trail
 	$breadcrumb         = '';
 	$bread              = array();
@@ -203,6 +216,13 @@ function pgb_breadcrumbs() {
 
 	// Do not display on the homepage
 	if ( ! is_front_page() ) {
+
+		// WooCommerce
+		if ( function_exists('is_woocommerce') && is_woocommerce() ) {
+			woocommerce_breadcrumb();
+			return; // Exit breadcrumb function
+		}
+
 		$crumbs = array(
 			'<a href="' . get_home_url() . '" title="' . $home_title . '" itemprop="item">'.
 			'<span itemprop="name">' . $home_title . '</span></a>'
@@ -224,7 +244,7 @@ function pgb_breadcrumbs() {
 			$custom_tax_name = get_queried_object()->name;
 			$crumbs[] = '<span itemprop="name">' . $custom_tax_name . '</span>';
 		}
-		elseif ( is_blog_page() ) {
+		elseif ( pgb_is_blog_page() ) {
 			if ( is_home() && get_option('page_for_posts') ) {
 				$blog_page_id = get_option('page_for_posts');
 				$blog_page_title = get_the_title( $blog_page_id );
@@ -374,7 +394,12 @@ function pgb_breadcrumbs() {
 		$breadcrumb = implode( $separator, $bread );
 		$breadcrumb = sprintf( '<ol id="%s" class="%s" itemscope itemtype="http://schema.org/BreadcrumbList">%s</ol>', $breadcrumb_id, $breadcrumb_class, $breadcrumb );
 	}
-	echo $breadcrumb;
+	return $breadcrumb;
+}
+function pgb_breadcrumbs() {
+	$breadcrumbs = pgb_get_breadcrumbs();
+	print $breadcrumbs;
+	return;
 }
 endif;
 
@@ -436,13 +461,18 @@ function pgb_do_posted_on() {
 		);
 		$time_string .= __(', updated on ', 'pgb') . $time_string_update;
 	}
-
+  // get_the_author stuff only works reliably inside The Loop
+  // unless we grab $post->post_author
+  global $post;
+  $author_id = $post->post_author;
+  $author_name = get_the_author_meta( 'nickname', $author_id );
+  
 	printf( __( '<span class="posted-on">Posted on %1$s</span><span class="byline"> by %2$s</span>', 'pgb' ),
 		$time_string,
 		sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s">%3$s</a></span>',
-			esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-			esc_attr( sprintf( __( 'View all posts by %s', 'pgb' ), get_the_author() ) ),
-			esc_html( get_the_author() )
+			esc_url( get_author_posts_url( $author_id ) ),
+			esc_attr( sprintf( __( 'View all posts by %s', 'pgb' ), $author_name ) ),
+			esc_html( $author_name )
 		)
 	);
 }
@@ -457,6 +487,7 @@ if ( ! function_exists( 'pgb_rich_snippets' ) ) :
 add_action( 'wp_head', 'pgb_rich_snippets', 10 );
 function pgb_rich_snippets() {
 
+	global $post, $wp_query;
 	$post_id = get_queried_object_id();
 	$post_object = get_post( $post_id );
 
@@ -464,16 +495,21 @@ function pgb_rich_snippets() {
 	if ( is_front_page() ) {
 		$front_page_snippet = array(
 			"@context" => "http://schema.org",
-			"@type" => get_option( 'rich_snippet_type', 'WebSite' ),
+			"@type" => ( get_option( 'rich_snippet_type', false ) ? get_option( 'rich_snippet_type', 'WebSite' ) : 'WebSite' ),
 			"url" => get_bloginfo('url'),
 			"name" => get_bloginfo( 'name' ),
 			"logo" => pgb_get_logo( false ),
-			"potentialAction" => array(
-				"@type" => "SearchAction",
-				"target" => get_bloginfo( 'url' ) . "/?s={search}",
-				"query-input" => "required name=search"
-				)
 			);
+		if ( pgb_includes_search() ) {
+			$page_includes_search = array(
+				"potentialAction" => array(
+					"@type" => "SearchAction",
+					"target" => get_bloginfo( 'url' ) . "/?s={search}",
+					"query-input" => "required name=search"
+					)
+				);
+			$front_page_snippet = array_merge( $front_page_snippet, $page_includes_search );
+		}
 		pgb_print_snippet( $front_page_snippet );
 	}
 
@@ -492,7 +528,7 @@ function pgb_rich_snippets() {
 	}
 
 	/* Blog Page */
-	elseif ( is_blog_page() ) {
+	elseif ( pgb_is_blog_page() ) {
 		$blog_page_snippet = array(
 			"@type" => 'Blog',
 			"url" => get_permalink( $post_id ),
@@ -535,13 +571,23 @@ function pgb_rich_snippets() {
 		}
 		pgb_print_snippet( $single_post_snippet );
 	}
-
 }
+endif;
+
+
+if ( ! function_exists( 'pgb_print_snippet' ) ) :
+/**
+ * Prints the rich snippet JSON object to the page header
+ *
+ * @since ProGo 0.7.0
+ * @param array $snippet
+ * @return string JSON object script printed to wp_head
+ */
 function pgb_print_snippet( $snippet = false ) {
 	if ( is_array( $snippet ) ) {
 		$snippet = array_filter( $snippet );
-		if (version_compare(phpversion(), '5.4.0', '<')) {
-			$json = json_encode( $snippet );
+		if ( version_compare( phpversion(), '5.4.0', '<' ) ) {
+			$json = str_replace( '\\/', '/', json_encode( $snippet ) );
 		} else {
 			$json = json_encode( $snippet, JSON_UNESCAPED_SLASHES );
 		}
@@ -549,6 +595,70 @@ function pgb_print_snippet( $snippet = false ) {
 	}
 }
 endif;
+
+
+if ( ! function_exists( 'pgb_includes_search' ) ) :
+/**
+ * Check if page contains search
+ *
+ * @since ProGo 0.8.0
+ * @param none
+ * @return boolean If page includes search form return TRUE
+ */
+function pgb_includes_search() {
+
+	global $post, $wp_query;
+	$includes_search = false;
+
+	if ( pgb_get_option( 'nav_search' ) == '1' ) $includes_search = true;
+	
+	if ( function_exists('wp_get_sidebars_widgets') ) {
+		$sidebars_widgets = wp_get_sidebars_widgets();
+		foreach ($sidebars_widgets as $sidebar_widget_array) {
+			if ( is_array( $sidebar_widget_array ) && in_array( 'search-2', $sidebar_widget_array ) ) $includes_search = true;
+		}
+	}
+
+	return $includes_search;
+}
+endif;
+
+
+
+if ( ! function_exists( 'pgb_footer_widget_columns' ) ) :
+/**
+ * Render Footer Widget columns
+ *
+ * @since ProGo 0.9.0
+ * @param none
+ * @return HTML
+ */
+function pgb_footer_widget_columns() {
+	$footer_columns = pgb_get_option( 'footer_widgets_columns', '4' );
+	$n = 12 / $footer_columns;
+	$classes = array();
+	// Build column width classes
+	for ( $i = 1 ; $i <= $footer_columns; $i++) {
+		$class_xs = 'col-xs-12';
+		$class_sm = 'col-sm-6';
+		$class_md = 'col-md-' . $n;
+		if ( ! ( $footer_columns % 2 == 0 ) && $i == 1 ) {
+			$class_sm = 'col-sm-12'; // For odd number of columns, we will set the first one full width
+		}
+		$classes[$i] = $class_xs . ' ' . $class_sm . ' ' . $class_md;
+	}
+	// Render the widget areas
+	for ( $i = 1 ; $i <= $footer_columns; $i++) { ?>
+		<div class="<?php echo $classes[$i]; ?>">
+			<?php 
+				$n = ( $i == 1 ? '' : '-'.$i );
+				dynamic_sidebar( 'footer-widget'.$n );
+			?>
+		</div>
+	<?php }
+}
+endif;
+
 
 
 /**

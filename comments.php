@@ -35,7 +35,7 @@ if ( post_password_required() )
 
 			<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
 			<nav id="comment-nav-above" class="comment-navigation" role="navigation">
-				<h5 class="screen-reader-text"><?php _e( 'Comment navigation', 'pgb' ); ?></h5>
+				<h5 class="sr-only"><?php _e( 'Comment navigation', 'pgb' ); ?></h5>
 				<ul class="pager">
 					<li class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'pgb' ) ); ?></li>
 					<li class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'pgb' ) ); ?></li>
@@ -57,7 +57,7 @@ if ( post_password_required() )
 
 			<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
 			<nav id="comment-nav-below" class="comment-navigation" role="navigation">
-				<h1 class="screen-reader-text"><?php _e( 'Comment navigation', 'pgb' ); ?></h1>
+				<h1 class="sr-only"><?php _e( 'Comment navigation', 'pgb' ); ?></h1>
 				<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'pgb' ) ); ?></div>
 				<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'pgb' ) ); ?></div>
 			</nav><!-- #comment-nav-below -->

@@ -5,6 +5,10 @@ Useful as a Base theme, stand-alone, starting point to fork and rename and build
 
 Built by ProGo, a collection of Developers and Designers and Marketers working together to create a pure foundation that we could use, with hopes that others might find it useful as well.
 
+## Features
+#### Action-hook based template parts
+Use add/remove_action to modify template structure via plugin, rather than writing a child theme every time
+
 ## Installation
 
 1. In your admin panel, go to Appearance -> Themes and click the Add New button.
@@ -18,7 +22,7 @@ Built by ProGo, a collection of Developers and Designers and Marketers working t
 * Contributors: monkishtypist, chousmith, edurose, stokesman, progothemes
 * Tags: bootstrap, light, custom-header, custom-menu, fixed-layout, responsive-layout, two-columns
 * Requires at least: 4.1
-* Tested up to: 4.2.2
+* Tested up to: 4.3
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +31,36 @@ Built by ProGo, a collection of Developers and Designers and Marketers working t
 Once we figure out what FAQs may be, they may be added here and there. This is a work in progress. Thank you for bearing with us.
 
 ## Change Log
+
+### Version 1.1.0
+* Updated title tag support per https://make.wordpress.org/themes/2015/08/25/title-tag-support-now-required/
+* Added theme text domain
+* Updated string translation support
+* Added .pot file
+* Removed `upload-theme.php`
+
+### Version 1.0.2
+* Updated navbar customizer layouts
+
+### Version 1.0.1
+* Page post titles updated, archive titles added and formatted
+* Search Results page titles fixed
+* CSS cleaned up and more efficient for navbars
+* JS updated to OOP
+
+### Version 1.0.0
+* New functions to return specific pages, page arrays, and more
+* New validate.js for form validation (beta)
+* New admin-side pgb.js
+* Login/Logout menu link now part of Menu Customizer
+* Updated bootstrap nav-walker
+* Updated customizer options and organization for WP 4.3
+* Renamed Nav positions for better compatibility
+* Page layout with header for each page (moving toward material design)
+* Footer updates to include menu position and copyright section
+* Page and post titles moved to masthead
+* Subtitles for pages
+* Renamed files: header to masthead, navtop to navbar
 
 ### Version 0.8.0
 * Added WooCommerce Support

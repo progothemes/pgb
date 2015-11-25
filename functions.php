@@ -2,7 +2,7 @@
 /**
  * ProGo Base Theme version
  */
-define( 'PGB_THEME_VERSION', '0.5.1' );
+define( 'PGB_THEME_VERSION', '1.1.0' );
 
 
 
@@ -15,7 +15,6 @@ locate_template( '/includes/bootstrap-wp-navwalker.php', true );
 locate_template( '/includes/bootstrap-wp-navwalker-collapse.php', true );
 locate_template( '/includes/template-tags.php', true );
 locate_template( '/includes/theme-meta-boxes.php', true );
-locate_template( '/upload-theme.php', true );
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 /**
@@ -52,16 +51,29 @@ function pgb_setup() {
 		// Enable support for various Post Formats
 		add_theme_support( 'post-formats', array( 'aside', 'audio', 'image', 'link', 'quote', 'video' ) );
 
-    // Enable support for Title Tag
-    add_theme_support( 'title-tag' );
+		// Enable support for Title Tag
+		add_theme_support( 'title-tag' );
+
+		// Enable Custom Header Image theme support
+		add_theme_support( 'custom-header' );
+
+		// Enable Custom Background Image theme support
+		add_theme_support( 'custom-background' );
 	}
 
 	/**
 	 * This theme uses wp_nav_menu() in one location.
 	*/
 	register_nav_menus( array(
-		'primary'  	 => __( 'Main Menu', 'pgb' ),
+		'primary'	=> __( 'Main Menu', 'pgb' ),
+		'secondary'	=> __( 'Top Menu', 'pgb' ),
+		'footer'	=> __( 'Footer Menu', 'pgb' ),
 	) );
+
+	/**
+	 * Add WooCommerce Support
+	 */
+	add_theme_support( 'woocommerce' );
 
 }
 endif; // pgb_setup
@@ -90,7 +102,7 @@ function pgb_wp_title( $title, $sep ) {
 
 	return $title;
 }
-add_filter( 'wp_title', 'pgb_wp_title', 10, 2 );
+//add_filter( 'wp_title', 'pgb_wp_title', 10, 2 );
 
 /**
  * Register widgetized area and update sidebar with default widgets
@@ -107,15 +119,32 @@ function pgb_widgets_init() {
 
 	// Footer widget areas
 	register_sidebars( 4, array(
-        'name' 			=> 'Footer Widget %d',
-        'id' 			=> 'footer-widget',
-        'description' 	=> 'Footer Widget Area',
-        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget' 	=> '</div>',
-        'before_title' 	=> '<h3 class="widget-title">',
-        'after_title' 	=> '</h3>',
-    ) );
-	
+		'name' 			=> 'Footer Widget %d',
+		'id' 			=> 'footer-widget',
+		'description' 	=> 'Footer Widget Area',
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget' 	=> '</div>',
+		'before_title' 	=> '<h3 class="widget-title">',
+		'after_title' 	=> '</h3>',
+	) );
+
+	// Footer copyright areas
+	register_sidebar( array(
+		'name'          => __( 'Footer Copyright (left)', 'pgb' ),
+		'id'            => 'footer-copyright-left',
+		'before_widget' => '<div id="%1$s" class="col-xs-12 col-sm-12 col-md-6 pull-left">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+	) );
+	register_sidebar( array(
+		'name'          => __( 'Footer Copyright (right)', 'pgb' ),
+		'id'            => 'footer-copyright-right',
+		'before_widget' => '<div id="%1$s" class="col-xs-12 col-sm-12 col-md-6 pull-right text-right">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+	) );
 }
 add_action( 'widgets_init', 'pgb_widgets_init' );
 
@@ -158,7 +187,12 @@ function pgb_scripts() {
 
 	// Fix for Visual Composer not loading CSS file(s)
 	if ( is_plugin_active( 'js_composer/js_composer.php' ) ) {
-		wp_enqueue_style('js-composer', plugins_url() . '/js_composer/assets/css/js_composer.css');
+		if ( file_exists(plugins_url() . '/js_composer/assets/css/js_composer.min.css') ) {
+			wp_enqueue_style('js-composer', plugins_url() . '/js_composer/assets/css/js_composer.min.css');
+		}
+		elseif ( file_exists(plugins_url() . '/js_composer/assets/css/js_composer.css') ) {
+			wp_enqueue_style('js-composer', plugins_url() . '/js_composer/assets/css/js_composer.css');
+		}
 	}
 
 	// SCRIPTS
@@ -168,6 +202,8 @@ function pgb_scripts() {
 
 	// load bootstrap wp js
 	wp_enqueue_script( 'pgb-bootstrapwpjs', get_template_directory_uri() . '/includes/js/bootstrap-wp.js', array('jquery') );
+
+	wp_enqueue_script( 'jquery.validate', get_template_directory_uri() . '/includes/js/jquery.validate.js', array('jquery') );
 
 	wp_enqueue_script( 'pgb-customthemejs', get_template_directory_uri() . '/includes/js/custom-theme.js', array('jquery') );
 
@@ -184,14 +220,15 @@ function pgb_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'pgb_scripts' );
 
-function load_custom_wp_admin_style() {
+function pgb_load_custom_wp_admin_style() {
         wp_register_style( 'custom_wp_admin_css', ADMIN_DIR . 'admin/css/admin-style.css' );
         wp_enqueue_style( 'custom_wp_admin_css' );
         wp_enqueue_style( 'wp-color-picker' );
         wp_enqueue_script( 'wp-color-picker-script', get_template_directory_uri() . '/includes/js/color-picker.js', array( 'wp-color-picker' ), false, true );
-        wp_enqueue_script('postformats-js', ADMIN_DIR .'admin/js/postformats.js', array( 'jquery' ));
+        wp_enqueue_script( 'postformats-js', ADMIN_DIR .'admin/js/postformats.js', array( 'jquery' ), false, true );
+        wp_enqueue_script( 'pgb-js', ADMIN_DIR .'admin/js/pgb.js', array( 'jquery' ), false, true );
 }
-add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
+add_action( 'admin_enqueue_scripts', 'pgb_load_custom_wp_admin_style' );
 
 function pgb_body_classes( $classes ) {
 	$classes[] = 'progo-base';

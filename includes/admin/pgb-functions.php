@@ -215,7 +215,7 @@ function pgb_get_quote() {
  * @return boolean
  */
 if ( ! function_exists('is_blog_page') ) :
-function is_blog_page() {
+function pgb_is_blog_page() {
 	if ( is_front_page() && is_home() ) {
 		// Default homepage (blog on homepage)
 		return true;
@@ -234,17 +234,55 @@ endif;
 
 
 /**
+ * Output Blog Page ID
+ * @since ProGo 0.9.0
+ * @uses pgb_is_blog_page()
+ * @return integer
+ */
+if ( ! function_exists('blog_page_id') ) :
+function pgb_blog_page_id() {
+	if ( pgb_is_blog_page() && get_option('page_for_posts') ) {
+		$blog_page_id = get_option('page_for_posts');
+	}
+	return $blog_page_id;
+}
+endif;
+
+
+/**
  * Output Blog Page title
  * @since ProGo 0.6.3
+ * @uses pgb_blog_page_id()
  * @return string
  */
 if ( ! function_exists('blog_page_title') ) :
-function blog_page_title( $before = '<h1 class="page-title">', $after = '</h1>' ) {
-	if ( is_home() && get_option('page_for_posts') ) {
-		$blog_page_id = get_option('page_for_posts');
-		$page_title = get_the_title( $blog_page_id );
-		echo $before, $page_title, $after;
+function pgb_blog_page_title( $before = '<h1 class="page-title">', $after = '</h1>', $blog_page_id = 0, $echo = true ) {
+	$blog_page_id = pgb_blog_page_id();
+	$blog_page_title = get_the_title( $blog_page_id );
+
+	if ( ! empty( $blog_page_id ) ) {
+		$blog_page_title = $before . $blog_page_title . $after;
 	}
+	if ( ! $echo ) {
+		return $blog_page_title;
+	}
+	echo $blog_page_title;
+}
+endif;
+
+
+/**
+ * Default Template
+ * @since ProGo 0.1.1
+ * @uses pgb_is_blog_page()
+ * @return integer
+ */
+if ( ! function_exists('pgb_default_template') ) :
+function pgb_default_template() {
+	$template = false;
+	if ( function_exists('pgb_get_option') )
+		$template = pgb_get_option( 'default_page_template', 'right' );
+	return $template;
 }
 endif;
 
@@ -258,7 +296,7 @@ endif;
 function pgb_get_option( $name, $default = false ) {
 	$options = get_theme_mod( 'pgb_options', null );
 	// return the option if it exists
-	if ( isset( $options[ $name ] ) ) {
+	if ( isset( $options[$name] ) && ! empty( $options[$name] ) ) {
 		return apply_filters( "pgb_options_{$name}", $options[ $name ] );
 	}
 	// return default if nothing else
@@ -349,6 +387,66 @@ function pgb_menus( $multiple = true ) {
 
 
 /**
+ * Check if menu(s) item contains $key with $value
+ *
+ * @param $slug 			single menu slug or array of menu slugs
+ * @param $key 				menu_item key
+ * @param $value 			menu_item value
+ * @uses get_nav_menu_locations()
+ * @uses wp_get_nav_menu_object()
+ * @uses wp_get_nav_menu_items()
+ * @see https://codex.wordpress.org/Function_Reference/wp_get_nav_menu_items
+ * @return array / false 	MenuID => ItemID or false if not exists
+ */
+function pgb_menu_item_exists( $slug = false, $key = false, $value = false ) {
+
+	if ( ! $slug || ! $key || ! $value )
+		return false;
+
+	$items = array();
+
+	$__ids = get_nav_menu_locations();
+
+	if ( is_array( $slug ) || ! $slug ) {
+
+		if ( is_array( $slug ) )
+			$__ids = array_intersect_key( $__ids, array_flip( $slug ) );
+
+		foreach ($__ids as $__id) {
+			$__menu = wp_get_nav_menu_object( $__id );
+			$__items = wp_get_nav_menu_items( $__menu->term_id );
+			if ( ! $__items )
+				continue; // Menu does not contain any items
+			$pluck = wp_list_pluck( $__items, $key );
+			if ( in_array( $value, $pluck ) ) {
+				$items[$__menu->term_id] = array_search( $value, $pluck );
+			}
+		}
+	}
+	elseif ( array_key_exists( $slug, $__ids) ) {
+		$__menu = wp_get_nav_menu_object( $__ids[$slug] );
+		$__items = wp_get_nav_menu_items( $__menu->term_id );
+		if ( ! $__items )
+			continue; // Menu does not contain any items
+		$pluck = wp_list_pluck( $__items, $key );
+		if ( in_array( $value, $pluck ) )
+			$items[$__menu->term_id] = array_search( $value, $pluck );
+	}
+
+	return ( empty($items) ? false : $items );
+}
+
+function pgb_modify_nav_menu_args( $args )
+{
+	//var_dump($args);
+	return $args;
+}
+
+add_filter( 'wp_nav_menu_args', 'pgb_modify_nav_menu_args' );
+
+
+
+/**
  * Load PGB Template Parts
  *
  * Uses locate_template() to get hightest priority template file for easy child theming
@@ -360,28 +458,40 @@ function pgb_menus( $multiple = true ) {
  */
 
 /**
- * Load Header block - pgb_block_header()
+ * Load Masthead block - pgb_block_masthead()
  */
-function pgb_block_header() {
-	do_action( 'pgb_block_header' );
+function pgb_block_masthead() {
+	do_action( 'pgb_block_masthead' );
 }
 /* callback */
-function pgb_load_block_header() {
-	locate_template( 'block-header.php', true );
+function pgb_load_block_masthead() {
+	locate_template( 'block-masthead.php', true );
 }
-add_action( 'pgb_block_header', 'pgb_load_block_header', 10 );
+add_action( 'pgb_block_masthead', 'pgb_load_block_masthead', 10 );
 
 /**
- * Load Top Nav block - pgb_block_navtop()
+ * Load Navbar block - pgb_block_navbar()
  */
-function pgb_block_navtop() {
-	do_action( 'pgb_block_navtop' );
+function pgb_block_navbar() {
+	do_action( 'pgb_block_navbar' );
+}
+/* callback */
+function pgb_load_block_navbar() {
+	locate_template( 'block-navbar.php', true );
+}
+add_action( 'pgb_block_navbar', 'pgb_load_block_navbar', 10 );
+
+/**
+ * Load Navtop block - pgb_block_navbartop()
+ */
+function pgb_block_navbartop() {
+	do_action( 'pgb_block_navbartop' );
 }
 /* callback */
 function pgb_load_block_navtop() {
 	locate_template( 'block-navtop.php', true );
 }
-add_action( 'pgb_block_navtop', 'pgb_load_block_navtop', 10 );
+add_action( 'pgb_block_navbartop', 'pgb_load_block_navtop', 10 );
 
 /**
  * Load Footer Widget Area block - pgb_block_footerwidgets()
@@ -396,7 +506,19 @@ function pgb_load_block_footerwidgets() {
 add_action( 'pgb_block_footerwidgets', 'pgb_load_block_footerwidgets', 10 );
 
 /**
- * Load Link pages block - pgb_block_header()
+ * Load Footer Copyright Area block - pgb_block_footercopyright()
+ */
+function pgb_block_footercopyright() {
+	do_action( 'pgb_block_footercopyright' );
+}
+/* callback */
+function pgb_load_block_footercopyright() {
+	locate_template( 'block-footercopyright.php', true );
+}
+add_action( 'pgb_block_footercopyright', 'pgb_load_block_footercopyright', 10 );
+
+/**
+ * Load Link pages block - pgb_block_linkpages()
  */
 function pgb_block_linkpages() {
 	do_action( 'pgb_block_linkpages' );
@@ -408,16 +530,30 @@ function pgb_load_block_linkpages() {
 add_action( 'pgb_block_linkpages', 'pgb_load_block_linkpages', 10 );
 
 /**
- * Load Page/Post Title block - pgb_block_header()
+ * Load Page Title block - pgb_block_page_title()
  */
-function pgb_block_posts_header() {
-	do_action( 'pgb_block_posts_header' );
+function pgb_block_page_title() {
+	do_action( 'pgb_block_page_title' );
 }
 /* callback */
-function pgb_load_block_posts_header() {
-	get_template_part( 'posts', 'header' );
+function pgb_load_block_page_title() {
+	get_template_part( 'block', 'page_title' );
 }
-add_action( 'pgb_block_posts_header', 'pgb_load_block_posts_header', 10 );
+add_action( 'pgb_block_page_title', 'pgb_load_block_page_title', 10 );
+
+/**
+ * Load Page/Post Title block - pgb_block_post_title()
+ *
+ * @deprecated since v1.0
+ */
+function pgb_block_post_title() {
+	do_action( 'pgb_block_post_title' );
+}
+/* callback */
+function pgb_load_block_posts_title() {
+	get_template_part( 'block', 'post_title' );
+}
+add_action( 'pgb_block_post_title', 'pgb_load_block_posts_title', 10 );
 
 /**
  * Breadcrumbs - pgb_block_breadcrumbs()
@@ -427,13 +563,8 @@ function pgb_block_breadcrumbs() {
 }
 /* callback */
 function pgb_load_block_breadcrumbs() { ?>
-	<div id="breadcrumb-container">
-		<div class="container">
-			<?php 
-			if( function_exists('is_woocommerce') && is_woocommerce() ) { woocommerce_breadcrumb(); }
-			else { pgb_breadcrumbs(); } 
-			?>
-		</div>
+	<div id="breadcrumb-container" class="container">
+		<?php pgb_breadcrumbs(); ?>
 	</div>
 <?php }
 add_action( 'pgb_block_breadcrumbs', 'pgb_load_block_breadcrumbs', 10 );

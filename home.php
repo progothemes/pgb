@@ -1,16 +1,19 @@
 <?php
 /**
- * The template for displaying Archive pages.
+ * The main template file.
  *
+ * Blog Posts Index Page
  *
  * @package pgb
  */
+
+$template = pgb_default_template();
 
 get_header(); ?>
 
 	<?php if ( $template === 'left' ) get_sidebar(); ?>
 
-	<div id="content" class="main-content-inner col-sm-12 <?php echo ( $template === 'full' ? 'col-md-12 col-lg-12' : 'col-md-8 col-lg-9' ); ?>">
+	<div id="content" class="main-content-inner col-sm-12 <?php echo ( $template === 'full' ? 'col-md-12 col-lg-12' : 'col-md-8 col-lg-9' ); ?>" data-file="home.php">
 
 		<?php tha_content_top(); ?>
 
@@ -52,9 +55,13 @@ get_header(); ?>
 
 		<?php else : ?>
 
-			<?php get_template_part( 'no-results', 'archive' ); ?>
+			<?php get_template_part( 'no-results', 'index' ); ?>
 
 		<?php endif; ?>
+
+		<?php // The Loop--> ?>
+
+		<?php tha_content_bottom(); ?>
 
 	</div>
 

@@ -14,7 +14,7 @@
 
 	</div><!-- .entry-summary -->
 
-<?php elseif ( is_blog_page() ) : ?>
+<?php elseif ( pgb_is_blog_page() ) : ?>
 
 	<div class="entry-summary col-md-12">
 
@@ -33,7 +33,7 @@
 		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
 		
 		<?php pgb_block_linkpages(); ?>
-	
+
 	</div><!-- .entry-content -->
 
 <?php endif; ?>

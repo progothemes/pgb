@@ -16,8 +16,6 @@
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title><?php wp_title( '|', true, 'right' ); ?></title>
-
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
@@ -33,14 +31,16 @@
     <?php tha_header_before(); ?>
     <?php do_action( 'before' ); ?>
 
-    <?php pgb_block_navtop(); ?>
-    <?php if( pgb_get_option( 'show_breadcrumb' ) == '1' ) pgb_block_breadcrumbs(); ?>
-    <?php pgb_block_header(); ?>
+    <?php if ( has_nav_menu('secondary') || '1' === pgb_get_option( 'nav_search' ) ) pgb_block_navbartop(); ?>
 
+    <?php pgb_block_navbar(); ?>
+
+    <?php pgb_block_masthead(); ?>
+
+    <?php tha_header_after();  ?>
     <div id="page-content-wrapper" class="page-content-wrapper-left">
 
-      <?php tha_header_after();  ?>
-      <?php tha_content_before(); ?>
-      <div class="main-content">
-        <div class="container">
-          <div class="row">
+        <?php tha_content_before(); ?>
+        <div class="main-content">
+            <div class="container">
+                <div class="row">

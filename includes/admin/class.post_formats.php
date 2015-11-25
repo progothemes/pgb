@@ -6,19 +6,19 @@
 /**
  * Calls the class on the post edit screen.
  */
-function call_postFormatsClass() {
-	new postFormatsClass();
+function pgb_call_postFormatsClass() {
+	new PGB_postFormatsClass();
 }
 
 if ( is_admin() ) {
-	add_action( 'load-post.php', 'call_postFormatsClass' );
-	add_action( 'load-post-new.php', 'call_postFormatsClass' );
+	add_action( 'load-post.php', 'pgb_call_postFormatsClass' );
+	add_action( 'load-post-new.php', 'pgb_call_postFormatsClass' );
 }
 
 /** 
  * The Class.
  */
-class postFormatsClass {
+class PGB_postFormatsClass {
 
 	/**
 	 * Define meta boxes
@@ -168,11 +168,11 @@ class postFormatsClass {
 				</tr>
 				<tr>
 					<td><label for="postformats[audio_embed]"><?php _e( 'Audio', 'pgb' ); ?></label></td>
-					<td><input type="text" id="postformats[audio_embed]" name="postformats[audio_embed]" value="<?php _e( isset( $value['audio_embed'] ) ? esc_attr( $value['audio_embed'] ) : '' ); ?>" size="25" /></td>
+					<td><input type="text" id="postformats[audio_embed]" name="postformats[audio_embed]" value="<?php echo ( isset( $value['audio_embed'] ) ? esc_attr( $value['audio_embed'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 				<tr>
 					<td><label for="postformats[audio_title]"><?php _e( 'Title', 'pgb' ); ?></label></td>
-					<td><input type="text" id="postformats[audio_title]" name="postformats[audio_title]" value="<?php _e( isset( $value['audio_title'] ) ? esc_attr( $value['audio_title'] ) : '' ); ?>" size="25" /></td>
+					<td><input type="text" id="postformats[audio_title]" name="postformats[audio_title]" value="<?php echo ( isset( $value['audio_title'] ) ? esc_attr( $value['audio_title'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 			</tbody>
 		</table>
@@ -203,15 +203,15 @@ class postFormatsClass {
 				</tr>
 				<tr>
 					<td><label for="postformats[image_link]"><?php _e( 'Link To', 'pgb' ); ?></label></td>
-					<td><input type="text" id="postformats[image_link]" name="postformats[image_link]" value="<?php _e( isset( $value['image_link'] ) ? esc_attr( $value['image_link'] ) : '' ); ?>" size="25" /></td>
+					<td><input type="text" id="postformats[image_link]" name="postformats[image_link]" value="<?php echo ( isset( $value['image_link'] ) ? esc_attr( $value['image_link'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 				<tr>
 					<td><label for="postformats[image_caption]"><?php _e( 'Caption', 'pgb' ); ?></label></td>
-					<td><input type="text" id="postformats[image_caption]" name="postformats[image_caption]" value="<?php _e( isset( $value['image_caption'] ) ? esc_attr( $value['image_caption'] ) : '' ); ?>" size="25" /></td>
+					<td><input type="text" id="postformats[image_caption]" name="postformats[image_caption]" value="<?php echo ( isset( $value['image_caption'] ) ? esc_attr( $value['image_caption'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 				<tr>
 					<td><label for="postformats[image_alt]"><?php _e( 'Alt Text', 'pgb' ); ?></label></td>
-					<td><input type="text" id="postformats[image_alt]" name="postformats[image_alt]" value="<?php _e( isset( $value['image_alt'] ) ? esc_attr( $value['image_alt'] ) : '' ); ?>" size="25" /></td>
+					<td><input type="text" id="postformats[image_alt]" name="postformats[image_alt]" value="<?php echo ( isset( $value['image_alt'] ) ? esc_attr( $value['image_alt'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 			</tbody>
 		</table>
@@ -242,11 +242,11 @@ class postFormatsClass {
 				</tr>
 				<tr>
 					<td><label for="postformats[link_url]"><?php _e( 'URL', 'pgb' ); ?></label></td>
-					<td><input type="text" id="postformats[link_url]" name="postformats[link_url]" value="<?php _e( isset( $value['link_url'] ) ? esc_attr( $value['link_url'] ) : '' ); ?>" size="25" /></td>
+					<td><input type="text" id="postformats[link_url]" name="postformats[link_url]" value="<?php echo ( isset( $value['link_url'] ) ? esc_attr( $value['link_url'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 				<tr>
 					<td><label for="postformats[link_title]"><?php _e( 'Title', 'pgb' ); ?></label></td>
-					<td><input type="text" id="postformats[link_title]" name="postformats[link_title]" value="<?php _e( isset( $value['link_title'] ) ? esc_attr( $value['link_title'] ) : '' ); ?>" size="25" /></td>
+					<td><input type="text" id="postformats[link_title]" name="postformats[link_title]" value="<?php echo ( isset( $value['link_title'] ) ? esc_attr( $value['link_title'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 			</tbody>
 		</table>
@@ -277,19 +277,19 @@ class postFormatsClass {
 				</tr>
 				<tr>
 					<td><label for="postformats[quote_source_name]"><?php _e( 'Source Name', 'pgb' ); ?></label></td>
-					<td><input type="text" id="postformats[quote_source_name]" name="postformats[quote_source_name]" value="<?php _e( isset( $value['quote_source_name'] ) ? esc_attr( $value['quote_source_name'] ) : '' ); ?>" size="25" /></td>
+					<td><input type="text" id="postformats[quote_source_name]" name="postformats[quote_source_name]" value="<?php echo ( isset( $value['quote_source_name'] ) ? esc_attr( $value['quote_source_name'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 				<tr>
 					<td><label for="postformats[quote_source_url]"><?php _e( 'Source URL', 'pgb' ); ?></label></td>
-					<td><input type="text" id="postformats[quote_source_url]" name="postformats[quote_source_url]" value="<?php _e( isset( $value['quote_source_url'] ) ? esc_attr( $value['quote_source_url'] ) : '' ); ?>" size="25" /></td>
+					<td><input type="text" id="postformats[quote_source_url]" name="postformats[quote_source_url]" value="<?php echo ( isset( $value['quote_source_url'] ) ? esc_attr( $value['quote_source_url'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 				<tr>
 					<td><label for="postformats[quote_source_title]"><?php _e( 'Source Title', 'pgb' ); ?></label></td>
-					<td><input type="text" id="postformats[quote_source_title]" name="postformats[quote_source_title]" value="<?php _e( isset( $value['quote_source_title'] ) ? esc_attr( $value['quote_source_title'] ) : '' ); ?>" size="25" /></td>
+					<td><input type="text" id="postformats[quote_source_title]" name="postformats[quote_source_title]" value="<?php echo ( isset( $value['quote_source_title'] ) ? esc_attr( $value['quote_source_title'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 				<tr>
 					<td><label for="postformats[quote_source_date]"><?php _e( 'Source Date', 'pgb' ); ?></label></td>
-					<td><input type="text" id="postformats[quote_source_date]" name="postformats[quote_source_date]" value="<?php _e( isset( $value['quote_source_date'] ) ? esc_attr( $value['quote_source_date'] ) : '' ); ?>" size="25" /></td>
+					<td><input type="text" id="postformats[quote_source_date]" name="postformats[quote_source_date]" value="<?php echo ( isset( $value['quote_source_date'] ) ? esc_attr( $value['quote_source_date'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 			</tbody>
 		</table>
@@ -321,11 +321,11 @@ class postFormatsClass {
 				</tr>
 				<tr>
 					<td><label for="postformats[video_embed]"><?php _e( 'Video', 'pgb' ); ?></label></td>
-					<td><input type="text" id="postformats[video_embed]" name="postformats[video_embed]" value="<?php _e( isset( $value['video_embed'] ) ? esc_attr( $value['video_embed'] ) : '' ); ?>" size="25" /></td>
+					<td><input type="text" id="postformats[video_embed]" name="postformats[video_embed]" value="<?php echo ( isset( $value['video_embed'] ) ? esc_attr( $value['video_embed'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 				<tr>
 					<td><label for="postformats[video_title]"><?php _e( 'Title', 'pgb' ); ?></label></td>
-					<td><input type="text" id="postformats[video_title]" name="postformats[video_title]" value="<?php _e( isset( $value['video_title'] ) ? esc_attr( $value['video_title'] ) : '' ); ?>" size="25" /></td>
+					<td><input type="text" id="postformats[video_title]" name="postformats[video_title]" value="<?php echo ( isset( $value['video_title'] ) ? esc_attr( $value['video_title'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 			</tbody>
 		</table>

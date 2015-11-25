@@ -16,23 +16,13 @@
 <?php pgb_block_footerwidgets(); ?>
 
 <?php tha_footer_before(); ?>
-<footer id="colophon" class="site-footer" role="contentinfo">
-	<?php tha_footer_top(); ?>
-	<div class="container">
-		<div class="row">
-			<div class="site-footer-inner col-sm-12">
+	
+	<?php pgb_block_footercopyright(); ?>
 
-				<div class="site-info">
-					<?php do_action( 'pgb_credits' ); ?>
-				</div><!-- close .site-info -->
-
-			</div>
-		</div>
-	</div><!-- close .container -->
-	<?php tha_footer_bottom(); ?>
-</footer><!-- close #colophon -->
 <?php tha_footer_after(); ?>
+
 <?php tha_body_bottom(); ?>
 <?php wp_footer(); ?>
+
 </body>
 </html>
