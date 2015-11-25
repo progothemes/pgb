@@ -21,7 +21,7 @@ function pgb_set_container_width() {
     if ( $set_width === "full" ) {
       $max_width = "100%";
     } else {
-      $max_width = $set_width;
+      $max_width = ''. $set_width;
     }
   }
 	// check override per page/post
@@ -40,6 +40,11 @@ function pgb_set_container_width() {
       }
     }
 	}
+  // make sure max_width ends in "px" if it doesnt end in ...0%
+  $mend = substr( $max_width, -2 );
+  if ( ( $mend != '0%' ) && ( $mend != 'px' ) ) {
+    $max_width .= 'px';
+  }
   // run through 1 more filter just in case
   $max_width = apply_filters( 'pgb_page_width', $max_width, $post_id );
   // sanitize again
