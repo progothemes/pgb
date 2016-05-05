@@ -2,7 +2,7 @@
 Contributors: ProGo
 Tags: custom-colors, custom-header, custom-menu, featured-images, full-width-template, light, post-formats, responsive-layout, theme-options
 Requires at least: 4.1
-Tested up to: 4.3.1
+Tested up to: 4.5.1
 Stable tag: 4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -25,6 +25,9 @@ Built by ProGo, a collection of Developers and Designers and Marketers working t
 
 
 == Change Log ==
+
+### Version 1.1.2
+* Apparently there was a missing closing div in the footer
 
 ### Version 1.1.1
 * Fix bug preventing custom page width overrides
