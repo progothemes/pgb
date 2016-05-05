@@ -32,6 +32,9 @@ Once we figure out what FAQs may be, they may be added here and there. This is a
 
 ## Change Log
 
+### Version 1.1.2
+* Apparently there was a missing closing div in the footer
+
 ### Version 1.1.1
 * Fix bug preventing custom page width overrides
 * Added additional filters to the custom page width process `'pgb_default_page_width', 'pgb_page_width_class', 'pgb_page_width', 'pgb_page_width_options'`
