@@ -20,6 +20,7 @@
 	<?php pgb_block_footercopyright(); ?>
 
 <?php tha_footer_after(); ?>
+</div><!-- close page -->
 
 <?php tha_body_bottom(); ?>
 <?php wp_footer(); ?>
