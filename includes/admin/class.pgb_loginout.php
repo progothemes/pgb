@@ -338,3 +338,19 @@ class PGB_Login_Out {
 
 $nav_link = new PGB_Login_Out();
 add_action( 'admin_init', array( $nav_link, 'add_login_nav_menu_meta_box' ) );
+
+
+
+// [pgb text="" link="" param=""]
+function pgb_replace_login_btn( $atts ) {
+	$atts = shortcode_atts( array(
+		'text' => '',
+		'link' => '',
+		'param' => ''
+	), $atts );
+	if ( is_user_logged_in() ) {
+		return '<a href="'.$atts['link'].'">'.$atts['text'].'</a>';
+	}
+	return '<a href="'.get_bloginfo( 'url' ).'/login?'.$atts['param'].'">Login</a>';
+}
+add_shortcode( 'pgb', 'pgb_replace_login_btn' );
