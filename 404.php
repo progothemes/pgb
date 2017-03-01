@@ -11,12 +11,12 @@ get_header(); ?>
 	<section class="content-padder error-404 not-found">
 
 		<header class="page-header">
-			<h2 class="page-title"><?php _e( 'Oops! Something went wrong here.', 'pgb' ); ?></h2>
+			<h2 class="page-title"><?php _e( 'Oops! Something went wrong here.', 'progo-base' ); ?></h2>
 		</header><!-- .page-header -->
 
 		<div class="page-content">
 
-			<p><?php _e( 'Nothing could be found at this location. Maybe try a search?', 'pgb' ); ?></p>
+			<p><?php _e( 'Nothing could be found at this location. Maybe try a search?', 'progo-base' ); ?></p>
 
 			<?php get_search_form(); ?>
 

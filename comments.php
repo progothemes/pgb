@@ -27,7 +27,7 @@ if ( post_password_required() )
 			<header class="page-header">
 				<h2 class="comments-title">
 					<?php
-						printf( _nx( 'One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'pgb' ),
+						printf( _nx( 'One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'progo-base' ),
 							number_format_i18n( get_comments_number() ), '<span>' . get_the_title() . '</span>' );
 					?>
 				</h2>
@@ -35,10 +35,10 @@ if ( post_password_required() )
 
 			<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
 			<nav id="comment-nav-above" class="comment-navigation" role="navigation">
-				<h5 class="sr-only"><?php _e( 'Comment navigation', 'pgb' ); ?></h5>
+				<h5 class="sr-only"><?php _e( 'Comment navigation', 'progo-base' ); ?></h5>
 				<ul class="pager">
-					<li class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'pgb' ) ); ?></li>
-					<li class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'pgb' ) ); ?></li>
+					<li class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'progo-base' ) ); ?></li>
+					<li class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'progo-base' ) ); ?></li>
 				</ul>
 			</nav><!-- #comment-nav-above -->
 			<?php endif; // check for comment navigation ?>
@@ -57,9 +57,9 @@ if ( post_password_required() )
 
 			<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
 			<nav id="comment-nav-below" class="comment-navigation" role="navigation">
-				<h1 class="sr-only"><?php _e( 'Comment navigation', 'pgb' ); ?></h1>
-				<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'pgb' ) ); ?></div>
-				<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'pgb' ) ); ?></div>
+				<h1 class="sr-only"><?php _e( 'Comment navigation', 'progo-base' ); ?></h1>
+				<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'progo-base' ) ); ?></div>
+				<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'progo-base' ) ); ?></div>
 			</nav><!-- #comment-nav-below -->
 			<?php endif; // check for comment navigation ?>
 
@@ -69,7 +69,7 @@ if ( post_password_required() )
 			// If comments are closed and there are comments
 			if ( ! comments_open() && '0' != get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) :
 		?>
-			<p class="no-comments"><?php _e( 'Comments are closed.', 'pgb' ); ?></p>
+			<p class="no-comments"><?php _e( 'Comments are closed.', 'progo-base' ); ?></p>
 		<?php endif; ?>
 
 		<?php comment_form(); ?>

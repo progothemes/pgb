@@ -8,7 +8,7 @@ add_action( 'init', array( 'PGB_Subtitle', '_setup' ) );
 
 class PGB_Subtitle {
 
-	const TEXTDOMAIN = 'pgb';
+	const TEXTDOMAIN = 'progo-base';
 
 	/**
 	 * Setup
@@ -73,7 +73,7 @@ class PGB_Subtitle {
 		foreach ( $columns as $column => $value ) {
 			$new_columns[ $column ] = $value;
 			if ( 'title' == $column ) {
-				$new_columns['progo_material_subtitle'] = __( 'Subtitle', PGB_Subtitle::TEXTDOMAIN );
+				$new_columns['progo_material_subtitle'] = __( 'Subtitle', 'progo-base' );
 			}
 		}
 
@@ -144,7 +144,7 @@ class PGB_Subtitle {
 	 * @uses  apply_filters( 'progo_material_meta_box_title' )
 	 */
 	static function get_meta_box_title( $post_type ) {
-		return apply_filters( 'progo_material_meta_box_title', __( 'Subtitle', PGB_Subtitle::TEXTDOMAIN ), $post_type );
+		return apply_filters( 'progo_material_meta_box_title', __( 'Subtitle', 'progo-base' ), $post_type );
 	}
 
 	/**
@@ -194,7 +194,7 @@ class PGB_Subtitle {
 		echo '<input type="hidden" name="progo_material_noncename" id="progo_material_noncename" value="' . wp_create_nonce( 'progo-material-subtitle' ) . '" />';
 		echo '<div id="subtitlediv" class="top">';
 			echo '<div id="subtitlewrap">';
-				echo '<input type="text" id="wpsubtitle" name="progo_material_subtitle" value="' . esc_attr( PGB_Subtitle::_get_post_meta( $post->ID ) ) . '" autocomplete="off" placeholder="' . esc_attr( apply_filters( 'progo_material_subtitle_field_placeholder', __( 'Enter subtitle here', PGB_Subtitle::TEXTDOMAIN ) ) ) . '" />';
+				echo '<input type="text" id="wpsubtitle" name="progo_material_subtitle" value="' . esc_attr( PGB_Subtitle::_get_post_meta( $post->ID ) ) . '" autocomplete="off" placeholder="' . esc_attr( apply_filters( 'progo_material_subtitle_field_placeholder', __( 'Enter subtitle here', 'progo-base' ) ) ) . '" />';
 			echo '</div>';
 
 		// Description

@@ -20,7 +20,7 @@
 
 		<?php get_template_part( 'posts', 'images' ); ?>
 
-		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
+		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'progo-base' ) ); ?>
 
 	</div><!-- .entry-content -->
 
@@ -30,7 +30,7 @@
 
 	<div class="entry-content col-md-12">
 		
-		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
+		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'progo-base' ) ); ?>
 		
 		<?php pgb_block_linkpages(); ?>
 

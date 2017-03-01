@@ -70,7 +70,7 @@ function pgb_get_logo( $wrap = true ) {
 	$tabletlogo		= pgb_get_option( 'logo_tablet' );
 	$mobilelogo		= pgb_get_option( 'logo_mobile' );
 	$title			= get_bloginfo( 'name' );
-	$logo			= ( $desktoplogo || $tabletlogo || $mobilelogo ) ? '' : sprintf( __( '%s', 'pgb' ), $title ); // if no logo exists, use text
+	$logo			= ( $desktoplogo || $tabletlogo || $mobilelogo ) ? '' : sprintf( __( '%s', 'progo-base' ), $title ); // if no logo exists, use text
 	$logo_url		= ( $desktoplogo ? $desktoplogo : ( $tabletlogo ? $tabletlogo : ( $mobilelogo ? $mobilelogo : null ) ) ); // if param false, return just URL
 
 	/**
@@ -112,7 +112,7 @@ function pgb_get_mobile_logo () {
 
 	$mobilelogo	= pgb_get_option( 'logo_mobile' );
 	$title		= get_bloginfo( 'name' );   
-	$logo		= sprintf( __( '%s', 'pgb' ), $title );
+	$logo		= sprintf( __( '%s', 'progo-base' ), $title );
 
 	if ( $mobilelogo ) {
 		$logo = sprintf( '<div class="mobilelogo show"><img src="%s" alt=""></div>', esc_attr( $mobilelogo ) );

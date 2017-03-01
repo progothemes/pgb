@@ -8,7 +8,7 @@
 <form class="" role="search" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 	<label class="sr-only" for="s">Search</label>
 	<div class="input-group">
-		<input type="search" class="form-control pull-right" placeholder="<?php echo esc_attr_x( 'Search &hellip;', 'placeholder', 'pgb' ); ?>" value="<?php echo esc_attr( get_search_query() ); ?>" name="s" title="<?php _ex( 'Search for:', 'label', 'pgb' ); ?>">
+		<input type="search" class="form-control pull-right" placeholder="<?php echo esc_attr_x( 'Search &hellip;', 'placeholder', 'progo-base' ); ?>" value="<?php echo esc_attr( get_search_query() ); ?>" name="s" title="<?php _ex( 'Search for:', 'label', 'progo-base' ); ?>">
 		<span class="input-group-btn">
 			<button type="submit" class="btn btn-default">
 				<span class="fa fa-search">

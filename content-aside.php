@@ -15,14 +15,14 @@
 <?php elseif ( pgb_is_blog_page() ) : ?>
 
 	<div class="entry-summary col-md-12">
-		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
+		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'progo-base' ) ); ?>
 	</div>
 
 <?php else : ?>
 
 	<?php get_template_part( 'posts', 'images' ); ?>
 	<div class="entry-content col-md-12">
-		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
+		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'progo-base' ) ); ?>
 		<?php pgb_block_linkpages(); ?>
 	</div><!-- /entry -->
 

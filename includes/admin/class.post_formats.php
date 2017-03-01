@@ -84,7 +84,7 @@ class PGB_postFormatsClass {
 			if ( method_exists( $this, $meta_box['callback'] ) ) {
 				add_meta_box(
 					$meta_box['id'],
-					__( $meta_box['title'], 'pgb' ),
+					$meta_box['title'],
 					array( $this, $meta_box['callback'] ),
 					'post',
 					'normal',
@@ -162,16 +162,16 @@ class PGB_postFormatsClass {
 			<tbody>
 				<tr>
 					<td colspan="2">
-						<p><?php echo sprintf( __( 'Embed audio from services like SoundCloud and Rdio. You can find a list of supported oEmbed sites in the %1$s.', 'pgb'), '<a href="http://codex.wordpress.org/Embeds" target="_blank">' . __( 'WordPress Codex', 'pgb' ) .'</a>' ); ?></p>
-						<p><?php echo sprintf( __( 'Alternatively, you could use WordPress\' built-in %1$s %2$s.', 'pgb' ), '<code>[audio]</code>', '<a href="https://codex.wordpress.org/Audio_Shortcode">' . __( 'shortcode', 'pgb' ) . '</a>' ); ?></p>
+						<p><?php echo sprintf( __( 'Embed audio from services like SoundCloud and Rdio. You can find a list of supported oEmbed sites in the %1$s.', 'progo-base'), '<a href="http://codex.wordpress.org/Embeds" target="_blank">' . __( 'WordPress Codex', 'progo-base' ) .'</a>' ); ?></p>
+						<p><?php echo sprintf( __( 'Alternatively, you could use WordPress\' built-in %1$s %2$s.', 'progo-base' ), '<code>[audio]</code>', '<a href="https://codex.wordpress.org/Audio_Shortcode">' . __( 'shortcode', 'progo-base' ) . '</a>' ); ?></p>
 					</td>
 				</tr>
 				<tr>
-					<td><label for="postformats[audio_embed]"><?php _e( 'Audio', 'pgb' ); ?></label></td>
+					<td><label for="postformats[audio_embed]"><?php _e( 'Audio', 'progo-base' ); ?></label></td>
 					<td><input type="text" id="postformats[audio_embed]" name="postformats[audio_embed]" value="<?php echo ( isset( $value['audio_embed'] ) ? esc_attr( $value['audio_embed'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 				<tr>
-					<td><label for="postformats[audio_title]"><?php _e( 'Title', 'pgb' ); ?></label></td>
+					<td><label for="postformats[audio_title]"><?php _e( 'Title', 'progo-base' ); ?></label></td>
 					<td><input type="text" id="postformats[audio_title]" name="postformats[audio_title]" value="<?php echo ( isset( $value['audio_title'] ) ? esc_attr( $value['audio_title'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 			</tbody>
@@ -198,19 +198,19 @@ class PGB_postFormatsClass {
 			<tbody>
 				<tr>
 					<td colspan="2">
-						<p><?php echo sprintf( __('Post format "Image" uses featured image. To exclude any of the following, leave blank.', 'pgb'), '' ); ?></p>
+						<p><?php echo sprintf( __('Post format "Image" uses featured image. To exclude any of the following, leave blank.', 'progo-base'), '' ); ?></p>
 					</td>
 				</tr>
 				<tr>
-					<td><label for="postformats[image_link]"><?php _e( 'Link To', 'pgb' ); ?></label></td>
+					<td><label for="postformats[image_link]"><?php _e( 'Link To', 'progo-base' ); ?></label></td>
 					<td><input type="text" id="postformats[image_link]" name="postformats[image_link]" value="<?php echo ( isset( $value['image_link'] ) ? esc_attr( $value['image_link'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 				<tr>
-					<td><label for="postformats[image_caption]"><?php _e( 'Caption', 'pgb' ); ?></label></td>
+					<td><label for="postformats[image_caption]"><?php _e( 'Caption', 'progo-base' ); ?></label></td>
 					<td><input type="text" id="postformats[image_caption]" name="postformats[image_caption]" value="<?php echo ( isset( $value['image_caption'] ) ? esc_attr( $value['image_caption'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 				<tr>
-					<td><label for="postformats[image_alt]"><?php _e( 'Alt Text', 'pgb' ); ?></label></td>
+					<td><label for="postformats[image_alt]"><?php _e( 'Alt Text', 'progo-base' ); ?></label></td>
 					<td><input type="text" id="postformats[image_alt]" name="postformats[image_alt]" value="<?php echo ( isset( $value['image_alt'] ) ? esc_attr( $value['image_alt'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 			</tbody>
@@ -237,15 +237,15 @@ class PGB_postFormatsClass {
 			<tbody>
 				<tr>
 					<td colspan="2">
-						<p><?php echo sprintf( __('Post format "Link" displays post content in a panel with linked title.', 'pgb'), '' ); ?></p>
+						<p><?php echo sprintf( __('Post format "Link" displays post content in a panel with linked title.', 'progo-base'), '' ); ?></p>
 					</td>
 				</tr>
 				<tr>
-					<td><label for="postformats[link_url]"><?php _e( 'URL', 'pgb' ); ?></label></td>
+					<td><label for="postformats[link_url]"><?php _e( 'URL', 'progo-base' ); ?></label></td>
 					<td><input type="text" id="postformats[link_url]" name="postformats[link_url]" value="<?php echo ( isset( $value['link_url'] ) ? esc_attr( $value['link_url'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 				<tr>
-					<td><label for="postformats[link_title]"><?php _e( 'Title', 'pgb' ); ?></label></td>
+					<td><label for="postformats[link_title]"><?php _e( 'Title', 'progo-base' ); ?></label></td>
 					<td><input type="text" id="postformats[link_title]" name="postformats[link_title]" value="<?php echo ( isset( $value['link_title'] ) ? esc_attr( $value['link_title'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 			</tbody>
@@ -272,23 +272,23 @@ class PGB_postFormatsClass {
 			<tbody>
 				<tr>
 					<td colspan="2">
-						<p><?php echo sprintf( __('Post format "Quote" displays post content as block-quote.', 'pgb'), '' ); ?></p>
+						<p><?php echo sprintf( __('Post format "Quote" displays post content as block-quote.', 'progo-base'), '' ); ?></p>
 					</td>
 				</tr>
 				<tr>
-					<td><label for="postformats[quote_source_name]"><?php _e( 'Source Name', 'pgb' ); ?></label></td>
+					<td><label for="postformats[quote_source_name]"><?php _e( 'Source Name', 'progo-base' ); ?></label></td>
 					<td><input type="text" id="postformats[quote_source_name]" name="postformats[quote_source_name]" value="<?php echo ( isset( $value['quote_source_name'] ) ? esc_attr( $value['quote_source_name'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 				<tr>
-					<td><label for="postformats[quote_source_url]"><?php _e( 'Source URL', 'pgb' ); ?></label></td>
+					<td><label for="postformats[quote_source_url]"><?php _e( 'Source URL', 'progo-base' ); ?></label></td>
 					<td><input type="text" id="postformats[quote_source_url]" name="postformats[quote_source_url]" value="<?php echo ( isset( $value['quote_source_url'] ) ? esc_attr( $value['quote_source_url'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 				<tr>
-					<td><label for="postformats[quote_source_title]"><?php _e( 'Source Title', 'pgb' ); ?></label></td>
+					<td><label for="postformats[quote_source_title]"><?php _e( 'Source Title', 'progo-base' ); ?></label></td>
 					<td><input type="text" id="postformats[quote_source_title]" name="postformats[quote_source_title]" value="<?php echo ( isset( $value['quote_source_title'] ) ? esc_attr( $value['quote_source_title'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 				<tr>
-					<td><label for="postformats[quote_source_date]"><?php _e( 'Source Date', 'pgb' ); ?></label></td>
+					<td><label for="postformats[quote_source_date]"><?php _e( 'Source Date', 'progo-base' ); ?></label></td>
 					<td><input type="text" id="postformats[quote_source_date]" name="postformats[quote_source_date]" value="<?php echo ( isset( $value['quote_source_date'] ) ? esc_attr( $value['quote_source_date'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 			</tbody>
@@ -315,16 +315,16 @@ class PGB_postFormatsClass {
 			<tbody>
 				<tr>
 					<td colspan="2">
-						<p><?php echo sprintf( __( 'Embed video from services like Youtube, Vimeo, or Hulu. You can find a list of supported oEmbed sites in the %1$s.', 'pgb'), '<a href="http://codex.wordpress.org/Embeds" target="_blank">' . __( 'WordPress Codex', 'pgb' ) .'</a>' ); ?></p>
-						<p><?php echo sprintf( __( 'Alternatively, you could use WordPress\' built-in %1$s %2$s.', 'pgb' ), '<code>[video]</code>', '<a href="https://codex.wordpress.org/Video_Shortcode">' . __( 'shortcode', 'pgb' ) . '</a>' ); ?></p>
+						<p><?php echo sprintf( __( 'Embed video from services like Youtube, Vimeo, or Hulu. You can find a list of supported oEmbed sites in the %1$s.', 'progo-base'), '<a href="http://codex.wordpress.org/Embeds" target="_blank">' . __( 'WordPress Codex', 'progo-base' ) .'</a>' ); ?></p>
+						<p><?php echo sprintf( __( 'Alternatively, you could use WordPress\' built-in %1$s %2$s.', 'progo-base' ), '<code>[video]</code>', '<a href="https://codex.wordpress.org/Video_Shortcode">' . __( 'shortcode', 'progo-base' ) . '</a>' ); ?></p>
 					</td>
 				</tr>
 				<tr>
-					<td><label for="postformats[video_embed]"><?php _e( 'Video', 'pgb' ); ?></label></td>
+					<td><label for="postformats[video_embed]"><?php _e( 'Video', 'progo-base' ); ?></label></td>
 					<td><input type="text" id="postformats[video_embed]" name="postformats[video_embed]" value="<?php echo ( isset( $value['video_embed'] ) ? esc_attr( $value['video_embed'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 				<tr>
-					<td><label for="postformats[video_title]"><?php _e( 'Title', 'pgb' ); ?></label></td>
+					<td><label for="postformats[video_title]"><?php _e( 'Title', 'progo-base' ); ?></label></td>
 					<td><input type="text" id="postformats[video_title]" name="postformats[video_title]" value="<?php echo ( isset( $value['video_title'] ) ? esc_attr( $value['video_title'] ) : '' ); ?>" size="25" /></td>
 				</tr>
 			</tbody>

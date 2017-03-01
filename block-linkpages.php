@@ -8,7 +8,7 @@
 if ( is_single() ) :
 
 	wp_link_pages( array(
-		'before' => '<div class="page-links">' . __( 'Pages:', 'pgb' ),
+		'before' => '<div class="page-links">' . __( 'Pages:', 'progo-base' ),
 		'after'  => '</div>',
 	) );
 

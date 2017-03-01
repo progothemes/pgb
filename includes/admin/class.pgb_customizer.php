@@ -47,12 +47,12 @@ class PGB_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_container_width' ),
+				'sanitize_callback' => "PGB_Customize::sanitize_container_width", //array( 'PGB_Customize', 'sanitize_container_width' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[container_width]',
 			array(
-				'label'    => __( 'Page Container Width', 'pgb' ),
+				'label'    => __( 'Page Container Width', 'progo-base' ),
 				'section'  => 'pgb_options[layout]',
 				'settings' => 'pgb_options[container_width]',
 				'type'     => 'select',
@@ -74,12 +74,12 @@ class PGB_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_bootstrap_theme' ),
+				'sanitize_callback' => "PGB_Customize::sanitize_bootstrap_theme", //array( 'PGB_Customize', 'sanitize_bootstrap_theme' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[bootstrap_theme]',
 			array(
-				'label'    => __( 'Bootstrap Theme', 'pgb' ),
+				'label'    => __( 'Bootstrap Theme', 'progo-base' ),
 				'section'  => 'pgb_options[layout]',
 				'settings' => 'pgb_options[bootstrap_theme]',
 				'type'     => 'select',
@@ -112,12 +112,12 @@ class PGB_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => '',
+				'sanitize_callback' => "PGB_Customize::sanitize_bootstrap_defaulttheme", // array( 'PGB_Customize', 'sanitize_bootstrap_defaulttheme' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[default_page_template]',
 			array(
-				'label'    => __( 'Default Page Template', 'pgb' ),
+				'label'    => __( 'Default Page Template', 'progo-base' ),
 				'section'  => 'pgb_options[layout]',
 				'settings' => 'pgb_options[default_page_template]',
 				'type'     => 'select',
@@ -144,7 +144,7 @@ class PGB_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_logo' ),
+				'sanitize_callback' => "PGB_Customize::sanitize_logo", // array( 'PGB_Customize', 'sanitize_logo' ),
 			) 
 		);
 		$wp_customize->add_control(
@@ -152,7 +152,7 @@ class PGB_Customize {
 				$wp_customize, 
 				'pgb_options[logo_mobile]',
 				array(
-					'label' => __( 'Mobile Navbar Logo', 'pgb' ),
+					'label' => __( 'Mobile Navbar Logo', 'progo-base' ),
 					'priority' => 60,
 					'section' => 'title_tagline',
 					'settings' => 'pgb_options[logo_mobile]',
@@ -169,7 +169,7 @@ class PGB_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_logo' ),
+				'sanitize_callback' => "PGB_Customize::sanitize_logo", // array( 'PGB_Customize', 'sanitize_logo' ),
 			) 
 		);
 		$wp_customize->add_control(
@@ -177,7 +177,7 @@ class PGB_Customize {
 				$wp_customize, 
 				'pgb_options[logo_tablet]',
 				array(
-					'label'      => __( 'Tablet Navbar Logo', 'pgb' ),
+					'label'      => __( 'Tablet Navbar Logo', 'progo-base' ),
 					'priority' => 65,
 					'section'    => 'title_tagline',
 					'settings'   => 'pgb_options[logo_tablet]',
@@ -194,7 +194,7 @@ class PGB_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_logo' ),
+				'sanitize_callback' => "PGB_Customize::sanitize_logo", // array( 'PGB_Customize', 'sanitize_logo' ),
 			) 
 		);
 		$wp_customize->add_control(
@@ -202,7 +202,7 @@ class PGB_Customize {
 				$wp_customize, 
 				'pgb_options[logo_desktop]',
 				array(
-					'label'      => __( 'Desktop Navbar Logo', 'pgb' ),
+					'label'      => __( 'Desktop Navbar Logo', 'progo-base' ),
 					'priority' => 70,
 					'section'    => 'title_tagline',
 					'settings'   => 'pgb_options[logo_desktop]',
@@ -227,12 +227,12 @@ class PGB_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_menu_align' ),
+				'sanitize_callback' => "PGB_Customize::sanitize_menu_align", // array( 'PGB_Customize', 'sanitize_menu_align' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[menu_align]', 
 			array(
-				'label'    => __( 'Main Menu Alignment', 'pgb' ),
+				'label'    => __( 'Main Menu Alignment', 'progo-base' ),
 				'priority' => 20,
 				'section'  => 'menu_locations',
 				'settings' => 'pgb_options[menu_align]',
@@ -253,12 +253,12 @@ class PGB_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_menu_align' ),
+				'sanitize_callback' => "PGB_Customize::sanitize_menu_align", // array( 'PGB_Customize', 'sanitize_menu_align' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[topmenu_align]', 
 			array(
-				'label'    => __( 'Top Menu Alignment', 'pgb' ),
+				'label'    => __( 'Top Menu Alignment', 'progo-base' ),
 				'priority' => 20,
 				'section'  => 'menu_locations',
 				'settings' => 'pgb_options[topmenu_align]',
@@ -295,12 +295,12 @@ class PGB_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_nav_position' ),
+				'sanitize_callback' => "PGB_Customize::sanitize_nav_position", // array( 'PGB_Customize', 'sanitize_nav_position' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[nav_position]', 
 			array(
-				'label'    => __( 'Main Navbar Position', 'pgb' ),
+				'label'    => __( 'Main Navbar Position', 'progo-base' ),
 				'section'  => 'pgb_navigation',
 				'settings' => 'pgb_options[nav_position]',
 				'type'     => 'radio',
@@ -319,12 +319,12 @@ class PGB_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => '',
+				'sanitize_callback' => "PGB_Customize::sanitize_topnav_position", // array( 'PGB_Customize', 'sanitize_topnav_position' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[topnav_position]', 
 			array(
-				'label'    => __( 'Top Navbar Position', 'pgb' ),
+				'label'    => __( 'Top Navbar Position', 'progo-base' ),
 				'section'  => 'pgb_navigation',
 				'settings' => 'pgb_options[topnav_position]',
 				'type'     => 'radio',
@@ -343,16 +343,16 @@ class PGB_Customize {
 					'type' => 'theme_mod',
 					'capability' => 'edit_theme_options',
 					'transport' => 'refresh',
-					'sanitize_callback' => '',
+					'sanitize_callback' => "PGB_Customize::sanitize_navbarwidth_position", // array( 'PGB_Customize', 'sanitize_navbarwidth_position' ),
 			) 
 		);
 		$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'pgb_options[navbar_width]', 
 			array(
-				'label' => __( 'Navbar Width', 'problogger' ),
+				'label' => __( 'Navbar Width', 'progo-base' ),
 				'priority' => 10,
 				'section' => 'pgb_navigation',
 				'settings' => 'pgb_options[navbar_width]',
-				'description' => __( 'Default is Container Width. Other Options are Full Width with Container Width Content, or Full Width with Full Width Content.', 'problogger' ),
+				'description' => __( 'Default is Container Width. Other Options are Full Width with Container Width Content, or Full Width with Full Width Content.', 'progo-base' ),
 				'type' => 'select',
 				'choices' => array(
 					'container' => 'Container Width',
@@ -371,12 +371,12 @@ class PGB_Customize {
 					'type' => 'theme_mod',
 					'capability' => 'edit_theme_options',
 					'transport' => 'refresh',
-					'sanitize_callback' => '',
+					'sanitize_callback' => "PGB_Customize::sanitize_topnav_width", // array( 'PGB_Customize', 'sanitize_topnav_width' ),
 			) 
 		);
 		$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'pgb_options[topnav_width]', 
 			array(
-				'label' => __( 'Top Navbar Width', 'problogger' ),
+				'label' => __( 'Top Navbar Width', 'progo-base' ),
 				'priority' => 10,
 				'section' => 'pgb_navigation',
 				'settings' => 'pgb_options[topnav_width]',
@@ -398,7 +398,7 @@ class PGB_Customize {
 				'pgb_navigation_search-description',
 				array(
 					'section' => 'pgb_navigation',
-					'label' => __( 'Search', 'pgb' ),
+					'label' => __( 'Search', 'progo-base' ),
 				)
 			)
 		);
@@ -411,12 +411,12 @@ class PGB_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_nav_search' ),
+				'sanitize_callback' => "PGB_Customize::sanitize_nav_search", // array( 'PGB_Customize', 'sanitize_nav_search' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[nav_search]', 
 			array(
-				'label'    => __( 'Show Search in Top Navbar', 'pgb' ),
+				'label'    => __( 'Show Search in Top Navbar', 'progo-base' ),
 				'section'  => 'pgb_navigation',
 				'settings' => 'pgb_options[nav_search]',
 				'type'     => 'checkbox',
@@ -448,12 +448,12 @@ class PGB_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_show_breadcrumb' ),
+				'sanitize_callback' => "PGB_Customize::sanitize_show_breadcrumb", // array( 'PGB_Customize', 'sanitize_show_breadcrumb' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[show_breadcrumb]', 
 			array(
-				'label'    => __( 'Include Breadcrumbs', 'pgb' ),
+				'label'    => __( 'Include Breadcrumbs', 'progo-base' ),
 				'section'  => 'pgb_header',
 				'settings' => 'pgb_options[show_breadcrumb]',
 				'type'     => 'checkbox',
@@ -485,8 +485,8 @@ class PGB_Customize {
 				'pgb_footer_widgets-description',
 				array(
 					'section' => 'pgb_footer',
-					'label' => __( 'Footer Widgets Block', 'pgb' ),
-					'description' => __( 'Add footer widgets below page content', 'pgb' ),
+					'label' => __( 'Footer Widgets Block', 'progo-base' ),
+					'description' => __( 'Add footer widgets below page content', 'progo-base' ),
 				)
 			)
 		);
@@ -499,12 +499,12 @@ class PGB_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_footer_show' ),
+				'sanitize_callback' => "PGB_Customize::sanitize_footer_show", // array( 'PGB_Customize', 'sanitize_footer_show' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[footer_show_widgets]', 
 			array(
-				'label'    => __( 'Show Footer Widgets', 'pgb' ),
+				'label'    => __( 'Show Footer Widgets', 'progo-base' ),
 				'section'  => 'pgb_footer',
 				'settings' => 'pgb_options[footer_show_widgets]',
 				'type'     => 'checkbox',
@@ -520,12 +520,12 @@ class PGB_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_footer_widgets_columns' ),
+				'sanitize_callback' => "PGB_Customize::sanitize_footer_widgets_columns", // array( 'PGB_Customize', 'sanitize_footer_widgets_columns' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[footer_widgets_columns]', 
 			array(
-				'label'    => __( 'Number of Columns', 'pgb' ),
+				'label'    => __( 'Number of Columns', 'progo-base' ),
 				'section'  => 'pgb_footer',
 				'settings' => 'pgb_options[footer_widgets_columns]',
 				'type'     => 'select',
@@ -558,8 +558,8 @@ class PGB_Customize {
 				'pgb_footer_copyright-description',
 				array(
 					'section' => 'pgb_footer',
-					'label' => __( 'Footer Copyright', 'pgb' ),
-					'description' => __( 'Add copyright text to your blog', 'pgb' ),
+					'label' => __( 'Footer Copyright', 'progo-base' ),
+					'description' => __( 'Add copyright text to your blog', 'progo-base' ),
 				)
 			)
 		);
@@ -572,12 +572,12 @@ class PGB_Customize {
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_footer_show' ),
+				'sanitize_callback' => "PGB_Customize::sanitize_footer_show", // array( 'PGB_Customize', 'sanitize_footer_show' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[footer_show_copyright]', 
 			array(
-				'label'    => __( 'Show Copyright', 'pgb' ),
+				'label'    => __( 'Show Copyright', 'progo-base' ),
 				'section'  => 'pgb_footer',
 				'settings' => 'pgb_options[footer_show_copyright]',
 				'type'     => 'checkbox',
@@ -586,29 +586,28 @@ class PGB_Customize {
 		);
 		/**
 		 * Footer Copyright Text
-		 */
+		 */ 
 		$wp_customize->add_setting( 'pgb_options[footer_copyright_text]',
 			array(
-				'default' => 'Copyright &copy; ' . date( 'Y' ) . ' - ' . get_bloginfo( 'name' ),
+				'default' => __( 'Copyright © ', 'progo-base' ) . date( 'Y' ) . ' - ' . get_bloginfo( 'name' ),
 				'type' => 'theme_mod',
 				'capability' => 'edit_theme_options',
 				'transport' => 'refresh',
-				'sanitize_callback' => array( 'PGB_Customize', 'sanitize_footer_show' ),
+				'sanitize_callback' => "PGB_Customize::sanitize_footer_copyright", //array( 'PGB_Customize', 'sanitize_footer_show' ),
 			) 
 		);
 		$wp_customize->add_control( 'pgb_options[footer_copyright_text]', 
 			array(
-				'label'    => __( 'Custom Copyright Text', 'pgb' ),
+				'label'    => __( 'Custom Copyright Text', 'progo-base' ),
 				'section'  => 'pgb_footer',
 				'settings' => 'pgb_options[footer_copyright_text]',
 				'type'     => 'text',
 				'input_attrs' => array(
-					'placeholder' => __( 'Copyright &copy; ' . date( 'Y' ) . ' - ' . get_bloginfo( 'name' ), 'pgb' ),
+					'placeholder' => __( 'Copyright &copy; ', 'progo-base' ) . date( 'Y' ) . ' - ' . get_bloginfo( 'name' ),
 					),
 			)
 		);
-
-
+		
 	}
 
 	/**
@@ -694,6 +693,9 @@ class PGB_Customize {
 	public static function sanitize_bootstrap_theme( $input ) {
 		return esc_attr( $input );
 	}
+	public static function sanitize_bootstrap_defaulttheme( $input ) {
+		return esc_attr( $input );
+	}
 	public static function sanitize_logo( $input ) {
 		return esc_url( $input );
 	}
@@ -701,6 +703,15 @@ class PGB_Customize {
 		return esc_attr( $input );
 	}
 	public static function sanitize_nav_position( $input ) {
+		return esc_attr( $input );
+	}
+	public static function sanitize_topnav_position( $input ) {
+		return esc_attr( $input );
+	}
+	public static function sanitize_topnav_width( $input ) {
+		return esc_attr( $input );
+	}
+	public static function sanitize_navbarwidth_position( $input ) {
 		return esc_attr( $input );
 	}
 	public static function sanitize_nav_search( $input ) {
@@ -713,6 +724,9 @@ class PGB_Customize {
 		return esc_attr( $input );
 	}
 	public static function sanitize_footer_show( $input ) {
+		return esc_attr( $input );
+	}
+	public static function sanitize_footer_copyright( $input ) {
 		return esc_attr( $input );
 	}
 	public static function sanitize_footer_widgets_columns( $input ) {

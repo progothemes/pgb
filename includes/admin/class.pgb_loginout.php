@@ -236,7 +236,7 @@ class PGB_Login_Out {
 	 * @return none
 	 */
 	public function add_login_nav_menu_meta_box() {
-		add_meta_box( 'pgb_login_nav_link', __( 'Login / Logout', 'pgb' ), array( $this, 'render_login_nav_menu_meta_box' ), 'nav-menus', 'side', 'low' );
+		add_meta_box( 'pgb_login_nav_link', __( 'Login / Logout', 'progo-base' ), array( $this, 'render_login_nav_menu_meta_box' ), 'nav-menus', 'side', 'low' );
 	}
 
 	/**
@@ -351,6 +351,6 @@ function pgb_replace_login_btn( $atts ) {
 	if ( is_user_logged_in() ) {
 		return '<a href="'.$atts['link'].'">'.$atts['text'].'</a>';
 	}
-	return '<a href="'.get_bloginfo( 'url' ).'/login?'.$atts['param'].'">Login</a>';
+	return '<a href="'. esc_url( home_url() ).'/login?'.$atts['param'].'">Login</a>';
 }
-add_shortcode( 'pgb', 'pgb_replace_login_btn' );
+//add_shortcode( 'pgb', 'pgb_replace_login_btn' );

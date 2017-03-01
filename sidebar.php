@@ -22,7 +22,7 @@
 
 					<aside id="archives" class="widget widget_archive col-xs-12 col-sm-6 col-md-12">
 						<div class="col-lg-12">
-							<h3 class="widget-title"><?php _e( 'Archives', 'pgb' ); ?></h3>
+							<h3 class="widget-title"><?php _e( 'Archives', 'progo-base' ); ?></h3>
 							<ul>
 								<?php wp_get_archives( array( 'type' => 'monthly' ) ); ?>
 							</ul>
@@ -31,7 +31,7 @@
 
 					<aside id="meta" class="widget widget_meta col-xs-12 col-sm-6 col-md-12">
 						<div class="col-lg-12">
-							<h3 class="widget-title"><?php _e( 'Meta', 'pgb' ); ?></h3>
+							<h3 class="widget-title"><?php _e( 'Meta', 'progo-base' ); ?></h3>
 							<ul>
 								<?php wp_register(); ?>
 								<li><?php wp_loginout(); ?></li>

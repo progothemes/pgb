@@ -18,7 +18,7 @@
 			pgb_blog_page_title();
 			pgb_get_the_subtitle( pgb_blog_page_id(), '<h3 class="page-sub-title">', '</h3>', true );
 		elseif ( is_search() ) :
-			printf( '<h1 class="page-title">%s%s</h1>', __( 'Search Results for: ', 'pgb' ), '<span>' . get_search_query() . '</span>' );
+			printf( '<h1 class="page-title">%s%s</h1>', __( 'Search Results for: ', 'progo-base' ), '<span>' . get_search_query() . '</span>' );
 		elseif ( is_archive() ) :
 			if ( is_category() ) {
 				printf( '<h1 class="page-title">%s</h1>', single_cat_title( '', false ) );
@@ -31,7 +31,7 @@
 				 * what author we're dealing with (if that is the case).
 				*/
 				the_post();
-				printf( '<h1 class="page-title">%s%s</h1>', __( 'Author: ', 'pgb' ), '<span class="vcard">' . get_the_author() . '</span>' );
+				printf( '<h1 class="page-title">%s%s</h1>', __( 'Author: ', 'progo-base' ), '<span class="vcard">' . get_the_author() . '</span>' );
 				/* Since we called the_post() above, we need to
 				 * rewind the loop back to the beginning that way
 				 * we can run the loop properly, in full.
@@ -39,31 +39,31 @@
 				rewind_posts();
 			}
 			elseif ( is_day() ) {
-				printf( '<h1 class="page-title">%s%s</h1>', __( 'Day: ', 'pgb' ), '<span>' . get_the_date() . '</span>' );
+				printf( '<h1 class="page-title">%s%s</h1>', __( 'Day: ', 'progo-base' ), '<span>' . get_the_date() . '</span>' );
 			}
 			elseif ( is_month() ) {
-				printf( '<h1 class="page-title">%s%s</h1>', __( 'Month: ', 'pgb' ), '<span>' . get_the_date( 'F Y' ) . '</span>' );
+				printf( '<h1 class="page-title">%s%s</h1>', __( 'Month: ', 'progo-base' ), '<span>' . get_the_date( 'F Y' ) . '</span>' );
 			}
 			elseif ( is_year() ) {
-				printf( '<h1 class="page-title">%s%s</h1>', __( 'Year: ', 'pgb' ), '<span>' . get_the_date( 'Y' ) . '</span>' );
+				printf( '<h1 class="page-title">%s%s</h1>', __( 'Year: ', 'progo-base' ), '<span>' . get_the_date( 'Y' ) . '</span>' );
 			}
 			elseif ( is_tax( 'post_format', 'post-format-aside' ) ) {
-				printf( '<h1 class="page-title">%s</h1>', __( 'Asides', 'pgb' ) );
+				printf( '<h1 class="page-title">%s</h1>', __( 'Asides', 'progo-base' ) );
 			}
 			elseif ( is_tax( 'post_format', 'post-format-image' ) ) {
-				printf( '<h1 class="page-title">%s</h1>', __( 'Images', 'pgb') );
+				printf( '<h1 class="page-title">%s</h1>', __( 'Images', 'progo-base') );
 			}
 			elseif ( is_tax( 'post_format', 'post-format-video' ) ) {
-				printf( '<h1 class="page-title">%s</h1>', __( 'Videos', 'pgb' ) );
+				printf( '<h1 class="page-title">%s</h1>', __( 'Videos', 'progo-base' ) );
 			}
 			elseif ( is_tax( 'post_format', 'post-format-quote' ) ) {
-				printf( '<h1 class="page-title">%s</h1>', __( 'Quotes', 'pgb' ) );
+				printf( '<h1 class="page-title">%s</h1>', __( 'Quotes', 'progo-base' ) );
 			}
 			elseif ( is_tax( 'post_format', 'post-format-link' ) ) {
-				printf( '<h1 class="page-title">%s</h1>', __( 'Links', 'pgb' ) );
+				printf( '<h1 class="page-title">%s</h1>', __( 'Links', 'progo-base' ) );
 			}
 			else {
-				printf( '<h1 class="page-title">%s</h1>', __( 'Archives', 'pgb' ) );
+				printf( '<h1 class="page-title">%s</h1>', __( 'Archives', 'progo-base' ) );
 			}
 			// Show an optional term description.
 			$term_description = term_description();

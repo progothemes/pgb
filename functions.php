@@ -65,9 +65,9 @@ function pgb_setup() {
 	 * This theme uses wp_nav_menu() in one location.
 	*/
 	register_nav_menus( array(
-		'primary'	=> __( 'Main Menu', 'pgb' ),
-		'secondary'	=> __( 'Top Menu', 'pgb' ),
-		'footer'	=> __( 'Footer Menu', 'pgb' ),
+		'primary'	=> __( 'Main Menu', 'progo-base' ),
+		'secondary'	=> __( 'Top Menu', 'progo-base' ),
+		'footer'	=> __( 'Footer Menu', 'progo-base' ),
 	) );
 
 	/**
@@ -109,7 +109,7 @@ function pgb_wp_title( $title, $sep ) {
  */
 function pgb_widgets_init() {
 	register_sidebar( array(
-		'name'          => __( 'Sidebar', 'pgb' ),
+		'name'          => __( 'Sidebar', 'progo-base' ),
 		'id'            => 'sidebar-1',
 		'before_widget' => '<aside id="%1$s" class="widget col-xs-12 col-sm-6 col-md-12 %2$s"><div class="col-lg-12">',
 		'after_widget'  => '</div></aside>',
@@ -130,7 +130,7 @@ function pgb_widgets_init() {
 
 	// Footer copyright areas
 	register_sidebar( array(
-		'name'          => __( 'Footer Copyright (left)', 'pgb' ),
+		'name'          => __( 'Footer Copyright (left)', 'progo-base' ),
 		'id'            => 'footer-copyright-left',
 		'before_widget' => '<div id="%1$s" class="col-xs-12 col-sm-12 col-md-6 pull-left">',
 		'after_widget'  => '</div>',
@@ -138,7 +138,7 @@ function pgb_widgets_init() {
 		'after_title'   => '</h3>',
 	) );
 	register_sidebar( array(
-		'name'          => __( 'Footer Copyright (right)', 'pgb' ),
+		'name'          => __( 'Footer Copyright (right)', 'progo-base' ),
 		'id'            => 'footer-copyright-right',
 		'before_widget' => '<div id="%1$s" class="col-xs-12 col-sm-12 col-md-6 pull-right text-right">',
 		'after_widget'  => '</div>',
@@ -149,7 +149,7 @@ function pgb_widgets_init() {
 add_action( 'widgets_init', 'pgb_widgets_init' );
 
 /**
- * Enqueue scripts and styles
+ * Enqueue scripts and styles - Not used anymore.
  */
 function pgb_scripts() {
 
@@ -221,40 +221,33 @@ function pgb_scripts() {
 
 
 /**
- * Enqueue scripts and styles
+ * Load bootstrap.css and style.css on header as inline css.
  */
+ 
+add_action('wp_head','add_inline_css',7);
+function add_inline_css(){
+	?><style><?php 
+    $bootstrap_theme = pgb_get_option('bootstrap_theme', 'default');
+	if ( ! $bootstrap_theme || $bootstrap_theme == 'default' ) {
+		readfile(get_template_directory_uri() . '/includes/css/bootstrap.min.css');
+	} else {
+		readfile(get_template_directory_uri() . '/includes/bootswatch/'. $bootstrap_theme .'/bootstrap.min.css');
+	}
+	readfile(get_template_directory_uri() . '/style.css');
+    ?></style><?php
+}
+
+
+/**
+ * Load Scripts
+ */
+ 
 function pgb_scriptsV2() {
 
-	$bootstrap_theme = pgb_get_option('bootstrap_theme', 'default');
-
-	if ( ! $bootstrap_theme || $bootstrap_theme == 'default' ) {
-		wp_enqueue_style( 'pgb-bootstrap', get_template_directory_uri() . '/includes/css/bootstrap.min.css' );
-	} else {
-		wp_enqueue_style( 'pgb-bootstrap', get_template_directory_uri() . '/includes/bootswatch/'. $bootstrap_theme .'/bootstrap.min.css' );
-	}
-
-	// load pgb styles
-	wp_enqueue_style( 'pgb-style', get_stylesheet_uri() );
-
+	
 	// Load rtl style
 	// wp_enqueue_style( 'pgb-rtl', get_template_directory_uri() . '/rtl.css' );
-
 	
-	// ProGo Container Width
-	if ( !is_admin() ) {
-		
-		$custom_css = pgb_set_container_width();
-
-		$custom_css .= " @media (max-width: 599px) { .navbar-fixed-top.top-nav-menu{ z-index: 499; } }";
-
-		wp_add_inline_style( 'pgb-style', $custom_css );
-	}
-
-
-	
-	// SCRIPTS
-
-	// load bootstrap js
 	wp_deregister_script('jquery');
 	wp_deregister_script('jquery-migrate.min');
 	
@@ -263,20 +256,27 @@ function pgb_scriptsV2() {
 	if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] =='on') {
 		$protocol='https:';
 	}
-
-	wp_register_script('jquery', $protocol.'//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', false, '1.12.4', true);
+	
+	wp_register_script('jquery', $protocol.'//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', false, null, true);
 	wp_enqueue_script('jquery');
+	
 	
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 
 	if ( is_singular() && wp_attachment_is_image() ) {
-		wp_enqueue_script( 'pgb-keyboard-image-navigation', get_template_directory_uri() . '/includes/js/keyboard-image-navigation.js', array( 'jquery' ), '20140924', true );
+		wp_enqueue_script( 'pgb-keyboard-image-navigation', get_template_directory_uri() . '/includes/js/keyboard-image-navigation.js', array( 'jquery' ), null, true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'pgb_scriptsV2', 10 );
 
+
+
+/**
+ * Lazy Load Compress.min.js in footer. Compress.min.js is aggregated and minified file of bootstrap.js, bootstrap-wp.js, jquery.validate.js, skip-link-focus.fix.js, theme-customizer.js and custom-theme.js. It's minified by Minifier - https://www.npmjs.com/package/minifier  
+ */
+ 
 function deferred_script_footer(){
 	
 	$js_url =  get_template_directory_uri().'/includes/js/compress.min.js';
@@ -301,29 +301,38 @@ function deferred_script_footer(){
 
 add_action('wp_footer', 'deferred_script_footer', 20);
 
+
+/**
+ * Load Supporting CSS in footer to prevent blocking of HTML. 
+ */
+ 
 function prefix_add_footer_styles() {
-	
-	//Add Not required CSS in Footer
+		
+	// ProGo Container Width
+	if ( !is_admin() ) {
+		
+		$custom_css = pgb_set_container_width();
+
+		$custom_css .= " @media (max-width: 599px) { .navbar-fixed-top.top-nav-menu{ z-index: 499; } }";
+
+		wp_add_inline_style( 'pgb-style', $custom_css );
+	}
 	
 	// Fix for Visual Composer not loading CSS file(s)
 	
 	if ( is_plugin_active( 'js_composer/js_composer.php' ) ) {
 		if ( file_exists(plugins_url() . '/js_composer/assets/css/js_composer.min.css') ) {
-			wp_enqueue_style('js-composer', plugins_url() . '/js_composer/assets/css/js_composer.min.css');
+			wp_enqueue_style('js-composer', plugins_url() . '/js_composer/assets/css/js_composer.min.css', array(), null);
 		}
 		elseif ( file_exists(plugins_url() . '/js_composer/assets/css/js_composer.css') ) {
-			wp_enqueue_style('js-composer', plugins_url() . '/js_composer/assets/css/js_composer.css');
+			wp_enqueue_style('js-composer', plugins_url() . '/js_composer/assets/css/js_composer.css', array(), null);
 		}
 	}
-	
-    // load the font icons
 	wp_enqueue_style('pgb-fontawesome', get_template_directory_uri() . '/includes/css/font-awesome.min.css');
-
-	// load google fonts
 	wp_enqueue_style( 'pgb-google-font', '//fonts.googleapis.com/css?family=Questrial|Droid+Sans:400,700|Lato:400,700,900,400italic,700italic|Arvo:400,700,400italic|PT+Sans:400,700,400italic,700italic|Quicksand:400,700|Gloria+Hallelujah|Roboto:900,400,700,300italic,500,500italic,700italic|Montserrat:700,400|Open+Sans:400italic,700,600,800,400');
 	
-};
-add_action( 'get_footer', 'prefix_add_footer_styles' );
+}
+add_action( 'get_footer', 'prefix_add_footer_styles', 10 );
 
 
 function pgb_load_custom_wp_admin_style() {

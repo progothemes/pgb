@@ -31,22 +31,22 @@ function pgb_content_nav( $nav_id ) {
 
 	?>
 	<nav role="navigation" id="<?php echo esc_attr( $nav_id ); ?>" class="<?php echo $nav_class; ?>">
-		<h3 class="sr-only"><?php ( is_single() ? _e( 'Post navigation', 'pgb' ) : _e( 'Page navigation', 'pgb' ) ); ?></h3>
+		<h3 class="sr-only"><?php ( is_single() ? _e( 'Post navigation', 'progo-base' ) : _e( 'Page navigation', 'progo-base' ) ); ?></h3>
 		<ul class="pager">
 
 		<?php if ( is_single() ) : // navigation links for single posts ?>
 
-			<?php previous_post_link( '<li class="nav-previous previous" data-post-id="' . ( $previous ? $previous->ID : '' ) . '">%link</li>', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'pgb' ) . '</span> %title' ); ?>
-			<?php next_post_link( '<li class="nav-next next" data-post-id="' .( $next ? $next->ID : '' ) . '">%link</li>', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'pgb' ) . '</span>' ); ?>
+			<?php previous_post_link( '<li class="nav-previous previous" data-post-id="' . ( $previous ? $previous->ID : '' ) . '">%link</li>', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'progo-base' ) . '</span> %title' ); ?>
+			<?php next_post_link( '<li class="nav-next next" data-post-id="' .( $next ? $next->ID : '' ) . '">%link</li>', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'progo-base' ) . '</span>' ); ?>
 
 		<?php elseif ( $wp_query->max_num_pages >= 1 && ( is_home() || is_archive() || is_search() ) ) : // navigation links for home, archive, and search pages ?>
 
 			<?php if ( get_next_posts_link() ) : ?>
-			<li class="nav-previous previous" data-page-number="<?php echo ( $paged < $wp_query->max_num_pages ? $paged+1 : $paged ); ?>"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'pgb' ) ); ?></li>
+			<li class="nav-previous previous" data-page-number="<?php echo ( $paged < $wp_query->max_num_pages ? $paged+1 : $paged ); ?>"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'progo-base' ) ); ?></li>
 			<?php endif; ?>
 
 			<?php if ( get_previous_posts_link() ) : ?>
-			<li class="nav-next next" data-page-number="<?php echo ( $paged > 1 ? $paged-1 : $paged ); ?>"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?></li>
+			<li class="nav-next next" data-page-number="<?php echo ( $paged > 1 ? $paged-1 : $paged ); ?>"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'progo-base' ) ); ?></li>
 			<?php endif; ?>
 
 		<?php endif; ?>
@@ -71,7 +71,7 @@ function pgb_comment( $comment, $args, $depth ) {
 
 	<li id="comment-<?php comment_ID(); ?>" <?php comment_class( 'media' ); ?>>
 		<div class="comment-body">
-			<?php _e( 'Pingback:', 'pgb' ); ?> <?php comment_author_link(); ?> <?php edit_comment_link( __( 'Edit', 'pgb' ), '<span class="edit-link">', '</span>' ); ?>
+			<?php _e( 'Pingback:', 'progo-base' ); ?> <?php comment_author_link(); ?> <?php edit_comment_link( __( 'Edit', 'progo-base' ), '<span class="edit-link">', '</span>' ); ?>
 		</div>
 
 	<?php else : ?>
@@ -86,19 +86,19 @@ function pgb_comment( $comment, $args, $depth ) {
 				<div class="media-body-wrap panel panel-default">
 
 					<div class="panel-heading">
-						<h5 class="media-heading"><?php printf( __( '%s <span class="says">says:</span>', 'pgb' ), sprintf( '<cite class="fn" itemprop="name" >%s</cite>', get_comment_author_link() ) ); ?></h5>
+						<h5 class="media-heading"><?php printf( __( '%s <span class="says">says:</span>', 'progo-base' ), sprintf( '<cite class="fn" itemprop="name" >%s</cite>', get_comment_author_link() ) ); ?></h5>
 						<div class="comment-meta">
 							<a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>">
 								<time datetime="<?php comment_time( 'c' ); ?>">
-									<?php printf( _x( '%1$s at %2$s', '1: date, 2: time', 'pgb' ), get_comment_date(), get_comment_time() ); ?>
+									<?php printf( _x( '%1$s at %2$s', '1: date, 2: time', 'progo-base' ), get_comment_date(), get_comment_time() ); ?>
 								</time>
 							</a>
-							<?php edit_comment_link( __( '<span style="margin-left: 5px;" class="glyphicon glyphicon-edit"></span> Edit', 'pgb' ), '<span class="edit-link">', '</span>' ); ?>
+							<?php edit_comment_link( __( '<span style="margin-left: 5px;" class="glyphicon glyphicon-edit"></span> Edit', 'progo-base' ), '<span class="edit-link">', '</span>' ); ?>
 						</div>
 					</div>
 
 					<?php if ( '0' == $comment->comment_approved ) : ?>
-						<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'pgb' ); ?></p>
+						<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'progo-base' ); ?></p>
 					<?php endif; ?>
 
 					<div class="comment-content panel-body" itemprop="commentText">
@@ -372,7 +372,7 @@ function pgb_get_breadcrumbs() {
 		}
 		elseif ( get_query_var('paged') ) {
 			// Paginated archives
-			$crumbs[] = '<span itemprop="name">'.__('Page') . ' ' . get_query_var('paged') . '</span>';
+			$crumbs[] = '<span itemprop="name">'.__('Page', 'progo-base') . ' ' . get_query_var('paged') . '</span>';
 		}
 		elseif ( is_search() ) {
 			// Search results page
@@ -417,7 +417,7 @@ function pgb_woocommerce_breadcrumbs() {
 		'wrap_after'  => '</ol>',
 		'before'      => '<li class itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">',
 		'after'       => '</li>',
-		'home'        => _x( 'Home', 'breadcrumb', 'woocommerce' ),
+		'home'        => _x( 'Home', 'breadcrumb', 'progo-base' ),
 	);
 }
 add_action( 'init', 'pgb_remove_wc_breadcrumbs' );
@@ -459,7 +459,7 @@ function pgb_do_posted_on() {
 			esc_attr( get_the_time() ),
 			$time_string_update
 		);
-		$time_string .= __(', updated on ', 'pgb') . $time_string_update;
+		$time_string .= __(', updated on ', 'progo-base') . $time_string_update;
 	}
   // get_the_author stuff only works reliably inside The Loop
   // unless we grab $post->post_author
@@ -467,11 +467,11 @@ function pgb_do_posted_on() {
   $author_id = $post->post_author;
   $author_name = get_the_author_meta( 'nickname', $author_id );
   
-	printf( __( '<span class="posted-on">Posted on %1$s</span><span class="byline"> by %2$s</span>', 'pgb' ),
+	printf( __( '<span class="posted-on">Posted on %1$s</span><span class="byline"> by %2$s</span>', 'progo-base' ),
 		$time_string,
 		sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s">%3$s</a></span>',
 			esc_url( get_author_posts_url( $author_id ) ),
-			esc_attr( sprintf( __( 'View all posts by %s', 'pgb' ), $author_name ) ),
+			esc_attr( sprintf( __( 'View all posts by %s', 'progo-base' ), $author_name ) ),
 			esc_html( $author_name )
 		)
 	);
@@ -496,7 +496,7 @@ function pgb_rich_snippets() {
 		$front_page_snippet = array(
 			"@context" => "http://schema.org",
 			"@type" => ( get_option( 'rich_snippet_type', false ) ? get_option( 'rich_snippet_type', 'WebSite' ) : 'WebSite' ),
-			"url" => get_bloginfo('url'),
+			"url" => esc_url( home_url( '/' ) ),
 			"name" => get_bloginfo( 'name' ),
 			"logo" => pgb_get_logo( false ),
 			);
@@ -504,7 +504,7 @@ function pgb_rich_snippets() {
 			$page_includes_search = array(
 				"potentialAction" => array(
 					"@type" => "SearchAction",
-					"target" => get_bloginfo( 'url' ) . "/?s={search}",
+					"target" => home_url() . "/?s={search}",
 					"query-input" => "required name=search"
 					)
 				);
@@ -697,18 +697,15 @@ add_action( 'edit_category', 'pgb_category_transient_flusher' );
 add_action( 'save_post',     'pgb_category_transient_flusher' );
 
 
+//Feb 27 - We are not allowed to hide admin bar.
+/*if ( ! function_exists('pgb_remove_admin_bar') ) :
 
-if ( ! function_exists('pgb_remove_admin_bar') ) :
-/**
- * Hide Admin bar from all non-Administrators
- *
- * @param none
- * @return none
- */
 function pgb_remove_admin_bar() {
 	if (!current_user_can('administrator') && !is_admin()) {
 		show_admin_bar(false);
 	}
 }
+
 add_action('after_setup_theme', 'pgb_remove_admin_bar');
 endif;
+*/

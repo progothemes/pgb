@@ -13,14 +13,14 @@ elseif ( pgb_get_image() ) :
 else :
 	$image_src = false;
 endif;
-$the_image = $image_src ? sprintf( '<img width="100%%" height="auto" src="%1$s" class="img-responsive wp-post-image" />', $image_src ) : the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) );
+$the_image = $image_src ? sprintf( '<img width="100%%" height="auto" src="%1$s" class="img-responsive wp-post-image" />', $image_src ) : the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'progo-base' ) );
 
 ?>
 
 <?php if ( is_single() ) : ?>
 
 	<div class="entry-content col-md-12">
-		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ); ?>
+		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'progo-base' ) ); ?>
 		<?php pgb_block_linkpages(); ?>
 	</div><!-- /entry -->
 

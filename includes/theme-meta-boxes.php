@@ -4,7 +4,7 @@ function pgb_add_meta_box()
 {
 	add_meta_box(
         'pgb-meta-box',
-        __( 'ProGo Theme Page Options', 'pgb' ),
+        __( 'ProGo Theme Page Options', 'progo-base' ),
         'pgb_page_opttions_cb',
         'page',
         'side',
@@ -20,7 +20,7 @@ function pgb_page_opttions_cb( $post ) {
 
 	$page_layout = get_post_meta( $post->ID, 'metabox_page_layout_option', true );
 	echo '<label for="page_layout">';
-	_e( 'Override Default Page Width', 'pgb' );
+	_e( 'Override Default Page Width', 'progo-base' );
 	echo '</label> ';
 	echo '<select id="page_layout" name="page_layout">';
 	echo '<option value="no" '.($page_layout=='no'?'selected="selected"':'').'>No</option>';
@@ -29,7 +29,7 @@ function pgb_page_opttions_cb( $post ) {
 
 	$custom_width = get_post_meta( $post->ID, 'custom_container_width', true );
 	echo '<label for="custom_width">';
-	_e( 'Custom Page Width', 'pgb' );
+	_e( 'Custom Page Width', 'progo-base' );
 	echo '</label> ';
 	echo '<select id="custom_width" name="custom_width">';
 	$cw_options = array(

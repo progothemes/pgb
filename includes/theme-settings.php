@@ -49,7 +49,7 @@ add_filter( 'admin_init' , array( 'PGB_Rich_Snippet_Settings', 'register_fields'
 class PGB_Rich_Snippet_Settings {
 	static function register_fields() {
 		register_setting( 'general', 'rich_snippet_type', 'esc_attr' );
-		add_settings_field('rich_snip_type', '<label for="rich_snippet_type">'.__('Rich Snippets @Type' , 'pgb' ).'</label>' , array('PGB_Rich_Snippet_Settings', 'fields_html') , 'general' );
+		add_settings_field('rich_snip_type', '<label for="rich_snippet_type">'.__('Rich Snippets @Type' , 'progo-base' ).'</label>' , array('PGB_Rich_Snippet_Settings', 'fields_html') , 'general' );
 	}
 	static function fields_html() {
 		$value = get_option( 'rich_snippet_type', '' );
